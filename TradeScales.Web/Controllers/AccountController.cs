@@ -58,27 +58,29 @@ namespace TradeScales.Web.Controllers
         [HttpPost]
         public HttpResponseMessage Register(HttpRequestMessage request, RegistrationViewModel user)
         {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
+            HttpResponseMessage response = null;
 
-                if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+            }
+            else
+            {
+                Entities.User _user = _membershipService.CreateUser(user.Username, user.Email, user.Password, new int[] { 1 });
+
+                if (_user != null)
                 {
-                    response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+                    response = request.CreateResponse(HttpStatusCode.OK, new { success = true });
                 }
                 else
                 {
-                    Entities.User _user = _membershipService.CreateUser(user.Username, user.Email, user.Password, new int[] { 1 });
-
-                    if (_user != null)
-                    {
-                        response = request.CreateResponse(HttpStatusCode.OK, new { success = true });
-                    }
-                    else
-                    {
-                        response = request.CreateResponse(HttpStatusCode.OK, new { success = false });
-                    }
+                    response = request.CreateResponse(HttpStatusCode.OK, new { success = false });
                 }
+            }
+
+            return CreateHttpResponse(request, () =>
+            {
+                
 
                 return response;
             });

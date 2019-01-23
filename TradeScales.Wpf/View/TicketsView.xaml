@@ -14,7 +14,7 @@
             <TextBlock Text="Existing Tickets" FontFamily="Open Sans" FontSize="35px"/>
             <TextBlock Text="Below you can view, edit or search all your previous tickets."/>
         </StackPanel>
-        
+
         <!--Search Panel-->
         <!--<Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -30,30 +30,59 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            --><!--Ticket Number--><!--
+            -->
+        <!--Ticket Number-->
+        <!--
             <Label Grid.Row="0" Grid.Column="0" Content="Ticket Number"/>
             <TextBox Grid.Row="1" Grid.Column="0" Margin="5,0"/>
-            --><!--Order Number--><!--
+            -->
+        <!--Order Number-->
+        <!--
             <Label Grid.Row="0" Grid.Column="1" Content="Order Number"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0"/>
-            --><!--Delivery Number--><!--
+            -->
+        <!--Delivery Number-->
+        <!--
             <Label Grid.Row="0" Grid.Column="2" Content="Delivery Number"/>
             <TextBox Grid.Row="1" Grid.Column="2" Margin="5,0"/>
-            --><!--Last Modified By--><!--
+            -->
+        <!--Last Modified By-->
+        <!--
             <Label Grid.Row="0" Grid.Column="3" Content="Last Modified By"/>
             <TextBox Grid.Row="1" Grid.Column="3" Margin="5,0"/>
-            --><!--Last Modified Date--><!--
+            -->
+        <!--Last Modified Date-->
+        <!--
             <Label Grid.Row="0" Grid.Column="4" Content="Last Modified Date"/>
             <TextBox Grid.Row="1" Grid.Column="4" Margin="5,0"/>
-            --><!--Status--><!--
+            -->
+        <!--Status-->
+        <!--
             <Label Grid.Row="0" Grid.Column="5" Content="Status"/>
             <TextBox Grid.Row="1" Grid.Column="5" Margin="5,0"/>
             <Button Grid.Row="1" Grid.Column="6" Margin="5,0" Content="SEARCH"/>
         </Grid>-->
 
         <!--Tickets-->
-        <DataGrid Grid.Row="2" ItemsSource="{Binding Tickets}">
-
+        <DataGrid x:Name="datagrid_Tickets" Grid.Row="2" ItemsSource="{Binding Tickets}" AutoGenerateColumns="False" Margin="5" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header = "Ticket Number" Width="*" Binding = "{Binding TicketNumber}" />
+                <DataGridTextColumn Header = "Order Number" Width="*" Binding = "{Binding OrderNumber}" />
+                <DataGridTextColumn Header = "Delivery Number" Width="*" Binding = "{Binding DeliveryNumber}"/>
+                <DataGridTextColumn Header = "Last Modified By" Width="*" Binding = "{Binding LastModifiedBy}"/>
+                <DataGridTextColumn Header = "Last Modified Date" Width="*" Binding = "{Binding LastModified}"/>
+                <DataGridTextColumn Header = "Status" Width="*" Binding = "{Binding Status}"/>
+                <DataGridTemplateColumn Header="Certificate" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="button_View" 
+                                    Command="{Binding ElementName=datagrid_Tickets, Path=DataContext.ViewCommand}" 
+                                    CommandParameter="{Binding ElementName=datagrid_Tickets, Path=SelectedItem}" 
+                                    Margin="5">View</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </UserControl>

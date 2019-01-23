@@ -13,7 +13,7 @@ namespace TradeScales.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201901231016506_initial_migration"; }
+            get { return "201901231118578_initial_migration"; }
         }
         
         string IMigrationMetadata.Source

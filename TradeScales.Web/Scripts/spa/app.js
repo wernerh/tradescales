@@ -32,10 +32,10 @@
                 templateUrl: "scripts/spa/account/login.html",
                 controller: "loginCtrl"
             })
-            //.when("/register", {
-            //    templateUrl: "scripts/spa/account/register.html",
-            //    controller: "registerCtrl"
-            //})
+            .when("/register", {
+                templateUrl: "scripts/spa/account/register.html",
+                controller: "registerCtrl"
+            })
             .when("/users", {
                 templateUrl: "scripts/spa/users/users.html",
                 controller: "usersCtrl",
