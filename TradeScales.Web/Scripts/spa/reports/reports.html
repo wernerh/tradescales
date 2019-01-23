@@ -1,0 +1,62 @@
+﻿<hr />
+<div class="alert alert-info alert-dismissable">
+    <a class="panel-close close" data-dismiss="alert">×</a>
+    <i class="fa fa-user-plus fa-3x"></i>Generate a new report. Please use the dropdowns below to filter your report data
+</div>
+<div class="row">
+    <form role="form" novalidate angular-validator name="generateReportForm" angular-validator-submit="generateReport()">    
+        <!--Haulier Dropdown-->
+        <div class="col-xs-6 selectContainer">
+            <label class="control-label">Haulier</label>
+            <div class="form-group">
+                <select ng-model="filter.HaulierId" class="form-control black" ng-options="option.ID as option.Name for option in hauliers">
+                    <option value="">All</option>
+                </select>
+                <input type="hidden" name="HaulierId" ng-value="filter.HaulierId" />
+            </div>
+        </div>
+        <!--Customer Dropdown-->
+        <div class="col-xs-6 selectContainer">
+            <label class="control-label">Customer</label>
+            <div class="form-group">
+                <select ng-model="filter.CustomerId" class="form-control black" ng-options="option.ID as option.Name for option in customers">
+                    <option value="">All</option>
+                </select>
+                <input type="hidden" name="CustomerId" ng-value="filter.CustomerId" />
+            </div>
+        </div>
+        <!--Destination Dropdown-->
+        <div class="col-xs-6 selectContainer">
+            <label class="control-label">Destination</label>
+            <div class="form-group">
+                <select ng-model="filter.DestinationId" class="form-control black" ng-options="option.ID as option.Name for option in destinations">
+                    <option value="">All</option>
+                </select>
+                <input type="hidden" name="DestinationId" ng-value="filter.DestinationId" />
+            </div>
+        </div>
+        <!--Product Dropdown-->
+        <div class="col-xs-6 selectContainer">
+            <label class="control-label">Product</label>
+            <div class="form-group">
+                <select ng-model="filter.ProductId" class="form-control black" ng-options="option.ID as option.Name for option in products">
+                    <option value="">All</option>
+                </select>
+                <input type="hidden" name="ProductId" ng-value="filter.ProductId" />
+            </div>
+        </div>
+        <!--Driver Dropdown-->
+        <div class="col-xs-6 selectContainer">
+            <label class="control-label">Driver</label>
+            <div class="form-group">
+                <select ng-model="filter.DriverId" class="form-control black" ng-options="option.ID as option.FirstName + ' ' + option.LastName for option in drivers">
+                    <option value="">All</option>
+                </select>
+                <input type="hidden" name="DriverId" ng-value="filter.DriverId" />
+            </div>
+        </div> 
+        <div class="col-xs-12">
+            <input type="submit" name="submit" id="submit" value="Generate Report" class="btn btn-info center-block">
+        </div>
+    </form>
+</div>

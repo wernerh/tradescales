@@ -1,0 +1,32 @@
+﻿
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Edit {{EditedProduct.Code}}
+    </div>
+    <div class="panel-body">
+        <form role="form" novalidate angular-validator name="editProductForm" angular-validator-submit="Register()">
+            <div class="">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="control-label" for="code">Code</label>
+                            <input type="text" class="form-control" ng-model="EditedProduct.Code" name="code" id="code" placeholder="Code"
+                                   validate-on="blur" required required-message="'Code is required'">
+                        </div>
+                        <div class="col-sm-6 selectContainer">
+                            <label class="control-label" for="name">Name</label>
+                            <input type="text" class="form-control" ng-model="EditedProduct.Name" name="name" id="name" placeholder="Name"
+                                   validate-on="blur" required required-message="'Name is required'">
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer clearfix">
+        <div class="pull-right">
+            <button type="button" class="btn btn-danger" ng-click="cancelEdit()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="updateProduct()">Update</button>
+        </div>
+    </div>
+</div>

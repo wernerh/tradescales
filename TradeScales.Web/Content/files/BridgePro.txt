@@ -1,0 +1,52 @@
+// Bridge-pro
+
+// House Keeping
+1. Customers (DONE) (DONE)
+	1.1 Code
+	1.2 Name
+
+2. Vehicles (DONE) (DONE)
+	2.1 Registration Number
+	2.2 Make
+
+3. Products (DONE) (DONE)
+	3.1 Code
+	3.2 Name
+
+4. Hauliers (DONE) (Done)
+	4.1 Code
+	4.2 Name
+
+5. Drivers (DONE) (DONE)
+	5.1 Code
+	5.2 Name
+
+6. Destinations (Done)
+	6.1 Code
+	6.2 Name
+	
+// Weigh Bridge
+1. Ticket Number (String)
+2. Current Date (DateTime)
+3. Current Time  (DateTime)
+
+3  Vehicles (DropDown) (DONE)
+4. Haulier (DropDown) (DONE)
+5. Customer (DropDown) (DONE)
+6. Destination (DropDown) (DONE)
+7. Product (DropDown) (DONE)
+8. Driver (DropDown) (DONE)
+
+
+9. Order Number (String)
+10. Delivery Number (String)
+11. Seal From (String)
+12. Seal To (String)
+13. Gross Weight (Double)
+14. Tare Weight (Double)
+15. Nett Weight (Double)
+16. Time Out (DateTime)
+
+* Tare Weight (Empty Truck)
+* Gross Weight (Loaded Truck)
+* Nett Weight (Gross - Tare)

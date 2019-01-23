@@ -1,0 +1,34 @@
+﻿<div id="sidebar" class="sidebar-offcanvas" ng-if="userData.isUserLoggedIn">
+    <div class="col-md-12">
+        <h3></h3>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="nav-divider"></li>
+            <li class=""><a ng-href="#/tickets/">Ticket List<i class="fa fa-ticket fa-fw pull-right"></i></a></li>
+            <li class=""><a ng-href="#/tickets/new">New Ticket<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/users/">Users<i class="fa fa-users fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/users/add">Add user<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/customers/">Customers<i class="fa fa-building fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/customers/add">Add customer<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/hauliers/">Hauliers<i class="fa fa-truck fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/hauliers/add">Add haulier<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/drivers/">Drivers<i class="fa fa-users fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/drivers/add">Add driver<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/destinations/">Destinations<i class="fa fa-location-arrow fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/destinations/add">Add destination<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/products/">Products<i class="fa fa-tree fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/products/add">Add product<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/reports/">Reports<i class="fa fa-book fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/login" ng-if="!userData.isUserLoggedIn">Login<i class="fa fa-sign-in fa-fw pull-right"></i></a></li>
+            <li><button type="button" class="btn btn-danger btn-sm" ng-click="logout();" ng-if="userData.isUserLoggedIn">Logout<i class="fa fa-sign-out fa-fw pull-right"></i></button></li>
+        </ul>
+    </div>
+</div>

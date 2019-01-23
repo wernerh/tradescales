@@ -1,0 +1,31 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        Edit {{EditedUser.Username}}
+    </div>
+    <div class="panel-body">
+        <form role="form" novalidate angular-validator name="editUserForm" angular-validator-submit="Register()">
+            <div class="">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="control-label" for="Username">Username</label>
+                            <input type="text" class="form-control" ng-model="EditedUser.Username" name="username" id="username" placeholder="Username"
+                                   validate-on="blur" required required-message="'Username is required'">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="control-label" for="email">Email</label>
+                            <input type="text" class="form-control" ng-model="EditedUser.Email" name="email" id="email" placeholder="Email"
+                                   validate-on="blur" required required-message="'Email is required'">
+                        </div>                 
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer clearfix">
+        <div class="pull-right">
+            <button type="button" class="btn btn-danger" ng-click="cancelEdit()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="updateUser()">Update</button>
+        </div>
+    </div>
+</div>

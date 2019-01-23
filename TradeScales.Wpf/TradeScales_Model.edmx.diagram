@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ceef8ee52a834fee87eed0ae29bf4b95" Name="Diagram1">
+        <EntityTypeShape EntityType="TradeScales.Model.C__MigrationHistory" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.Customer" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.Destination" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.Driver" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.Error" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.Haulier" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.Product" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.Role" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.StatusMessage" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.Ticket" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.User" Width="1.5" PointX="5.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeScales.Model.UserRole" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="TradeScales.Model.FK_dbo_Ticket_dbo_Customer_CustomerId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeScales.Model.FK_dbo_Ticket_dbo_Destination_DestinationId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeScales.Model.FK_dbo_Ticket_dbo_Driver_DriverId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeScales.Model.FK_dbo_Ticket_dbo_Haulier_HaulierId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeScales.Model.FK_dbo_Ticket_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeScales.Model.FK_dbo_UserRole_dbo_Role_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeScales.Model.FK_dbo_UserRole_dbo_User_UserId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

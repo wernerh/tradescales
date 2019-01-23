@@ -1,0 +1,59 @@
+﻿<hr />
+<div class="alert alert-info alert-dismissable" ng-if="hasStatusMessages">
+    <a class="panel-close close" data-dismiss="alert">×</a>    
+    <ul ng-repeat="statusMessage in statusMessages">
+        <li><i class="fa fa-info-circle"></i> {{statusMessage.Message}}</li> 
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="margin-bottom:10px">Existing Tickets</h3>
+                <div class="input-group">
+                    <input id="inputSearchTickets" type="search" ng-model="filterTickets" class="form-control" placeholder="Filter Tickets...">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" style="height:36px" ng-click="clearSearch();"><i class="glyphicon glyphicon-remove-sign"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div ng-if="loadingTickets">
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4">
+                        <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading tickets...</label>
+                    </div>
+                    <div class="col-xs-4"></div>
+                </div>
+                <div class="table-responsive" ng-if="!loadingTickets">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Ticket Number</th>
+                                <th>Order Number</th>
+                                <th>Delivery Number</th>
+                                <th>Last Modified By</th>
+                                <th>Last Modified Date</th>
+                                <th>Status</th>
+                                <th>Certificate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="ticket in latestTickets | filter:filterTickets">
+                                <td><a ng-href="#/tickets/{{ticket.ID}}">{{ticket.TicketNumber}}</a></td>
+                                <td>{{ticket.OrderNumber}}</td>
+                                <td>{{ticket.DeliveryNumber}}</td>
+                                <td>{{ticket.LastModifiedBy}}</td>
+                                <td>{{ticket.LastModified | date:'medium'}}</td>
+                                <td ng-class="getStatusColor(ticket.Status)">{{ticket.Status}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-primary btn-xs" style="min-width:100px" ng-click="generatePdf(ticket.ID)">{{getButtonDescription(ticket.Status)}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

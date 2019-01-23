@@ -1,0 +1,131 @@
+﻿<hr />
+<div class="row">
+    <div ng-if="loadingTicket">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4">
+            <i class="fa fa-refresh fa-4x fa-spin"></i> <label class="label label-primary">Loading ticket data...</label>
+        </div>
+        <div class="col-xs-4"></div>
+    </div>
+    <div ng-if="!loadingTicket">
+        <form role="form" novalidate angular-validator name="createTicketForm" angular-validator-submit="updateTicket()">
+            <!--Ticket Number-->
+            <div class="col-xs-12">
+                <label for="ticketNumber">Ticket Number</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.TicketNumber" name="ticketNumber" id="ticketnumber" placeholder="Ticket Number" readonly>
+                </div>
+            </div>
+            <!--Time In-->
+            <div class="col-xs-6">
+                <label for="timeIn">Time In</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.TimeIn" name="timeIn" id="timeIn" placeholder="Time In" readonly>
+                </div>
+            </div>
+            <!--Time Out-->
+            <div class="col-xs-6">
+                <label for="timeOut">Time Out</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.TimeOut" name="timeOut" id="timeOut" placeholder="Time Out" readonly>
+                </div>
+            </div>
+            <!--Haulier Dropdown-->
+            <div class="col-xs-6 selectContainer">
+                <label class="control-label">Haulier</label>
+                <div class="form-group">
+                    <select ng-model="ticket.HaulierId" class="form-control black" ng-options="option.ID as option.Name for option in hauliers" required></select>
+                    <input type="hidden" name="HaulierId" ng-value="ticket.HaulierId" />
+                </div>
+            </div>
+            <!--Customer Dropdown-->
+            <div class="col-xs-6 selectContainer">
+                <label class="control-label">Customer</label>
+                <div class="form-group">
+                    <select ng-model="ticket.CustomerId" class="form-control black" ng-options="option.ID as option.Name for option in customers" required></select>
+                    <input type="hidden" name="CustomerId" ng-value="ticket.CustomerId" />
+                </div>
+            </div>
+            <!--Destination Dropdown-->
+            <div class="col-xs-6 selectContainer">
+                <label class="control-label">Destination</label>
+                <div class="form-group">
+                    <select ng-model="ticket.DestinationId" class="form-control black" ng-options="option.ID as option.Name for option in destinations" required></select>
+                    <input type="hidden" name="DestinationId" ng-value="ticket.DestinationId" />
+                </div>
+            </div>
+            <!--Product Dropdown-->
+            <div class="col-xs-6 selectContainer">
+                <label class="control-label">Product</label>
+                <div class="form-group">
+                    <select ng-model="ticket.ProductId" class="form-control black" ng-options="option.ID as option.Name for option in products" required></select>
+                    <input type="hidden" name="ProductId" ng-value="ticket.ProductId" />
+                </div>
+            </div>
+            <!--Driver Dropdown-->
+            <div class="col-xs-6 selectContainer">
+                <label class="control-label">Driver</label>
+                <div class="form-group">
+                    <select ng-model="ticket.DriverId" class="form-control black" ng-options="option.ID as option.FirstName + ' ' + option.LastName for option in drivers" required></select>
+                    <input type="hidden" name="DriverId" ng-value="ticket.DriverId" />
+                </div>
+            </div>
+            <!--Order Number-->
+            <div class="col-xs-6">
+                <label for="orderNumber">Order Number</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.OrderNumber" name="orderNumber" id="orderNumber" placeholder="Order Number"
+                           validate-on="blur" required required-message="'Order Number is required'">
+                </div>
+            </div>
+            <!--Delivery Number-->
+            <div class="col-xs-6">
+                <label for="deliveryNumber">Delivery Number</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.DeliveryNumber" name="deliveryNumber" id="deliveryNumber" placeholder="Delivery Number"
+                           validate-on="blur" required required-message="'Delivery Number is required'">
+                </div>
+            </div>
+            <!--Seal From-->
+            <div class="col-xs-6">
+                <label for="sealFrom">Seal From</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.SealFrom" name="sealFrom" id="sealFrom" placeholder="Seal From"
+                           validate-on="blur" required required-message="'Seal From is required'">
+                </div>
+            </div>
+            <!--Seal To-->
+            <div class="col-xs-6">
+                <label for="sealTo">Seal To</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.SealTo" name="sealTo" id="sealTo" placeholder="Seal To"
+                           validate-on="blur" required required-message="'Seal To is required'">
+                </div>
+            </div>
+            <!--Gross Weight-->
+            <div class="col-xs-6">
+                <label for="grossWeight">Gross Weight</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.GrossWeight" name="grossWeight" id="grossWeight" placeholder="Gross Weight" ng-change="updateNettWeight()">
+                </div>
+            </div>
+            <!--Tare Weight-->
+            <div class="col-xs-6">
+                <label for="tareWeight">Tare Weight</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.TareWeight" name="tareWeight" id="tareWeight" placeholder="Tare Weight" ng-change="updateNettWeight()">
+                </div>
+            </div>
+            <!--Nett Weight-->
+            <div class="col-xs-6">
+                <label for="nettWeight">Nett Weight</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="ticket.NettWeight" name="nettWeight" id="nettWeight" placeholder="Nett Weight" readonly>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <input type="submit" name="submit" id="submit" value="Update Ticket" class="btn btn-info center-block">
+            </div>
+        </form>
+    </div>
+</div>

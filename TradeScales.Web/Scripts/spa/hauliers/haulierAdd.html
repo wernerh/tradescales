@@ -1,0 +1,45 @@
+﻿<hr />
+<div class="alert alert-info alert-dismissable">
+    <a class="panel-close close" data-dismiss="alert">×</a>
+    <i class="fa fa-user-plus fa-3x"></i>Add new haulier. Make sure you fill all required fields.
+</div>
+<div class="row">
+    <form role="form" novalidate angular-validator name="addHaulierForm" angular-validator-submit="addHaulier()">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="code">Code</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="newHaulier.Code" name="code" id="code" placeholder="Code"
+                           validate-on="blur" required required-message="'Code is required'">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="newHaulier.Name" name="name" id="name" placeholder="Name"
+                           validate-on="blur" required required-message="'Name is required'">
+                </div>
+            </div>                     
+            <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+        </div>
+    </form>
+    <div class="col-sm-5 col-md-push-1">
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                <ul>
+                    <li ng-repeat="message in submission.successMessages track by $index">
+                        <strong>{{message}}</strong>
+                    </li>
+                </ul>
+                <strong ng-bind="submission.successMessage"><span class="glyphicon glyphicon-ok"></span> </strong>
+            </div>
+            <div class="alert alert-danger">
+                <ul>
+                    <li ng-repeat="error in submission.errorMessages track by $index">
+                        <strong>{{error}}</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
