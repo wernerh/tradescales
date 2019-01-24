@@ -39,6 +39,17 @@ namespace TradeScales.Wpf.View.Pane
         /// </summary>
         public DataTemplate TicketsTemplate { get; set; }
 
+        /// <summary>
+        /// Weighbridge certificate template
+        /// </summary>
+        public DataTemplate WeighbridgeCertificateTemplate { get; set; }
+
+        /// <summary>
+        /// New ticket template
+        /// </summary>
+        public DataTemplate NewTicketTemplate { get; set; }
+
+
         #endregion
 
         #region Public Methods
@@ -64,7 +75,17 @@ namespace TradeScales.Wpf.View.Pane
                 return ToolTwoTemplate;
             }
 
-            if (item is TicketsViewModel)
+            if (item is NewTicketViewModel)
+            {
+                return NewTicketTemplate;
+            }
+
+            if (item is WeighbridgeCertificateViewModel)
+            {
+                return WeighbridgeCertificateTemplate;
+            }
+
+            if (item is TicketListViewModel)
             {
                 return TicketsTemplate;
             }

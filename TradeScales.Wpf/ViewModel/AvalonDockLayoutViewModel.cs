@@ -48,7 +48,7 @@ namespace TradeScales.Wpf.ViewModel
                         if (docManager == null)
                             return;
 
-                        this.LoadDockingManagerLayout(docManager);
+                        LoadDockingManagerLayout(docManager);
                     });
                 }
 
@@ -120,7 +120,7 @@ namespace TradeScales.Wpf.ViewModel
                     return;
                 }
 
-                AvalonDockLayoutViewModel.ReloadContentOnStartUp(args);
+                ReloadContentOnStartUp(args);
             };
 
             layoutSerializer.Deserialize(layoutFileName);
@@ -133,6 +133,12 @@ namespace TradeScales.Wpf.ViewModel
             if (string.IsNullOrWhiteSpace(args.Model.ContentId) == true)
             {
                 args.Cancel = true;
+                return;
+            }
+
+            if (args.Model.ContentId == TicketListViewModel.ToolContentID)
+            {
+                args.Content = MainViewModel.This.TicketList;
                 return;
             }
 
@@ -154,7 +160,7 @@ namespace TradeScales.Wpf.ViewModel
                 return;
             }
 
-            args.Content = AvalonDockLayoutViewModel.ReloadDocument(args.Model.ContentId);
+            args.Content = ReloadDocument(args.Model.ContentId);
 
             if (args.Content == null)
             {

@@ -14,12 +14,12 @@ namespace TradeScales.Wpf.ViewModel
     /// <summary>
     /// tickets viewmodel
     /// </summary>
-    public class TicketsViewModel : DocumentViewModel
+    public class TicketListViewModel : DocumentViewModel
     {
 
         #region Fields
 
-        public const string ToolContentID = "Tickets";
+        public const string ToolContentID = "TicketList";
 
         TradeScalesEntities context = new TradeScalesEntities();
         private static IMessageBoxService _MessageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
@@ -38,12 +38,11 @@ namespace TradeScales.Wpf.ViewModel
         /// <summary>
         /// Initializes a new instance of the StartPageViewModel class.
         /// </summary>
-        public TicketsViewModel()
-            : base("Tickets")
+        public TicketListViewModel()
+            : base("Ticket List")
         {
             ContentID = ToolContentID;
-            context.Tickets.Load();
-            Tickets = context.Tickets.Local;
+            LoadTickets();
         }
 
         #endregion
@@ -59,7 +58,7 @@ namespace TradeScales.Wpf.ViewModel
             {
                 if (_ViewCommand == null)
                 {
-                    _ViewCommand = new RelayCommand<Ticket>(GenerateTicket);
+                    _ViewCommand = new RelayCommand<Ticket>(ViewTicket);
                 }
                 return _ViewCommand;
             }
@@ -68,15 +67,36 @@ namespace TradeScales.Wpf.ViewModel
         #endregion
 
         #region Public Methods
+        public void LoadTickets()
+        {
+            context.Tickets.Load();
+            Tickets = context.Tickets.Local;
+        }
+        #endregion
 
-        public void GenerateTicket(Ticket ticket)
+        #region Private Methods
+
+        private void ViewTicket(Ticket ticket)
         {
             string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var filePath = $"{ticket.TicketNumber}.pdf";
+            var filePath = $"{rootPath}\\{ticket.TicketNumber}.pdf";
+
+            if (!File.Exists(filePath))
+            {
+                GenerateTicket(filePath, ticket);
+            }
+
+            MainViewModel.This.OpenCertificate(filePath, ticket.TicketNumber);
+        }
+
+        private void GenerateTicket(string filepath, Ticket ticket)
+        {
+            // Get root path
+            string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             // Create document
             Document document = new Document(PageSize.A4);
-            var output = new FileStream(filePath, FileMode.Create);
+            var output = new FileStream(filepath, FileMode.Create);
             var writer = PdfWriter.GetInstance(document, output);
             document.Open();
 
@@ -118,7 +138,6 @@ namespace TradeScales.Wpf.ViewModel
             XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, sr);
             document.Close();
         }
-
         #endregion
 
     }

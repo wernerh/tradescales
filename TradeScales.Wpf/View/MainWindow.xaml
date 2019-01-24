@@ -39,22 +39,26 @@
         <DockPanel Grid.Row="0">
             <Menu>
                 <!--File-->
-                <MenuItem Header="_File">
-                    <MenuItem Header="E_xit" Command="{Binding ExitCommand}" />
+                <MenuItem Header="File">
+                    <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
                 </MenuItem>
                 <!--View-->
-                <MenuItem Header="_View">
-                    <MenuItem Header="_Start Page" Command="{Binding ViewStartPageCommand}"/>                                      
+                <MenuItem Header="View">
+                    <MenuItem Header="Start Page" Command="{Binding ViewStartPageCommand}"/>
+                    <MenuItem Header="Tickets">
+                        <MenuItem Header="Ticket List" Command="{Binding TicketListCommand}"/>
+                        <MenuItem Header="New Ticket" Command="{Binding NewTicketCommand}"/>
+                    </MenuItem>
                 </MenuItem>
                 <!--Tools-->
-                <MenuItem Header="_Tools">
-                    <MenuItem Header="Configuration" IsChecked="{Binding ToolOne.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+                <MenuItem Header="Tools">
+                    <!--MenuItem Header="New Ticket" IsChecked="{Binding ToolOne.IsVisible, Mode=TwoWay}" IsCheckable="True"/>-->
                     <!--<MenuItem Header="T_ool Two" IsChecked="{Binding ToolTwo.IsVisible, Mode=TwoWay}" IsCheckable="True"/>-->
-                    <MenuItem Header="_Options..." Command="{Binding ThemeOptionsCommand}" InputGestureText="Ctrl+O"/>
+                    <MenuItem Header="Options..." Command="{Binding ThemeOptionsCommand}" InputGestureText="Ctrl+O"/>
                 </MenuItem>
                 <!--Help-->
-                <MenuItem Header="_Help">
-                    <MenuItem Header="_About" Command="{Binding AboutCommand}"/>
+                <MenuItem Header="Help">
+                    <MenuItem Header="About" Command="{Binding AboutCommand}"/>
                 </MenuItem>
             </Menu>
         </DockPanel>
@@ -89,10 +93,22 @@
             <!--Layout Item Template Selector-->
             <dock:DockingManager.LayoutItemTemplateSelector>
                 <pane:PaneTemplateSelector>
+                    <!--New Ticket Template-->
+                    <pane:PaneTemplateSelector.NewTicketTemplate>
+                        <DataTemplate>
+                            <views:NewTicketView/>
+                        </DataTemplate>
+                    </pane:PaneTemplateSelector.NewTicketTemplate>
+                    <!--Weighbridge Certificate Template-->
+                    <pane:PaneTemplateSelector.WeighbridgeCertificateTemplate>
+                        <DataTemplate>
+                            <views:WeighbridgeCertificateView/>
+                        </DataTemplate>
+                    </pane:PaneTemplateSelector.WeighbridgeCertificateTemplate>
                     <!--Tickets Template-->
                     <pane:PaneTemplateSelector.TicketsTemplate>
                         <DataTemplate>
-                            <views:TicketsView/>
+                            <views:TicketListView/>
                         </DataTemplate>
                     </pane:PaneTemplateSelector.TicketsTemplate>
                     <!--Start Template-->
@@ -119,6 +135,22 @@
             <!--Layout Item Container Style Selector-->
             <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
                 <pane:PaneStyleSelector>
+                    <!--New Ticket Style-->
+                    <pane:PaneStyleSelector.NewTicketStyle>
+                        <Style TargetType="dock:LayoutDocumentItem">
+                            <Setter Property="Title" Value="{Binding Model.Name}"/>
+                            <Setter Property="ContentId" Value="{Binding Model.ContentID}"/>
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive}"/>
+                        </Style>
+                    </pane:PaneStyleSelector.NewTicketStyle>
+                    <!--Weighbridge Certicate Style-->
+                    <pane:PaneStyleSelector.WeighbridgeCertificateStyle>
+                        <Style TargetType="dock:LayoutDocumentItem">
+                            <Setter Property="Title" Value="{Binding Model.Name}"/>
+                            <Setter Property="ContentId" Value="{Binding Model.ContentID}"/>
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive}"/>
+                        </Style>
+                    </pane:PaneStyleSelector.WeighbridgeCertificateStyle>
                     <!--Tickets Style-->
                     <pane:PaneStyleSelector.TicketsStyle>
                         <Style TargetType="dock:LayoutDocumentItem">

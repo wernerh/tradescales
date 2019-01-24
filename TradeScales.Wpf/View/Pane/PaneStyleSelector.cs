@@ -36,6 +36,15 @@ namespace TradeScales.Wpf.View.Pane
         /// </summary>
         public Style TicketsStyle { get; set; }
 
+        /// <summary>
+        /// Weighbridge certificate style
+        /// </summary>
+        public Style WeighbridgeCertificateStyle { get; set; }
+
+        /// <summary>
+        /// New ticket style
+        /// </summary>
+        public Style NewTicketStyle { get; set; }
         #endregion
 
         #region Public Methods
@@ -59,7 +68,17 @@ namespace TradeScales.Wpf.View.Pane
                 return ToolTwoStyle;
             }
 
-            if (item is TicketsViewModel)
+            if (item is NewTicketViewModel)
+            {
+                return NewTicketStyle;
+            }
+
+            if (item is WeighbridgeCertificateViewModel)
+            {
+                return WeighbridgeCertificateStyle;
+            }
+
+            if (item is TicketListViewModel)
             {
                 return TicketsStyle;
             }

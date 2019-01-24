@@ -19,15 +19,8 @@ namespace TradeScales.Wpf.ViewModel
     public class MainViewModel : BaseViewModel
     {
         #region Fields
-
-        /// <summary>
-        /// Dialog service
-        /// </summary>
-        private static IDialogsService _DialogService = ServiceLocator.Instance.GetService<IDialogsService>();
-
-        /// <summary>
-        /// Messagebox service
-        /// </summary>
+        
+        private static IDialogsService _DialogService = ServiceLocator.Instance.GetService<IDialogsService>();    
         private static IMessageBoxService _MessageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
 
         #endregion
@@ -188,19 +181,35 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private TicketsViewModel _Tickets;
+        private TicketListViewModel _TicketList;
         /// <summary>
         /// The list of tickets
         /// </summary>
-        public TicketsViewModel Tickets
+        public TicketListViewModel TicketList
         {
             get
             {
-                if (_Tickets == null)
+                if (_TicketList == null)
                 {
-                    _Tickets = new TicketsViewModel();
+                    _TicketList = new TicketListViewModel();
                 }
-                return _Tickets;
+                return _TicketList;
+            }
+        }
+
+        private NewTicketViewModel _NewTicket;
+        /// <summary>
+        /// New ticket
+        /// </summary>
+        public NewTicketViewModel NewTicket
+        {
+            get
+            {
+                if (_NewTicket == null)
+                {
+                    _NewTicket = new NewTicketViewModel();
+                }
+                return _NewTicket;
             }
         }
         #region Tools
@@ -215,7 +224,7 @@ namespace TradeScales.Wpf.ViewModel
             {
                 if (_Tools == null)
                 {
-                    _Tools = new ToolViewModel[] { ToolOne };
+                   // _Tools = new ToolViewModel[] { ToolOne };
                 }
                 return _Tools;
             }
@@ -307,6 +316,82 @@ namespace TradeScales.Wpf.ViewModel
                         });
                 }
                 return _ViewStartPageCommand;
+            }
+        }
+
+        private ICommand _TicketListCommand;
+        /// <summary>
+        /// Ticket list command
+        /// </summary>
+        public ICommand TicketListCommand
+        {
+            get
+            {
+                if (_TicketListCommand == null)
+                {
+                    _TicketListCommand = new MVVMRelayCommand(
+                        execute =>
+                        {
+                            try
+                            {
+                                DocumentViewModel document = Documents.FirstOrDefault(e => e.ContentID == TicketListViewModel.ToolContentID);
+
+                                if (document != null)
+                                {
+                                    Documents.Remove(document);
+                                    Documents.Add(document);
+                                    ActiveDocument = document;
+                                    return;
+                                }
+
+                                Documents.Add(TicketList);
+                                ActiveDocument = TicketList;
+                            }
+                            catch (Exception ex)
+                            {
+                                ShowExceptionMessageBox(ex);
+                            }
+                        });
+                }
+                return _TicketListCommand;
+            }
+        }
+
+        private ICommand _NewTicketCommand;
+        /// <summary>
+        /// New ticket command
+        /// </summary>
+        public ICommand NewTicketCommand
+        {
+            get
+            {
+                if (_NewTicketCommand == null)
+                {
+                    _NewTicketCommand = new MVVMRelayCommand(
+                        execute =>
+                        {
+                            try
+                            {
+                                DocumentViewModel document = Documents.FirstOrDefault(e => e.ContentID == NewTicketViewModel.ToolContentID);
+
+                                if (document != null)
+                                {
+                                    Documents.Remove(document);
+                                    Documents.Add(document);
+                                    ActiveDocument = document;
+                                    return;
+                                }
+
+                                Documents.Add(NewTicket);
+                                ActiveDocument = NewTicket;
+                            }
+                            catch (Exception ex)
+                            {
+                                ShowExceptionMessageBox(ex);
+                            }
+                        });
+                }
+                return _NewTicketCommand;
             }
         }
 
@@ -416,7 +501,7 @@ namespace TradeScales.Wpf.ViewModel
         /// Workbench options: Dark, Light, Generic, Metro, VS2010 and Aero
         /// </summary>
         public void ChangeAppTheme()
-        {                               
+        {
             ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Settings.Default.ThemeAccent), ThemeManager.GetAppTheme(Settings.Default.Theme));
             ChangeWorkbenchTheme();
         }
@@ -430,6 +515,24 @@ namespace TradeScales.Wpf.ViewModel
             return MessageBoxResult.None;
         }
 
+        public void OpenCertificate(string filepath, string ticketNumber)
+        {
+            WeighbridgeCertificateViewModel certificate = new WeighbridgeCertificateViewModel(filepath, ticketNumber);
+            var openCertificate = Documents.FirstOrDefault(x => x.Name == certificate.Name);
+
+            if (openCertificate != null)
+            {
+                Documents.Remove(openCertificate);
+                Documents.Add(openCertificate);
+                ActiveDocument = openCertificate;
+            }
+            else
+            {
+                Documents.Add(certificate);
+                ActiveDocument = certificate;
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -438,8 +541,9 @@ namespace TradeScales.Wpf.ViewModel
         {
             _Documents = new ObservableCollection<DocumentViewModel>();
 
-            Documents.Add(Tickets);
-            ActiveDocument = Tickets;
+            Documents.Add(TicketList);
+            Documents.Add(NewTicket);
+            ActiveDocument = TicketList;
 
             if (Settings.Default.ShowStartPageOnStartup)
             {
@@ -448,7 +552,7 @@ namespace TradeScales.Wpf.ViewModel
                     Documents.Add(StartPage);
                 }
 
-                //ActiveDocument = StartPage;
+                ActiveDocument = StartPage;
                 return;
             }
 

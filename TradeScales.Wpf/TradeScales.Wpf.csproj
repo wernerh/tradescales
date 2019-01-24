@@ -113,6 +113,7 @@
     <Compile Include="Error.cs">
       <DependentUpon>TradeScales_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\WebBrowserExtensions.cs" />
     <Compile Include="Haulier.cs">
       <DependentUpon>TradeScales_Model.tt</DependentUpon>
     </Compile>
@@ -170,7 +171,9 @@
     <Compile Include="ViewModel\DocumentViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PaneViewModel.cs" />
-    <Compile Include="ViewModel\TicketsViewModel.cs" />
+    <Compile Include="ViewModel\NewTicketViewModel.cs" />
+    <Compile Include="ViewModel\WeighbridgeCertificateViewModel.cs" />
+    <Compile Include="ViewModel\TicketListViewModel.cs" />
     <Compile Include="ViewModel\StartPageViewModel.cs" />
     <Compile Include="ViewModel\Tools\ToolOneViewModel.cs" />
     <Compile Include="ViewModel\Tools\ToolTwoViewModel.cs" />
@@ -185,8 +188,14 @@
     <Compile Include="View\Pane\LayoutInitializer.cs" />
     <Compile Include="View\Pane\PaneStyleSelector.cs" />
     <Compile Include="View\Pane\PaneTemplateSelector.cs" />
-    <Compile Include="View\TicketsView.xaml.cs">
-      <DependentUpon>TicketsView.xaml</DependentUpon>
+    <Compile Include="View\NewTicketView.xaml.cs">
+      <DependentUpon>NewTicketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WeighbridgeCertificateView.xaml.cs">
+      <DependentUpon>WeighbridgeCertificateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TicketListView.xaml.cs">
+      <DependentUpon>TicketListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
@@ -222,7 +231,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\TicketsView.xaml">
+    <Page Include="View\NewTicketView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WeighbridgeCertificateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TicketListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
