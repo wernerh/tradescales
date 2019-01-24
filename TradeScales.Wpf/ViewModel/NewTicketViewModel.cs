@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
@@ -12,7 +11,7 @@ using TradeScales.Wpf.Resources.Services.Interfaces;
 namespace TradeScales.Wpf.ViewModel
 {
     /// <summary>
-    /// NewTicketViewModel
+    /// New ticket view model
     /// </summary>
     public class NewTicketViewModel : DocumentViewModel
     {
@@ -34,6 +33,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _TicketNumber = value;
+                OnPropertyChanged("TicketNumber");
             }
         }
 
@@ -44,6 +44,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _TimeIn = value;
+                OnPropertyChanged("TimeIn");
             }
         }
 
@@ -54,20 +55,11 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _TimeOut = value;
+                OnPropertyChanged("TimeOut");
             }
         }
 
-
-        private ObservableCollection<Haulier> _Hauliers;
-        public ObservableCollection<Haulier> Hauliers
-        {
-            get { return _Hauliers; }
-            set
-            {
-                _Hauliers = value;
-                OnPropertyChanged("Hauliers");
-            }
-        }
+        private ObservableCollection<Haulier> Hauliers { get; set; }
 
         private Haulier _SelectedHaulier;
         public Haulier SelectedHaulier
@@ -76,6 +68,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedHaulier = value;
+                OnPropertyChanged("SelectedHaulier");
             }
         }
 
@@ -88,6 +81,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedCustomer = value;
+                OnPropertyChanged("SelectedCustomer");
             }
         }
 
@@ -100,6 +94,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedDestination = value;
+                OnPropertyChanged("SelectedDestination");
             }
         }
 
@@ -112,6 +107,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedProduct = value;
+                OnPropertyChanged("SelectedProduct");
             }
         }
 
@@ -124,6 +120,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedDriver = value;
+                OnPropertyChanged("SelectedDriver");
             }
         }
 
@@ -134,6 +131,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _OrderNumber = value;
+                OnPropertyChanged("OrderNumber");
             }
         }
 
@@ -144,6 +142,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _DeliveryNumber = value;
+                OnPropertyChanged("DeliveryNumber");
             }
         }
 
@@ -154,6 +153,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SealTo = value;
+                OnPropertyChanged("SealTo");
             }
         }
 
@@ -164,6 +164,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SealFrom = value;
+                OnPropertyChanged("SealFrom");
             }
         }
 
@@ -219,6 +220,7 @@ namespace TradeScales.Wpf.ViewModel
         #endregion
 
         #region Commands
+
         private ICommand _CreateNewTicketCommand;
         /// <summary>
         /// </summary>
@@ -233,25 +235,32 @@ namespace TradeScales.Wpf.ViewModel
                 return _CreateNewTicketCommand;
             }
         }
+
         #endregion
 
         #region Private Methods
         private void InitialiseNewTicket()
         {
-            LoadNewTicketNumber();
             LoadDropdowns();
+            LoadDefaultValues();       
         }
 
-        private void LoadNewTicketNumber()
+        private void LoadDefaultValues()
         {
             context.Tickets.Load();
             var numberOfTickets = context.Tickets.Local.Count;
             var newTicketNumber = (++numberOfTickets).ToString("D6");
 
+            SelectedHaulier = Hauliers.First();
+            SelectedCustomer = Customers.First();
+            SelectedProduct = Products.First();
+            SelectedDestination = Destinations.First();
+            SelectedDriver = Drivers.First();
+
+
             TicketNumber = $"#{newTicketNumber}";
             OrderNumber = newTicketNumber;
             DeliveryNumber = newTicketNumber;
-
             SealFrom = $"Seal From ({TicketNumber})";
             SealTo = $"Seal To ({TicketNumber})";
             TimeIn = DateTime.Now.ToString();
@@ -273,12 +282,6 @@ namespace TradeScales.Wpf.ViewModel
             Products = context.Products.Local;
             Destinations = context.Destinations.Local;
             Drivers = context.Drivers.Local;
-
-            SelectedHaulier = Hauliers.First();
-            SelectedCustomer = Customers.First();
-            SelectedProduct = Products.First();
-            SelectedDestination = Destinations.First();
-            SelectedDriver = Drivers.First();
         }
 
         private void UpdateNettWeight()
@@ -315,7 +318,7 @@ namespace TradeScales.Wpf.ViewModel
             messageBoxService.ShowMessageBox($"successfully added new ticket {ticket.TicketNumber}", "Success", MessageBoxButton.OK);
             MainViewModel.This.StatusMessage = $"successfully added new ticket {ticket.TicketNumber}";
             MainViewModel.This.TicketList.LoadTickets();
-            LoadNewTicketNumber();
+            LoadDefaultValues();
         }
 
         #endregion
