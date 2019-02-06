@@ -72,13 +72,19 @@
                 <DataGridTextColumn Header = "Last Modified By" Width="*" Binding = "{Binding LastModifiedBy}"/>
                 <DataGridTextColumn Header = "Last Modified Date" Width="*" Binding = "{Binding LastModified}"/>
                 <DataGridTextColumn Header = "Status" Width="*" Binding = "{Binding Status}"/>
-                <DataGridTemplateColumn Header="Certificate" Width="*">
+                <DataGridTemplateColumn Header="Actions" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="button_View" 
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="button_Edit" 
+                                    Command="{Binding ElementName=datagrid_Tickets, Path=DataContext.EditCommand}" 
+                                    CommandParameter="{Binding ElementName=datagrid_Tickets, Path=SelectedItem}" 
+                                    Margin="5">Edit</Button>
+                                <Button x:Name="button_View" 
                                     Command="{Binding ElementName=datagrid_Tickets, Path=DataContext.ViewCommand}" 
                                     CommandParameter="{Binding ElementName=datagrid_Tickets, Path=SelectedItem}" 
-                                    Margin="5">View</Button>
+                                    Margin="5">Download</Button>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

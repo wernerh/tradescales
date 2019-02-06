@@ -1,4 +1,7 @@
-﻿using TradeScales.Wpf.Model;
+﻿using TradeScales.Data.Infrastructure;
+using TradeScales.Data.Repositories;
+using TradeScales.Entities;
+using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 
 namespace TradeScales.Wpf.ViewModel

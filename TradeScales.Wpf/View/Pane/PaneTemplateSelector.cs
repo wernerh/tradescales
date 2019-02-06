@@ -49,6 +49,11 @@ namespace TradeScales.Wpf.View.Pane
         /// </summary>
         public DataTemplate NewTicketTemplate { get; set; }
 
+        /// <summary>
+        /// Edit ticket template
+        /// </summary>
+        public DataTemplate EditTicketTemplate { get; set; }
+
 
         #endregion
 
@@ -73,6 +78,11 @@ namespace TradeScales.Wpf.View.Pane
             if (item is ToolTwoViewModel)
             {
                 return ToolTwoTemplate;
+            }
+
+            if (item is EditTicketViewModel)
+            {
+                return EditTicketTemplate;
             }
 
             if (item is NewTicketViewModel)

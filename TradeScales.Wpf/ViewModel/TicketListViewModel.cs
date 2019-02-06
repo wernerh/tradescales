@@ -1,11 +1,13 @@
-﻿using iTextSharp.text;
+﻿using AutoMapper;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows.Input;
+using TradeScales.Data.Repositories;
+using TradeScales.Entities;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 
@@ -20,16 +22,16 @@ namespace TradeScales.Wpf.ViewModel
         #region Fields
 
         public const string ToolContentID = "TicketList";
-
-        TradeScalesEntities context = new TradeScalesEntities();
-        private static IMessageBoxService _MessageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
+        private static IMessageBoxService _messageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
+        private static IEntityBaseRepository<Ticket> _ticketsRepository = BootStrapper.Resolve<IEntityBaseRepository<Ticket>>();
 
         #endregion
 
         #region Properties
 
+        public string Test { get; set; }
 
-        public ObservableCollection<Ticket> Tickets { get; set; }
+        public IEnumerable<TicketViewModel> Tickets { get; set; }
 
         #endregion
 
@@ -42,7 +44,7 @@ namespace TradeScales.Wpf.ViewModel
             : base("Ticket List")
         {
             ContentID = ToolContentID;
-            LoadTickets();
+            ReloadTickets();
         }
 
         #endregion
@@ -58,25 +60,41 @@ namespace TradeScales.Wpf.ViewModel
             {
                 if (_ViewCommand == null)
                 {
-                    _ViewCommand = new RelayCommand<Ticket>(ViewTicket);
+                    _ViewCommand = new RelayCommand<TicketViewModel>(ViewTicket);
                 }
                 return _ViewCommand;
+            }
+        }
+
+        private ICommand _EditCommand;
+        /// <summary>
+        /// </summary>
+        public ICommand EditCommand
+        {
+            get
+            {
+                if (_EditCommand == null)
+                {
+                    _EditCommand = new RelayCommand<TicketViewModel>(EditTicket);
+                }
+                return _EditCommand;
             }
         }
 
         #endregion
 
         #region Public Methods
-        public void LoadTickets()
+
+        public void ReloadTickets()
         {
-            context.Tickets.Load();
-            Tickets = context.Tickets.Local;
+            Tickets = Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(_ticketsRepository.GetAll());
         }
+
         #endregion
 
         #region Private Methods
 
-        private void ViewTicket(Ticket ticket)
+        private void ViewTicket(TicketViewModel ticket)
         {
             string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var filePath = $"{rootPath}\\{ticket.TicketNumber}.pdf";
@@ -89,7 +107,12 @@ namespace TradeScales.Wpf.ViewModel
             MainViewModel.This.OpenCertificate(filePath, ticket.TicketNumber);
         }
 
-        private void GenerateTicket(string filepath, Ticket ticket)
+        private void EditTicket(TicketViewModel ticket)
+        {
+            MainViewModel.This.OpenEditTicket(ticket);
+        }
+
+        private void GenerateTicket(string filepath, TicketViewModel ticket)
         {
             // Get root path
             string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -114,19 +137,19 @@ namespace TradeScales.Wpf.ViewModel
             contents = contents.Replace("[TIMEIN]", ticket.TimeIn.ToString());
             contents = contents.Replace("[TIMEOUT]", ticket.TimeOut.ToString());
 
-            contents = contents.Replace("[CUSTOMERCODE]", ticket.Customer.Code);
-            contents = contents.Replace("[CUSTOMERNAME]", ticket.Customer.Name);
-            contents = contents.Replace("[HAULIERCODE]", ticket.Haulier.Code);
-            contents = contents.Replace("[HAULIERNAME]", ticket.Haulier.Name);
-            contents = contents.Replace("[DRIVERCODE]", ticket.Driver.Code);
-            contents = contents.Replace("[DRIVERFIRSTNAME]", ticket.Driver.FirstName);
-            contents = contents.Replace("[DRIVERLASTNAME]", ticket.Driver.LastName);
-            contents = contents.Replace("[DRIVERMOBILE]", ticket.Driver.Mobile);
-            contents = contents.Replace("[VEHICLEREGISTRATION]", ticket.Driver.VehicleRegistration);
-            contents = contents.Replace("[DESTINATIONCODE]", ticket.Destination.Code);
-            contents = contents.Replace("[DESTINATIONNAME]", ticket.Destination.Name);
-            contents = contents.Replace("[PODUCTCODE]", ticket.Product.Code);
-            contents = contents.Replace("[PRODUCTNAME]", ticket.Product.Name);
+            //contents = contents.Replace("[CUSTOMERCODE]", ticket.Customer.Code);
+            //contents = contents.Replace("[CUSTOMERNAME]", ticket.Customer.Name);
+            //contents = contents.Replace("[HAULIERCODE]", ticket.Haulier.Code);
+            //contents = contents.Replace("[HAULIERNAME]", ticket.Haulier.Name);
+            //contents = contents.Replace("[DRIVERCODE]", ticket.Driver.Code);
+            //contents = contents.Replace("[DRIVERFIRSTNAME]", ticket.Driver.FirstName);
+            //contents = contents.Replace("[DRIVERLASTNAME]", ticket.Driver.LastName);
+            //contents = contents.Replace("[DRIVERMOBILE]", ticket.Driver.Mobile);
+            //contents = contents.Replace("[VEHICLEREGISTRATION]", ticket.Driver.VehicleRegistration);
+            //contents = contents.Replace("[DESTINATIONCODE]", ticket.Destination.Code);
+            //contents = contents.Replace("[DESTINATIONNAME]", ticket.Destination.Name);
+            //contents = contents.Replace("[PODUCTCODE]", ticket.Product.Code);
+            //contents = contents.Replace("[PRODUCTNAME]", ticket.Product.Name);
 
             contents = contents.Replace("[TARREWEIGHT]", $"{ticket.TareWeight} kg");
             contents = contents.Replace("[GROSSWEIGHT]", $"{ticket.GrossWeight} kg");

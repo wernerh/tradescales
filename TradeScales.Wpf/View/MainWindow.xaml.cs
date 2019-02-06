@@ -2,6 +2,9 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
+using TradeScales.Data.Infrastructure;
+using TradeScales.Data.Repositories;
+using TradeScales.Entities;
 using TradeScales.Wpf.ViewModel;
 using Xceed.Wpf.AvalonDock;
 
@@ -12,7 +15,7 @@ namespace TradeScales.Wpf.View
     /// </summary>
     public partial class MainWindow
     {
-
+        
         #region Constructor
 
         /// <summary>
@@ -21,9 +24,9 @@ namespace TradeScales.Wpf.View
         public MainWindow()
         {
             InitializeComponent();
-            MainViewModel.This = new MainViewModel();
+            MainViewModel.This = new MainViewModel();      
             MainViewModel.This.RequestClose += RequestClose;    
-            this.DataContext = MainViewModel.This;
+            DataContext = MainViewModel.This;
         }
 
         #endregion
@@ -39,7 +42,8 @@ namespace TradeScales.Wpf.View
         {
             try
             {
-                this.Close();
+                BootStrapper.Stop();
+                Close();
             }
 
             catch { }

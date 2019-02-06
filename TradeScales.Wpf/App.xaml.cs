@@ -1,8 +1,14 @@
-﻿using System.Windows;
+﻿using Autofac;
+using System.Windows;
 using System.Windows.Threading;
+using TradeScales.Data.Infrastructure;
+using TradeScales.Data.Repositories;
+using TradeScales.Entities;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services;
 using TradeScales.Wpf.Resources.Services.Interfaces;
+using TradeScales.Wpf.View;
+using TradeScales.WPF.Mappings;
 
 namespace TradeScales.Wpf
 {
@@ -13,9 +19,19 @@ namespace TradeScales.Wpf
     {
 
         #region Fields
-       
+
         private static DialogService _DialogService = new DialogService();
         private static MessageBoxService _MessageBoxService = new MessageBoxService();
+
+        protected IEntityBaseRepository<Ticket> _ticketsRepository;
+        protected IEntityBaseRepository<Error> _errorsRepository;
+        protected IUnitOfWork _unitOfWork;
+
+        #endregion
+
+        #region Properties
+
+        private static IContainer Container { get; set; }
 
         #endregion
 
@@ -25,9 +41,21 @@ namespace TradeScales.Wpf
         /// Initializes a new instance of the App class.
         /// </summary>
         public App()
-        {         
+        {
             ServiceLocator.Instance.AddService<IDialogsService>(_DialogService);
             ServiceLocator.Instance.AddService<IMessageBoxService>(_MessageBoxService);
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            BootStrapper.Start();
+            AutoMapperConfiguration.Configure();
+
+            _ticketsRepository = BootStrapper.Resolve<IEntityBaseRepository<Ticket>>();
+            _errorsRepository = BootStrapper.Resolve<IEntityBaseRepository<Error>>();
+            _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
+                
         }
 
         #endregion

@@ -93,6 +93,12 @@
             <!--Layout Item Template Selector-->
             <dock:DockingManager.LayoutItemTemplateSelector>
                 <pane:PaneTemplateSelector>
+                    <!--Edit Ticket Template-->
+                    <pane:PaneTemplateSelector.EditTicketTemplate>
+                        <DataTemplate>
+                            <views:EditTicketView/>
+                        </DataTemplate>
+                    </pane:PaneTemplateSelector.EditTicketTemplate>
                     <!--New Ticket Template-->
                     <pane:PaneTemplateSelector.NewTicketTemplate>
                         <DataTemplate>
@@ -135,6 +141,14 @@
             <!--Layout Item Container Style Selector-->
             <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
                 <pane:PaneStyleSelector>
+                    <!--Edit Ticket Style-->
+                    <pane:PaneStyleSelector.EditTicketStyle>
+                        <Style TargetType="dock:LayoutDocumentItem">
+                            <Setter Property="Title" Value="{Binding Model.Name}"/>
+                            <Setter Property="ContentId" Value="{Binding Model.ContentID}"/>
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive}"/>
+                        </Style>
+                    </pane:PaneStyleSelector.EditTicketStyle>
                     <!--New Ticket Style-->
                     <pane:PaneStyleSelector.NewTicketStyle>
                         <Style TargetType="dock:LayoutDocumentItem">

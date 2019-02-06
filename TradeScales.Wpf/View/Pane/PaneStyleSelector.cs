@@ -45,6 +45,11 @@ namespace TradeScales.Wpf.View.Pane
         /// New ticket style
         /// </summary>
         public Style NewTicketStyle { get; set; }
+
+        /// <summary>
+        /// Edit ticket style
+        /// </summary>
+        public Style EditTicketStyle { get; set; }
         #endregion
 
         #region Public Methods
@@ -66,6 +71,11 @@ namespace TradeScales.Wpf.View.Pane
             if (item is ToolTwoViewModel)
             {
                 return ToolTwoStyle;
+            }
+
+            if (item is EditTicketViewModel)
+            {
+                return EditTicketStyle;
             }
 
             if (item is NewTicketViewModel)

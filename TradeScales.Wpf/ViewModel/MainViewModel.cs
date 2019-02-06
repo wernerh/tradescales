@@ -7,6 +7,9 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using TradeScales.Data.Infrastructure;
+using TradeScales.Data.Repositories;
+using TradeScales.Entities;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Properties;
 using TradeScales.Wpf.Resources.Services.Interfaces;
@@ -19,8 +22,8 @@ namespace TradeScales.Wpf.ViewModel
     public class MainViewModel : BaseViewModel
     {
         #region Fields
-        
-        private static IDialogsService _DialogService = ServiceLocator.Instance.GetService<IDialogsService>();    
+
+        private static IDialogsService _DialogService = ServiceLocator.Instance.GetService<IDialogsService>();
         private static IMessageBoxService _MessageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
 
         #endregion
@@ -224,7 +227,7 @@ namespace TradeScales.Wpf.ViewModel
             {
                 if (_Tools == null)
                 {
-                   // _Tools = new ToolViewModel[] { ToolOne };
+                    // _Tools = new ToolViewModel[] { ToolOne };
                 }
                 return _Tools;
             }
@@ -272,11 +275,11 @@ namespace TradeScales.Wpf.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
-        {
+        {           
             ChangeAppTheme();
             LoadUserSettings();
             InitializeDocuments();
-            StatusMessage = "Welcome to Trade Scales";
+            StatusMessage = "Welcome to Trade Scales";       
         }
 
         #endregion
@@ -334,18 +337,7 @@ namespace TradeScales.Wpf.ViewModel
                         {
                             try
                             {
-                                DocumentViewModel document = Documents.FirstOrDefault(e => e.ContentID == TicketListViewModel.ToolContentID);
-
-                                if (document != null)
-                                {
-                                    Documents.Remove(document);
-                                    Documents.Add(document);
-                                    ActiveDocument = document;
-                                    return;
-                                }
-
-                                Documents.Add(TicketList);
-                                ActiveDocument = TicketList;
+                                OpenTicketList();
                             }
                             catch (Exception ex)
                             {
@@ -372,18 +364,7 @@ namespace TradeScales.Wpf.ViewModel
                         {
                             try
                             {
-                                DocumentViewModel document = Documents.FirstOrDefault(e => e.ContentID == NewTicketViewModel.ToolContentID);
-
-                                if (document != null)
-                                {
-                                    Documents.Remove(document);
-                                    Documents.Add(document);
-                                    ActiveDocument = document;
-                                    return;
-                                }
-
-                                Documents.Add(NewTicket);
-                                ActiveDocument = NewTicket;
+                                OpenNewTicket();
                             }
                             catch (Exception ex)
                             {
@@ -515,22 +496,61 @@ namespace TradeScales.Wpf.ViewModel
             return MessageBoxResult.None;
         }
 
+        public void OpenTicketList()
+        {
+            var tickeListViewModel = Documents.FirstOrDefault(e => e.ContentID == TicketListViewModel.ToolContentID);
+            if (tickeListViewModel != null)
+            {
+                Documents.Remove(tickeListViewModel);
+            }
+
+            Documents.Add(TicketList);
+            ActiveDocument = TicketList;
+        }
+
+        public void OpenNewTicket()
+        {
+            var newTicketViewModel = Documents.FirstOrDefault(e => e.ContentID == NewTicketViewModel.ToolContentID);
+            if (newTicketViewModel != null)
+            {
+                Documents.Remove(newTicketViewModel);
+            }
+
+            Documents.Add(NewTicket);
+            ActiveDocument = NewTicket;
+        }
+
+        public void OpenEditTicket(TicketViewModel ticket)
+        {
+            //EditTicketViewModel editTicketViewModel = new EditTicketViewModel(ticket);
+
+            //var openEditTicketViewModel = Documents.FirstOrDefault(x => x.Name == editTicketViewModel.Name);
+            //if (openEditTicketViewModel != null)
+            //{
+            //    Documents.Remove(openEditTicketViewModel);
+            //}
+
+            //Documents.Add(editTicketViewModel);
+            //ActiveDocument = editTicketViewModel;
+        }
+
         public void OpenCertificate(string filepath, string ticketNumber)
         {
-            WeighbridgeCertificateViewModel certificate = new WeighbridgeCertificateViewModel(filepath, ticketNumber);
-            var openCertificate = Documents.FirstOrDefault(x => x.Name == certificate.Name);
+            //WeighbridgeCertificateViewModel certificate = new WeighbridgeCertificateViewModel(filepath, ticketNumber);
 
-            if (openCertificate != null)
-            {
-                Documents.Remove(openCertificate);
-                Documents.Add(openCertificate);
-                ActiveDocument = openCertificate;
-            }
-            else
-            {
-                Documents.Add(certificate);
-                ActiveDocument = certificate;
-            }
+            //var openCertificate = Documents.FirstOrDefault(x => x.Name == certificate.Name);
+            //if (openCertificate != null)
+            //{
+            //    Documents.Remove(openCertificate);
+            //}
+
+            //Documents.Add(certificate);
+            //ActiveDocument = certificate;
+        }
+
+        public void ShowExceptionMessageBox(Exception ex)
+        {
+            _MessageBoxService.ShowExceptionMessageBox(ex, "Error", MessageBoxImage.Error);
         }
 
         #endregion
@@ -612,11 +632,6 @@ namespace TradeScales.Wpf.ViewModel
 
         private void DocumentChanged()
         { }
-
-        private void ShowExceptionMessageBox(Exception ex)
-        {
-            _MessageBoxService.ShowExceptionMessageBox(ex, "Error", MessageBoxImage.Error);
-        }
 
         #endregion
 

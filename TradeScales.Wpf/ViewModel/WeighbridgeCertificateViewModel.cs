@@ -1,4 +1,8 @@
 ﻿
+using TradeScales.Data.Infrastructure;
+using TradeScales.Data.Repositories;
+using TradeScales.Entities;
+
 namespace TradeScales.Wpf.ViewModel
 {
     /// <summary>

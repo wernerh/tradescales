@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using TradeScales.Data.Infrastructure;
+using TradeScales.Data.Repositories;
+using TradeScales.Entities;
 
 namespace TradeScales.Wpf.ViewModel
 {
@@ -9,7 +9,7 @@ namespace TradeScales.Wpf.ViewModel
     /// </summary>
     public class DocumentViewModel : PaneViewModel
     {
-
+       
         #region Properties
 
         private string _Name;
@@ -55,10 +55,18 @@ namespace TradeScales.Wpf.ViewModel
         /// <param name="name"></param>
         public DocumentViewModel(string name)
         {
-            Name = name;
+            Name = name;           
+        }
+
+        public DocumentViewModel()
+        {
+        
         }
 
         #endregion
 
+        #region Methods
+
+        #endregion
     }
 }
