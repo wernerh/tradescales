@@ -522,30 +522,30 @@ namespace TradeScales.Wpf.ViewModel
 
         public void OpenEditTicket(TicketViewModel ticket)
         {
-            //EditTicketViewModel editTicketViewModel = new EditTicketViewModel(ticket);
+            EditTicketViewModel editTicketViewModel = new EditTicketViewModel(ticket);
 
-            //var openEditTicketViewModel = Documents.FirstOrDefault(x => x.Name == editTicketViewModel.Name);
-            //if (openEditTicketViewModel != null)
-            //{
-            //    Documents.Remove(openEditTicketViewModel);
-            //}
+            var openEditTicketViewModel = Documents.FirstOrDefault(x => x.Name == editTicketViewModel.Name);
+            if (openEditTicketViewModel != null)
+            {
+                Documents.Remove(openEditTicketViewModel);
+            }
 
-            //Documents.Add(editTicketViewModel);
-            //ActiveDocument = editTicketViewModel;
+            Documents.Add(editTicketViewModel);
+            ActiveDocument = editTicketViewModel;
         }
 
         public void OpenCertificate(string filepath, string ticketNumber)
         {
-            //WeighbridgeCertificateViewModel certificate = new WeighbridgeCertificateViewModel(filepath, ticketNumber);
+            WeighbridgeCertificateViewModel certificate = new WeighbridgeCertificateViewModel(filepath, ticketNumber);
 
-            //var openCertificate = Documents.FirstOrDefault(x => x.Name == certificate.Name);
-            //if (openCertificate != null)
-            //{
-            //    Documents.Remove(openCertificate);
-            //}
+            var openCertificate = Documents.FirstOrDefault(x => x.Name == certificate.Name);
+            if (openCertificate != null)
+            {
+                Documents.Remove(openCertificate);
+            }
 
-            //Documents.Add(certificate);
-            //ActiveDocument = certificate;
+            Documents.Add(certificate);
+            ActiveDocument = certificate;
         }
 
         public void ShowExceptionMessageBox(Exception ex)

@@ -14,7 +14,7 @@ namespace TradeScales.Data.Repositories
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Delete(T entity);
-        void Edit(T entity);
+        void Edit(T entity);       
     }
 
     public interface IEntityBaseRepository

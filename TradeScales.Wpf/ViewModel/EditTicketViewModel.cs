@@ -1,11 +1,15 @@
 ﻿
+using AutoMapper;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using TradeScales.Data.Infrastructure;
 using TradeScales.Data.Repositories;
 using TradeScales.Entities;
+using TradeScales.Wpf.Infrastructure.Extensions;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
@@ -21,20 +25,45 @@ namespace TradeScales.Wpf.ViewModel
         #region Fields
 
         public const string ToolContentID = "EditTicketViewModel";
+
         private static IMessageBoxService messageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
-        private readonly IEntityBaseRepository<Ticket> _ticketsRepository;
-        private TicketViewModel _ticket;
+
+        private IEntityBaseRepository<Ticket> _ticketsRepository = BootStrapper.Resolve<IEntityBaseRepository<Ticket>>();
+        private IEntityBaseRepository<Haulier> _hauliersRepository = BootStrapper.Resolve<IEntityBaseRepository<Haulier>>();
+        private IEntityBaseRepository<Customer> _customersRepository = BootStrapper.Resolve<IEntityBaseRepository<Customer>>();
+        private IEntityBaseRepository<Product> _productsRepository = BootStrapper.Resolve<IEntityBaseRepository<Product>>();
+        private IEntityBaseRepository<Destination> _destinationsRepository = BootStrapper.Resolve<IEntityBaseRepository<Destination>>();
+        private IEntityBaseRepository<Driver> _driversRepository = BootStrapper.Resolve<IEntityBaseRepository<Driver>>();
+        private IUnitOfWork _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
 
         #endregion
 
         #region Properties
-        private string _TicketNumber;
-        public string TicketNumber
+
+        private TicketViewModel _EditTicket;
+        public TicketViewModel EditTicket
         {
-            get { return _TicketNumber; }
+            get
+            {
+                if (_EditTicket == null)
+                {
+                    _EditTicket = new TicketViewModel();
+                }
+                return _EditTicket;
+            }
             set
             {
-                _TicketNumber = value;
+                _EditTicket = value;
+                OnPropertyChanged("EditTicket");
+            }
+        }
+
+        public string TicketNumber
+        {
+            get { return EditTicket.TicketNumber; }
+            set
+            {
+                EditTicket.TicketNumber = value;
                 OnPropertyChanged("TicketNumber");
             }
         }
@@ -61,7 +90,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        public ObservableCollection<HaulierViewModel> Hauliers { get; set; }
+        public IEnumerable<HaulierViewModel> Hauliers { get; set; }
 
         private HaulierViewModel _SelectedHaulier;
         public HaulierViewModel SelectedHaulier
@@ -70,11 +99,12 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedHaulier = value;
+                EditTicket.HaulierId = _SelectedHaulier.ID;
                 OnPropertyChanged("SelectedHaulier");
             }
         }
 
-        public ObservableCollection<CustomerViewModel> Customers { get; set; }
+        public IEnumerable<CustomerViewModel> Customers { get; set; }
 
         private CustomerViewModel _SelectedCustomer;
         public CustomerViewModel SelectedCustomer
@@ -83,11 +113,12 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedCustomer = value;
+                EditTicket.CustomerId = _SelectedCustomer.ID;
                 OnPropertyChanged("SelectedCustomer");
             }
         }
 
-        public ObservableCollection<DestinationViewModel> Destinations { get; set; }
+        public IEnumerable<DestinationViewModel> Destinations { get; set; }
 
         private DestinationViewModel _SelectedDestination;
         public DestinationViewModel SelectedDestination
@@ -96,11 +127,12 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedDestination = value;
+                EditTicket.DestinationId = _SelectedDestination.ID;
                 OnPropertyChanged("SelectedDestination");
             }
         }
-
-        public ObservableCollection<ProductViewModel> Products { get; set; }
+    
+        public IEnumerable<ProductViewModel> Products { get; set; }
 
         private ProductViewModel _SelectedProduct;
         public ProductViewModel SelectedProduct
@@ -109,11 +141,12 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedProduct = value;
+                EditTicket.ProductId = _SelectedProduct.ID;
                 OnPropertyChanged("SelectedProduct");
             }
         }
 
-        public ObservableCollection<DriverViewModel> Drivers { get; set; }
+        public IEnumerable<DriverViewModel> Drivers { get; set; }
 
         private DriverViewModel _SelectedDriver;
         public DriverViewModel SelectedDriver
@@ -122,85 +155,79 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedDriver = value;
+                EditTicket.DriverId = _SelectedDriver.ID;
                 OnPropertyChanged("SelectedDriver");
             }
         }
 
-        private string _OrderNumber;
         public string OrderNumber
         {
-            get { return _OrderNumber; }
+            get { return EditTicket.OrderNumber; }
             set
             {
-                _OrderNumber = value;
+                EditTicket.OrderNumber = value;
                 OnPropertyChanged("OrderNumber");
             }
         }
 
-        private string _DeliveryNumber;
         public string DeliveryNumber
         {
-            get { return _DeliveryNumber; }
+            get { return EditTicket.DeliveryNumber; }
             set
             {
-                _DeliveryNumber = value;
+                EditTicket.DeliveryNumber = value;
                 OnPropertyChanged("DeliveryNumber");
             }
         }
 
-        private string _SealTo;
         public string SealTo
         {
-            get { return _SealTo; }
+            get { return EditTicket.SealTo; }
             set
             {
-                _SealTo = value;
+                EditTicket.SealTo = value;
                 OnPropertyChanged("SealTo");
             }
         }
 
-        private string _SealFrom;
         public string SealFrom
         {
-            get { return _SealFrom; }
+            get { return EditTicket.SealFrom; }
             set
             {
-                _SealFrom = value;
+                EditTicket.SealFrom = value;
                 OnPropertyChanged("SealFrom");
             }
         }
 
-        private double _TareWeight;
         public double TareWeight
         {
-            get { return _TareWeight; }
+            get { return EditTicket.TareWeight; }
             set
             {
-                _TareWeight = value;
+                EditTicket.TareWeight = value;
                 OnPropertyChanged("TareWeight");
                 UpdateNettWeight();
             }
         }
 
-        private double _GrossWeight;
         public double GrossWeight
         {
-            get { return _GrossWeight; }
+            get { return EditTicket.GrossWeight; }
             set
             {
-                _GrossWeight = value;
+                EditTicket.GrossWeight = value;
                 OnPropertyChanged("GrossWeight");
                 UpdateNettWeight();
             }
         }
 
-        private double _NettWeight;
         public double NettWeight
         {
-            get { return _NettWeight; }
+            get { return EditTicket.NettWeight; }
             set
             {
-                _NettWeight = value;
+                EditTicket.NettWeight = value;
                 OnPropertyChanged("NettWeight");
             }
         }
@@ -212,12 +239,12 @@ namespace TradeScales.Wpf.ViewModel
         /// <summary>
         /// Initializes a new instance of the NewTicketViewModel class.
         /// </summary>
-        public EditTicketViewModel()
-            : base($"Edit Ticket")
+        public EditTicketViewModel(TicketViewModel ticket)
+            : base($"Edit Ticket ({ticket.TicketNumber})")
         {
-            // _ticket = ticket;
+            EditTicket = ticket;
             ContentID = ToolContentID;
-            LoadDropdowns();
+            InitialiseEditTicket();
         }
 
         #endregion
@@ -255,9 +282,35 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Private Methods
 
+        private void InitialiseEditTicket()
+        {
+            LoadDropdowns();
+            SetValues();
+        }
+
         private void LoadDropdowns()
         {
+            Hauliers = Mapper.Map<IEnumerable<Haulier>, IEnumerable<HaulierViewModel>>(_hauliersRepository.GetAll());
+            Customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(_customersRepository.GetAll());
+            Products = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(_productsRepository.GetAll());
+            Destinations = Mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationViewModel>>(_destinationsRepository.GetAll());
+            Drivers = Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll());
+        }
 
+        private void SetValues()
+        {
+            TimeIn = EditTicket.TimeIn.ToString();
+            TimeOut = DateTime.Now.ToString();
+
+            EditTicket.LastModifiedBy = "Werner";
+            EditTicket.LastModified = DateTime.Now;
+            EditTicket.Status = "Modified";
+
+            SelectedHaulier = Hauliers.FirstOrDefault(x => x.ID == EditTicket.HaulierId);
+            SelectedCustomer = Customers.FirstOrDefault(x => x.ID == EditTicket.CustomerId);
+            SelectedProduct = Products.FirstOrDefault(x => x.ID == EditTicket.ProductId);
+            SelectedDestination = Destinations.FirstOrDefault(x => x.ID == EditTicket.DestinationId);
+            SelectedDriver = Drivers.FirstOrDefault(x => x.ID == EditTicket.DriverId);
         }
 
         private void UpdateNettWeight()
@@ -267,13 +320,14 @@ namespace TradeScales.Wpf.ViewModel
 
         private void UpdateTicket()
         {
-            _ticket.LastModifiedBy = "Werner";
-            _ticket.LastModified = DateTime.Now;
-            _ticket.Status = "In progress";
+            Ticket ticket = _ticketsRepository.GetSingle(EditTicket.ID);
+            ticket.UpdateTicket(EditTicket);
 
-            messageBoxService.ShowMessageBox($"Successfully updated ticket {_ticket.TicketNumber}", "Success", MessageBoxButton.OK);
+            _unitOfWork.Commit();
+         
+            messageBoxService.ShowMessageBox($"Successfully updated ticket {EditTicket.TicketNumber}", "Success", MessageBoxButton.OK);
 
-            MainViewModel.This.StatusMessage = $"Successfully update ticket {_ticket.TicketNumber}";
+            MainViewModel.This.StatusMessage = $"Successfully update ticket {EditTicket.TicketNumber}";
             MainViewModel.This.TicketList.ReloadTickets();
         }
 

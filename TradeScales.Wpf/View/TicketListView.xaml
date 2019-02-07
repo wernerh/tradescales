@@ -79,11 +79,11 @@
                                 <Button x:Name="button_Edit" 
                                     Command="{Binding ElementName=datagrid_Tickets, Path=DataContext.EditCommand}" 
                                     CommandParameter="{Binding ElementName=datagrid_Tickets, Path=SelectedItem}" 
-                                    Margin="5">Edit</Button>
+                                    Margin="5">Edit Ticket</Button>
                                 <Button x:Name="button_View" 
                                     Command="{Binding ElementName=datagrid_Tickets, Path=DataContext.ViewCommand}" 
                                     CommandParameter="{Binding ElementName=datagrid_Tickets, Path=SelectedItem}" 
-                                    Margin="5">Download</Button>
+                                    Margin="5">View Certificate</Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

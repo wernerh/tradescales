@@ -22,11 +22,7 @@ namespace TradeScales.Wpf
 
         private static DialogService _DialogService = new DialogService();
         private static MessageBoxService _MessageBoxService = new MessageBoxService();
-
-        protected IEntityBaseRepository<Ticket> _ticketsRepository;
-        protected IEntityBaseRepository<Error> _errorsRepository;
-        protected IUnitOfWork _unitOfWork;
-
+  
         #endregion
 
         #region Properties
@@ -48,14 +44,11 @@ namespace TradeScales.Wpf
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
+           
             BootStrapper.Start();
             AutoMapperConfiguration.Configure();
 
-            _ticketsRepository = BootStrapper.Resolve<IEntityBaseRepository<Ticket>>();
-            _errorsRepository = BootStrapper.Resolve<IEntityBaseRepository<Error>>();
-            _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
-                
+            base.OnStartup(e);
         }
 
         #endregion

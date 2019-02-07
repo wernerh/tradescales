@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using TradeScales.Data.Configuration;
 using TradeScales.Entities;
@@ -28,7 +29,7 @@ namespace TradeScales.Data
 
         public virtual void Commit()
         {
-            base.SaveChanges();
+            var result = base.SaveChanges();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

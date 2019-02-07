@@ -3,6 +3,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.Windows.Input;
@@ -29,9 +30,16 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Properties
 
-        public string Test { get; set; }
-
-        public IEnumerable<TicketViewModel> Tickets { get; set; }
+        private ObservableCollection<TicketViewModel> _Tickets;
+        public ObservableCollection<TicketViewModel> Tickets
+        {
+            get { return _Tickets; }
+            set
+            {
+                _Tickets = value;
+                OnPropertyChanged("Tickets");
+            }
+        }
 
         #endregion
 
@@ -87,15 +95,16 @@ namespace TradeScales.Wpf.ViewModel
 
         public void ReloadTickets()
         {
-            Tickets = Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(_ticketsRepository.GetAll());
+            Tickets = new ObservableCollection<TicketViewModel>(Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(_ticketsRepository.GetAll()));
         }
 
         #endregion
 
         #region Private Methods
 
-        private void ViewTicket(TicketViewModel ticket)
+        private void ViewTicket(TicketViewModel selectedTicket)
         {
+            var ticket = _ticketsRepository.GetSingle(selectedTicket.ID);
             string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var filePath = $"{rootPath}\\{ticket.TicketNumber}.pdf";
 
@@ -112,7 +121,7 @@ namespace TradeScales.Wpf.ViewModel
             MainViewModel.This.OpenEditTicket(ticket);
         }
 
-        private void GenerateTicket(string filepath, TicketViewModel ticket)
+        private void GenerateTicket(string filepath, Ticket ticket)
         {
             // Get root path
             string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -137,19 +146,19 @@ namespace TradeScales.Wpf.ViewModel
             contents = contents.Replace("[TIMEIN]", ticket.TimeIn.ToString());
             contents = contents.Replace("[TIMEOUT]", ticket.TimeOut.ToString());
 
-            //contents = contents.Replace("[CUSTOMERCODE]", ticket.Customer.Code);
-            //contents = contents.Replace("[CUSTOMERNAME]", ticket.Customer.Name);
-            //contents = contents.Replace("[HAULIERCODE]", ticket.Haulier.Code);
-            //contents = contents.Replace("[HAULIERNAME]", ticket.Haulier.Name);
-            //contents = contents.Replace("[DRIVERCODE]", ticket.Driver.Code);
-            //contents = contents.Replace("[DRIVERFIRSTNAME]", ticket.Driver.FirstName);
-            //contents = contents.Replace("[DRIVERLASTNAME]", ticket.Driver.LastName);
-            //contents = contents.Replace("[DRIVERMOBILE]", ticket.Driver.Mobile);
-            //contents = contents.Replace("[VEHICLEREGISTRATION]", ticket.Driver.VehicleRegistration);
-            //contents = contents.Replace("[DESTINATIONCODE]", ticket.Destination.Code);
-            //contents = contents.Replace("[DESTINATIONNAME]", ticket.Destination.Name);
-            //contents = contents.Replace("[PODUCTCODE]", ticket.Product.Code);
-            //contents = contents.Replace("[PRODUCTNAME]", ticket.Product.Name);
+            contents = contents.Replace("[CUSTOMERCODE]", ticket.Customer.Code);
+            contents = contents.Replace("[CUSTOMERNAME]", ticket.Customer.Name);
+            contents = contents.Replace("[HAULIERCODE]", ticket.Haulier.Code);
+            contents = contents.Replace("[HAULIERNAME]", ticket.Haulier.Name);
+            contents = contents.Replace("[DRIVERCODE]", ticket.Driver.Code);
+            contents = contents.Replace("[DRIVERFIRSTNAME]", ticket.Driver.FirstName);
+            contents = contents.Replace("[DRIVERLASTNAME]", ticket.Driver.LastName);
+            contents = contents.Replace("[DRIVERMOBILE]", ticket.Driver.Mobile);
+            contents = contents.Replace("[VEHICLEREGISTRATION]", ticket.Driver.VehicleRegistration);
+            contents = contents.Replace("[DESTINATIONCODE]", ticket.Destination.Code);
+            contents = contents.Replace("[DESTINATIONNAME]", ticket.Destination.Name);
+            contents = contents.Replace("[PODUCTCODE]", ticket.Product.Code);
+            contents = contents.Replace("[PRODUCTNAME]", ticket.Product.Name);
 
             contents = contents.Replace("[TARREWEIGHT]", $"{ticket.TareWeight} kg");
             contents = contents.Replace("[GROSSWEIGHT]", $"{ticket.GrossWeight} kg");

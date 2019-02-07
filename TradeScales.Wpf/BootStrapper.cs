@@ -22,12 +22,26 @@ namespace TradeScales.Wpf
             }
 
             var builder = new ContainerBuilder();
-            builder.RegisterType<TradeScalesContext>().As<DbContext>();
-            builder.RegisterType<DbFactory>().As<IDbFactory>();
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
-            builder.RegisterGeneric(typeof(EntityBaseRepository<>)).As(typeof(IEntityBaseRepository<>));
-            builder.RegisterType<EncryptionService>().As<IEncryptionService>();
-            builder.RegisterType<MembershipService>().As<IMembershipService>();
+            builder.RegisterType<TradeScalesContext>()
+                .As<DbContext>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<DbFactory>()
+                .As<IDbFactory>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<UnitOfWork>()
+                .As<IUnitOfWork>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterGeneric(typeof(EntityBaseRepository<>))
+                .As(typeof(IEntityBaseRepository<>));
+
+            builder.RegisterType<EncryptionService>()
+                .As<IEncryptionService>();
+
+            builder.RegisterType<MembershipService>()
+                .As<IMembershipService>();
 
             _rootScope = builder.Build();
         }

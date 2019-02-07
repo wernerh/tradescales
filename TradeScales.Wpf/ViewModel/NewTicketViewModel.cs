@@ -2,8 +2,6 @@
 using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -30,14 +28,14 @@ namespace TradeScales.Wpf.ViewModel
 
         private static IMessageBoxService messageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
 
-        private static IEntityBaseRepository<Ticket> _ticketsRepository = BootStrapper.Resolve<IEntityBaseRepository<Ticket>>();
-        private static IEntityBaseRepository<Haulier> _hauliersRepository = BootStrapper.Resolve<IEntityBaseRepository<Haulier>>();
-        private static IEntityBaseRepository<Customer> _customersRepository = BootStrapper.Resolve<IEntityBaseRepository<Customer>>();
-        private static IEntityBaseRepository<Product> _productsRepository = BootStrapper.Resolve<IEntityBaseRepository<Product>>();
-        private static IEntityBaseRepository<Destination> _destinationsRepository = BootStrapper.Resolve<IEntityBaseRepository<Destination>>();
-        private static IEntityBaseRepository<Driver> _driversRepository = BootStrapper.Resolve<IEntityBaseRepository<Driver>>();
-        private static IUnitOfWork _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
-
+        private IEntityBaseRepository<Ticket> _ticketsRepository = BootStrapper.Resolve<IEntityBaseRepository<Ticket>>();
+        private IEntityBaseRepository<Haulier> _hauliersRepository = BootStrapper.Resolve<IEntityBaseRepository<Haulier>>();
+        private IEntityBaseRepository<Customer> _customersRepository = BootStrapper.Resolve<IEntityBaseRepository<Customer>>();
+        private IEntityBaseRepository<Product> _productsRepository = BootStrapper.Resolve<IEntityBaseRepository<Product>>();
+        private IEntityBaseRepository<Destination> _destinationsRepository = BootStrapper.Resolve<IEntityBaseRepository<Destination>>();
+        private IEntityBaseRepository<Driver> _driversRepository = BootStrapper.Resolve<IEntityBaseRepository<Driver>>();
+        private IUnitOfWork _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
+      
         #endregion
 
         #region Properties
@@ -101,6 +99,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedHaulier = value;
+                NewTicket.HaulierId = _SelectedHaulier.ID;
                 OnPropertyChanged("SelectedHaulier");
             }
         }
@@ -114,6 +113,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedCustomer = value;
+                NewTicket.CustomerId = _SelectedCustomer.ID;
                 OnPropertyChanged("SelectedCustomer");
             }
         }
@@ -127,6 +127,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedDestination = value;
+                NewTicket.DestinationId = _SelectedDestination.ID;
                 OnPropertyChanged("SelectedDestination");
             }
         }
@@ -140,6 +141,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedProduct = value;
+                NewTicket.ProductId = _SelectedProduct.ID;
                 OnPropertyChanged("SelectedProduct");
             }
         }
@@ -153,6 +155,7 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _SelectedDriver = value;
+                NewTicket.DriverId = _SelectedDriver.ID;
                 OnPropertyChanged("SelectedDriver");
             }
         }
@@ -315,6 +318,11 @@ namespace TradeScales.Wpf.ViewModel
             GrossWeight = 0;
             NettWeight = 0;
 
+            NewTicket.TimeIn = DateTime.Parse(TimeIn);
+            NewTicket.TimeOut = DateTime.Now;
+            NewTicket.LastModified = DateTime.Now;
+            NewTicket.LastModifiedBy = "Werner";
+            NewTicket.Status = "In Progress";
         }
 
         private void UpdateNettWeight()
@@ -330,13 +338,12 @@ namespace TradeScales.Wpf.ViewModel
             }
             else
             {
-                UpdateTicketViewModel();
+
                 Ticket ticket = new Ticket();
                 ticket.UpdateTicket(NewTicket);
+
                 _ticketsRepository.Add(ticket);
                 _unitOfWork.Commit();
-
-                var allTickets = Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(_ticketsRepository.GetAll());
 
                 messageBoxService.ShowMessageBox($"successfully added new ticket {NewTicket.TicketNumber}", "Success", MessageBoxButton.OK);
                 MainViewModel.This.StatusMessage = $"successfully added new ticket {NewTicket.TicketNumber}";
@@ -344,21 +351,6 @@ namespace TradeScales.Wpf.ViewModel
                 LoadDefaultValues();
             }
         }
-
-        private void UpdateTicketViewModel()
-        {
-            NewTicket.HaulierId = SelectedHaulier.ID;
-            NewTicket.CustomerId = SelectedCustomer.ID;
-            NewTicket.DestinationId = SelectedDestination.ID;
-            NewTicket.ProductId = SelectedProduct.ID;
-            NewTicket.DriverId = SelectedDriver.ID;
-            NewTicket.TimeIn = DateTime.Parse(TimeIn);
-            NewTicket.TimeOut = DateTime.Now;
-            NewTicket.LastModified = DateTime.Now;
-            NewTicket.LastModifiedBy = "Werner";
-            NewTicket.Status = "In Progress";
-        }
-
         #endregion
     }
 }
