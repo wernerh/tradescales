@@ -67,6 +67,11 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Methods
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         #endregion
     }
 }

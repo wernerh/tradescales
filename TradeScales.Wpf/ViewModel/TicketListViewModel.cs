@@ -2,6 +2,7 @@
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -104,16 +105,23 @@ namespace TradeScales.Wpf.ViewModel
 
         private void ViewTicket(TicketViewModel selectedTicket)
         {
-            var ticket = _ticketsRepository.GetSingle(selectedTicket.ID);
-            string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var filePath = $"{rootPath}\\{ticket.TicketNumber}.pdf";
-
-            if (!File.Exists(filePath))
+            try
             {
-                GenerateTicket(filePath, ticket);
-            }
+                var ticket = _ticketsRepository.GetSingle(selectedTicket.ID);
+                string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                var filePath = $"{rootPath}\\{ticket.TicketNumber}.pdf";
 
-            MainViewModel.This.OpenCertificate(filePath, ticket.TicketNumber);
+                if (!File.Exists(filePath))
+                {
+                    GenerateTicket(filePath, ticket);
+                }
+
+                MainViewModel.This.OpenCertificate(filePath, ticket.TicketNumber);
+            }
+            catch (Exception ex)
+            {
+                MainViewModel.This.ShowExceptionMessageBox(ex);
+            }
         }
 
         private void EditTicket(TicketViewModel ticket)

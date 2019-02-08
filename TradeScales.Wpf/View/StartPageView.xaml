@@ -1,7 +1,50 @@
 ﻿<UserControl x:Class="TradeScales.Wpf.View.StartPageView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"            
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    
-    
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--About Trade Scales-->
+            <GroupBox Grid.Row="0" Header="Trade Scales">
+                <StackPanel Margin="10"  Orientation="Vertical">
+                    <Image  Source="{Binding ImagePath}" MaxHeight="150" MaxWidth="200" Margin="5" />
+                    <TextBlock TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Margin="5">
+                        Trade Scales (The Company)
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="5">            
+                        We have been in business since 2001 and grew from a start-up company to a solid company with solid core of client centric, trained staff that are focused on getting the job done, quickly and efficiently. 
+                        We may not be the biggest but our company culture of being on top of our game is what makes us unique … simply put, we are best of breed.
+                        <LineBreak/>
+                        <LineBreak/>
+                        and foremost, we listen to our customers. We understand what
+                        our customers want and we provide solutions that meet our customers’ specific needs. We supply every type of scale or weighing solution ranging from tiny jewellers scales to 60 ton weigh bridges. We offer
+                        software solutions that support our customers’ business and operational requirements and we even provide scales on a hire basis to customers that have short term weighing needs. 
+                        LineBreak/>
+                        <LineBreak/> 
+                        As certified verification officers with an in-house laboratory, we support our customers with verification services. We offer full repair and maintenance services, 24 hours per day, 7 days a week, 365 days per year. 
+                        Finally, we offer customised preventative maintenance services on contract which means you have peace of mind that a professional scale technician will always be available to support your business.
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Margin="5">
+                        Trade Scales Weighbridge Software
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="5">            
+                        Trade Scales Weighbridge Software is particulary suitable for vehicle weighing and weighbridge management, with input/output control of goods. The Trade Scales Weighbridge Software allows to weigh the vehicle by itself
+                        or with the trailer, as well as remote management of data and printouts. The Trade Scales Weighbridge software also offers the possibility of managing the main digital load cells available on the market today.
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Margin="5">
+                        Main Functions
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="5">            
+                        Insert app functionality here
+                    </TextBlock>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

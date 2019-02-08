@@ -7,9 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using TradeScales.Data.Infrastructure;
-using TradeScales.Data.Repositories;
-using TradeScales.Entities;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Properties;
 using TradeScales.Wpf.Resources.Services.Interfaces;
@@ -215,6 +212,7 @@ namespace TradeScales.Wpf.ViewModel
                 return _NewTicket;
             }
         }
+
         #region Tools
 
         private ToolViewModel[] _Tools;
@@ -227,7 +225,7 @@ namespace TradeScales.Wpf.ViewModel
             {
                 if (_Tools == null)
                 {
-                    // _Tools = new ToolViewModel[] { ToolOne };
+                     _Tools = new ToolViewModel[] { ToolOne };
                 }
                 return _Tools;
             }
@@ -244,6 +242,8 @@ namespace TradeScales.Wpf.ViewModel
                 if (_ToolOne == null)
                 {
                     _ToolOne = new ToolOneViewModel();
+                    _ToolOne.IsActive = true;
+                    _ToolOne.IsVisible = true;
                 }
                 return _ToolOne;
             }
@@ -631,7 +631,9 @@ namespace TradeScales.Wpf.ViewModel
         }
 
         private void DocumentChanged()
-        { }
+        {
+            ToolOne.ActiveDocument = ActiveDocument.ToString();
+        }
 
         #endregion
 

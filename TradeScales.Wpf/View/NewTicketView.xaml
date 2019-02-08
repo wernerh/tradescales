@@ -2,118 +2,120 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"            
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        
-        <!--Header & Description-->
-        <StackPanel Grid.Row="0"  Orientation="Vertical" Margin="5">
-            <TextBlock Text="New Ticket" FontFamily="Open Sans" FontSize="35px"/>
-            <TextBlock Text="Below you can create a new ticket"/>
-        </StackPanel>
-
-        <!--Ticket Info-->
-        <Grid Grid.Row="1" Margin="0,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+    <ScrollViewer>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <!--Ticket Number-->
-            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Ticket Number"/>
-            <TextBox Grid.Row="1" Grid.ColumnSpan="2" Margin="5,0" IsEnabled="False" Text="{Binding TicketNumber}"/>
+            <!--Header & Description-->
+            <StackPanel Grid.Row="0"  Orientation="Vertical" Margin="5">
+                <TextBlock Text="New Ticket" FontFamily="Open Sans" FontSize="35px"/>
+                <TextBlock Text="Below you can create a new ticket"/>
+            </StackPanel>
 
-            <!--Time In-->
-            <Label Grid.Row="2" Grid.Column="0" Content="Time In"/>
-            <TextBox Grid.Row="3" Grid.Column="0"  Margin="5,0" IsEnabled="False" Text="{Binding TimeIn}"/>
+            <!--Ticket Info-->
+            <Grid Grid.Row="1" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-            <!--Time Out-->
-            <Label Grid.Row="2" Grid.Column="1"  Content="Time Out"/>
-            <TextBox Grid.Row="3" Grid.Column="1"  Margin="5,0" IsEnabled="False" Text="{Binding TimeOut}"/>
+                <!--Ticket Number-->
+                <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Ticket Number"/>
+                <TextBox Grid.Row="1" Grid.ColumnSpan="2" Margin="5,0" IsEnabled="False" Text="{Binding TicketNumber}"/>
 
-            <!--Haulier-->
-            <Label Grid.Row="4" Grid.Column="0" Content="Haulier"/>
-            <ComboBox Grid.Row="5" Grid.Column="0"  Margin="5,0"  ItemsSource="{Binding Hauliers}" SelectedItem="{Binding SelectedHaulier}" DisplayMemberPath="Name"/>
+                <!--Time In-->
+                <Label Grid.Row="2" Grid.Column="0" Content="Time In"/>
+                <TextBox Grid.Row="3" Grid.Column="0"  Margin="5,0" IsEnabled="False" Text="{Binding TimeIn}"/>
 
-            <!--Customer-->
-            <Label Grid.Row="4" Grid.Column="1"  Content="Customer"/>
-            <ComboBox Grid.Row="5" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberPath="Name"/>
+                <!--Time Out-->
+                <Label Grid.Row="2" Grid.Column="1"  Content="Time Out"/>
+                <TextBox Grid.Row="3" Grid.Column="1"  Margin="5,0" IsEnabled="False" Text="{Binding TimeOut}"/>
 
-            <!--Destination-->
-            <Label Grid.Row="6" Grid.Column="0" Content="Destination"/>
-            <ComboBox Grid.Row="7" Grid.Column="0"  Margin="5,0" ItemsSource="{Binding Destinations}" SelectedItem="{Binding SelectedDestination}" DisplayMemberPath="Name"/>
+                <!--Haulier-->
+                <Label Grid.Row="4" Grid.Column="0" Content="Haulier"/>
+                <ComboBox Grid.Row="5" Grid.Column="0"  Margin="5,0"  ItemsSource="{Binding Hauliers}" SelectedItem="{Binding SelectedHaulier}" DisplayMemberPath="Name"/>
 
-            <!--Product-->
-            <Label Grid.Row="6" Grid.Column="1"  Content="Product"/>
-            <ComboBox Grid.Row="7" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" DisplayMemberPath="Name"/>
+                <!--Customer-->
+                <Label Grid.Row="4" Grid.Column="1"  Content="Customer"/>
+                <ComboBox Grid.Row="5" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberPath="Name"/>
 
-            <!--Driver-->
-            <Label Grid.Row="8" Grid.Column="0"  Content="Driver"/>
-            <ComboBox Grid.Row="9" Grid.Column="0"  Margin="5,0" ItemsSource="{Binding Drivers}" SelectedItem="{Binding SelectedDriver}" >
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding FirstName}" />
-                            <TextBlock Text=" " />
-                            <TextBlock Text="{Binding LastName}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                <!--Destination-->
+                <Label Grid.Row="6" Grid.Column="0" Content="Destination"/>
+                <ComboBox Grid.Row="7" Grid.Column="0"  Margin="5,0" ItemsSource="{Binding Destinations}" SelectedItem="{Binding SelectedDestination}" DisplayMemberPath="Name"/>
 
-            <!--Order Number-->
-            <Label Grid.Row="10" Grid.Column="0" Content="Order Number"/>
-            <TextBox Grid.Row="11" Grid.Column="0"  Margin="5,0" Text="{Binding OrderNumber}"/>
+                <!--Product-->
+                <Label Grid.Row="6" Grid.Column="1"  Content="Product"/>
+                <ComboBox Grid.Row="7" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" DisplayMemberPath="Name"/>
 
-            <!--Delivery Number-->
-            <Label Grid.Row="10" Grid.Column="1" Content="Delivery Number"/>
-            <TextBox Grid.Row="11" Grid.Column="1"  Margin="5,0" Text="{Binding DeliveryNumber}"/>
+                <!--Driver-->
+                <Label Grid.Row="8" Grid.Column="0"  Content="Driver"/>
+                <ComboBox Grid.Row="9" Grid.Column="0"  Margin="5,0" ItemsSource="{Binding Drivers}" SelectedItem="{Binding SelectedDriver}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding FirstName}" />
+                                <TextBlock Text=" " />
+                                <TextBlock Text="{Binding LastName}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-            <!--Seal To-->
-            <Label Grid.Row="12" Grid.Column="0" Content="Seal To"/>
-            <TextBox Grid.Row="13" Grid.Column="0"  Margin="5,0" Text="{Binding SealTo}"/>
+                <!--Order Number-->
+                <Label Grid.Row="10" Grid.Column="0" Content="Order Number"/>
+                <TextBox Grid.Row="11" Grid.Column="0"  Margin="5,0" Text="{Binding OrderNumber}"/>
 
-            <!--Seal From-->
-            <Label Grid.Row="12" Grid.Column="1" Content="Seal From"/>
-            <TextBox Grid.Row="13" Grid.Column="1"  Margin="5,0" Text="{Binding SealFrom}"/>
+                <!--Delivery Number-->
+                <Label Grid.Row="10" Grid.Column="1" Content="Delivery Number"/>
+                <TextBox Grid.Row="11" Grid.Column="1"  Margin="5,0" Text="{Binding DeliveryNumber}"/>
 
-            <!--Tare Weight-->
-            <Label Grid.Row="14" Grid.Column="0" Content="Tare Weight"/>
-            <TextBox Grid.Row="15" Grid.Column="0"  Margin="5,0" Text="{Binding TareWeight}"/>
+                <!--Seal To-->
+                <Label Grid.Row="12" Grid.Column="0" Content="Seal To"/>
+                <TextBox Grid.Row="13" Grid.Column="0"  Margin="5,0" Text="{Binding SealTo}"/>
 
-            <!--Gross Weight-->
-            <Label Grid.Row="14" Grid.Column="1" Content="Gross Weight"/>
-            <TextBox Grid.Row="15" Grid.Column="1"  Margin="5,0" Text="{Binding GrossWeight}"/>
+                <!--Seal From-->
+                <Label Grid.Row="12" Grid.Column="1" Content="Seal From"/>
+                <TextBox Grid.Row="13" Grid.Column="1"  Margin="5,0" Text="{Binding SealFrom}"/>
 
-            <!--Nett Weight-->
-            <Label Grid.Row="16" Grid.Column="0" Content="Nett Weight"/>
-            <TextBox Grid.Row="17" Grid.Column="0"  Margin="5,0" Text="{Binding NettWeight}"/>
+                <!--Tare Weight-->
+                <Label Grid.Row="14" Grid.Column="0" Content="Tare Weight"/>
+                <TextBox Grid.Row="15" Grid.Column="0"  Margin="5,0" Text="{Binding TareWeight}"/>
+
+                <!--Gross Weight-->
+                <Label Grid.Row="14" Grid.Column="1" Content="Gross Weight"/>
+                <TextBox Grid.Row="15" Grid.Column="1"  Margin="5,0" Text="{Binding GrossWeight}"/>
+
+                <!--Nett Weight-->
+                <Label Grid.Row="16" Grid.Column="0" Content="Nett Weight"/>
+                <TextBox Grid.Row="17" Grid.Column="0"  Margin="5,0" Text="{Binding NettWeight}"/>
+            </Grid>
+
+            <!--Create Ticket-->
+            <Button Grid.Row="2" MaxWidth="100" VerticalAlignment="Center" Content="Create Ticket" Margin="0,50" Command="{Binding CreateNewTicketCommand}"/>
         </Grid>
-        
-        <!--Create Ticket-->
-        <Button Grid.Row="2" MaxWidth="100" VerticalAlignment="Center" Content="Create Ticket" Margin="0,50" Command="{Binding CreateNewTicketCommand}"/>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

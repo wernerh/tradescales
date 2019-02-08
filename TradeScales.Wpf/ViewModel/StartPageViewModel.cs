@@ -1,6 +1,5 @@
-﻿using TradeScales.Data.Infrastructure;
-using TradeScales.Data.Repositories;
-using TradeScales.Entities;
+﻿using System.IO;
+using System.Reflection;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 
@@ -28,6 +27,15 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Properties
 
+        public string ImagePath
+        {
+            get
+            {
+                string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                return $"{rootPath}\\Resources\\images\\tradescales.png";
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -38,12 +46,8 @@ namespace TradeScales.Wpf.ViewModel
         public StartPageViewModel()
             : base("Start Page")
         {
-            ContentID = ToolContentID;         
+            ContentID = ToolContentID;
         }
-
-        #endregion
-
-        #region Public Methods
 
         #endregion
 

@@ -45,16 +45,16 @@
                 <!--View-->
                 <MenuItem Header="View">
                     <MenuItem Header="Start Page" Command="{Binding ViewStartPageCommand}"/>
-                    <MenuItem Header="Tickets">
-                        <MenuItem Header="Ticket List" Command="{Binding TicketListCommand}"/>
-                        <MenuItem Header="New Ticket" Command="{Binding NewTicketCommand}"/>
-                    </MenuItem>
+                    <MenuItem Header="Ticket List" Command="{Binding TicketListCommand}"/>
+                    <MenuItem Header="New Ticket" Command="{Binding NewTicketCommand}"/>
                 </MenuItem>
                 <!--Tools-->
                 <MenuItem Header="Tools">
-                    <!--MenuItem Header="New Ticket" IsChecked="{Binding ToolOne.IsVisible, Mode=TwoWay}" IsCheckable="True"/>-->
-                    <!--<MenuItem Header="T_ool Two" IsChecked="{Binding ToolTwo.IsVisible, Mode=TwoWay}" IsCheckable="True"/>-->
-                    <MenuItem Header="Options..." Command="{Binding ThemeOptionsCommand}" InputGestureText="Ctrl+O"/>
+                    <MenuItem Header="Weigh Bridge" IsChecked="{Binding ToolOne.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+                </MenuItem>
+                <!--Settings-->
+                <MenuItem Header="Settings">
+                    <MenuItem Header="Options" Command="{Binding ThemeOptionsCommand}" InputGestureText="Ctrl+O"/>
                 </MenuItem>
                 <!--Help-->
                 <MenuItem Header="Help">
@@ -120,21 +120,21 @@
                     <!--Start Template-->
                     <pane:PaneTemplateSelector.StartPageTemplate>
                         <DataTemplate>
-                            <views:StartPageView/>                                             
+                            <views:StartPageView/>
                         </DataTemplate>
-                    </pane:PaneTemplateSelector.StartPageTemplate>                 
+                    </pane:PaneTemplateSelector.StartPageTemplate>
                     <!--Tool One Template-->
                     <pane:PaneTemplateSelector.ToolOneTemplate>
                         <DataTemplate>
                             <tools:ToolOneView/>
                         </DataTemplate>
-                    </pane:PaneTemplateSelector.ToolOneTemplate>                   
+                    </pane:PaneTemplateSelector.ToolOneTemplate>
                     <!--Tool Two Template-->
                     <pane:PaneTemplateSelector.ToolTwoTemplate>
                         <DataTemplate>
                             <!--<views: />-->
                         </DataTemplate>
-                    </pane:PaneTemplateSelector.ToolTwoTemplate>               
+                    </pane:PaneTemplateSelector.ToolTwoTemplate>
                 </pane:PaneTemplateSelector>
             </dock:DockingManager.LayoutItemTemplateSelector>
 

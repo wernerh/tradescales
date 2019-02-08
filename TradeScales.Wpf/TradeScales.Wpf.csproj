@@ -114,6 +114,7 @@
     <Compile Include="Converters\ActiveDocumentConverter.cs" />
     <Compile Include="Converters\BooleanToInvisibilityConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\BoolInverterConverter.cs" />
     <Compile Include="Extensions\WebBrowserExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EntitiesExtensions.cs" />
     <Compile Include="Infrastructure\Validators\AccountViewModelValidators.cs" />
