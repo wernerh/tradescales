@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows.Input;
 using TradeScales.Wpf.Model;
@@ -28,6 +29,12 @@ namespace TradeScales.Wpf.View.Dialogs
         public string Version
         {
             get { return Assembly.GetEntryAssembly().GetName().Version.ToString(); }
+        }
+
+        public string License
+        {
+            get { return GetLicense(); }
+            set { }
         }
 
         #endregion
@@ -67,6 +74,13 @@ namespace TradeScales.Wpf.View.Dialogs
         #endregion
 
         #region Private Methods
+
+        private string GetLicense()
+        {
+            var rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var filePath = $"{rootPath}\\LICENSE";
+            return File.ReadAllText(filePath);
+        }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
