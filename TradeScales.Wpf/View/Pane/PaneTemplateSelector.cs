@@ -42,7 +42,7 @@ namespace TradeScales.Wpf.View.Pane
         /// <summary>
         /// Weighbridge certificate template
         /// </summary>
-        public DataTemplate WeighbridgeCertificateTemplate { get; set; }
+        public DataTemplate PdfDocumentTemplate { get; set; }
 
         /// <summary>
         /// New ticket template
@@ -90,9 +90,9 @@ namespace TradeScales.Wpf.View.Pane
                 return NewTicketTemplate;
             }
 
-            if (item is WeighbridgeCertificateViewModel)
+            if (item is PdfDocumentViewModel)
             {
-                return WeighbridgeCertificateTemplate;
+                return PdfDocumentTemplate;
             }
 
             if (item is TicketListViewModel)

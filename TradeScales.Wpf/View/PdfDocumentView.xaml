@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="TradeScales.Wpf.View.WeighbridgeCertificateView"
+﻿<UserControl x:Class="TradeScales.Wpf.View.PdfDocumentView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:visual="clr-namespace:TradeScales.Wpf.Extensions"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <WebBrowser visual:WebBrowserExtensions.BindableSource="{Binding Filepath}" />
+    <WebBrowser visual:WebBrowserExtensions.BindableSource="{Binding FilePath}" />
 
 </UserControl>

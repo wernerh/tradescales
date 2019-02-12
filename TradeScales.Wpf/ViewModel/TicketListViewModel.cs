@@ -116,7 +116,7 @@ namespace TradeScales.Wpf.ViewModel
                     GenerateTicket(filePath, ticket);
                 }
 
-                MainViewModel.This.OpenCertificate(filePath, ticket.TicketNumber);
+                MainViewModel.This.OpenPdfDocument(filePath);
             }
             catch (Exception ex)
             {

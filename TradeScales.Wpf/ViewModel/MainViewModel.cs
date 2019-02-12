@@ -225,7 +225,7 @@ namespace TradeScales.Wpf.ViewModel
             {
                 if (_Tools == null)
                 {
-                     _Tools = new ToolViewModel[] { ToolOne };
+                     _Tools = new ToolViewModel[] { ToolOne, ToolTwo };
                 }
                 return _Tools;
             }
@@ -534,18 +534,18 @@ namespace TradeScales.Wpf.ViewModel
             ActiveDocument = editTicketViewModel;
         }
 
-        public void OpenCertificate(string filepath, string ticketNumber)
+        public void OpenPdfDocument(string filePath)
         {
-            WeighbridgeCertificateViewModel certificate = new WeighbridgeCertificateViewModel(filepath, ticketNumber);
+            PdfDocumentViewModel document = new PdfDocumentViewModel(filePath);
 
-            var openCertificate = Documents.FirstOrDefault(x => x.Name == certificate.Name);
-            if (openCertificate != null)
+            var existingDocument = Documents.FirstOrDefault(x => x.Name == document.Name);
+            if (existingDocument != null)
             {
-                Documents.Remove(openCertificate);
+                Documents.Remove(existingDocument);
             }
 
-            Documents.Add(certificate);
-            ActiveDocument = certificate;
+            Documents.Add(document);
+            ActiveDocument = document;
         }
 
         public void ShowExceptionMessageBox(Exception ex)

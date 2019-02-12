@@ -3,17 +3,17 @@
 namespace TradeScales.Wpf.View
 {
     /// <summary>
-    /// Interaction logic for WeighbridgeCertificateView.xaml
+    /// Interaction logic for PdfDocumentView.xaml
     /// </summary>
-    public partial class WeighbridgeCertificateView : UserControl
+    public partial class PdfDocumentView : UserControl
     {
 
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the WeighbridgeCertificateView class
+        /// Initializes a new instance of the PdfDocumentView class
         /// </summary>
-        public WeighbridgeCertificateView()
+        public PdfDocumentView()
         {
             InitializeComponent();
         }

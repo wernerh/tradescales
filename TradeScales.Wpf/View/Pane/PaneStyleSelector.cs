@@ -39,7 +39,7 @@ namespace TradeScales.Wpf.View.Pane
         /// <summary>
         /// Weighbridge certificate style
         /// </summary>
-        public Style WeighbridgeCertificateStyle { get; set; }
+        public Style PdfDocumentStyle { get; set; }
 
         /// <summary>
         /// New ticket style
@@ -83,9 +83,9 @@ namespace TradeScales.Wpf.View.Pane
                 return NewTicketStyle;
             }
 
-            if (item is WeighbridgeCertificateViewModel)
+            if (item is PdfDocumentViewModel)
             {
-                return WeighbridgeCertificateStyle;
+                return PdfDocumentStyle;
             }
 
             if (item is TicketListViewModel)

@@ -51,6 +51,7 @@
                 <!--Tools-->
                 <MenuItem Header="Tools">
                     <MenuItem Header="Weigh Bridge" IsChecked="{Binding ToolOne.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="Reports" IsChecked="{Binding ToolTwo.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
                 </MenuItem>
                 <!--Settings-->
                 <MenuItem Header="Settings">
@@ -105,12 +106,12 @@
                             <views:NewTicketView/>
                         </DataTemplate>
                     </pane:PaneTemplateSelector.NewTicketTemplate>
-                    <!--Weighbridge Certificate Template-->
-                    <pane:PaneTemplateSelector.WeighbridgeCertificateTemplate>
+                    <!--Pdf Document Template-->
+                    <pane:PaneTemplateSelector.PdfDocumentTemplate>
                         <DataTemplate>
-                            <views:WeighbridgeCertificateView/>
+                            <views:PdfDocumentView/>
                         </DataTemplate>
-                    </pane:PaneTemplateSelector.WeighbridgeCertificateTemplate>
+                    </pane:PaneTemplateSelector.PdfDocumentTemplate>
                     <!--Tickets Template-->
                     <pane:PaneTemplateSelector.TicketsTemplate>
                         <DataTemplate>
@@ -132,7 +133,7 @@
                     <!--Tool Two Template-->
                     <pane:PaneTemplateSelector.ToolTwoTemplate>
                         <DataTemplate>
-                            <!--<views: />-->
+                            <tools:ToolTwoView/>
                         </DataTemplate>
                     </pane:PaneTemplateSelector.ToolTwoTemplate>
                 </pane:PaneTemplateSelector>
@@ -158,13 +159,13 @@
                         </Style>
                     </pane:PaneStyleSelector.NewTicketStyle>
                     <!--Weighbridge Certicate Style-->
-                    <pane:PaneStyleSelector.WeighbridgeCertificateStyle>
+                    <pane:PaneStyleSelector.PdfDocumentStyle>
                         <Style TargetType="dock:LayoutDocumentItem">
                             <Setter Property="Title" Value="{Binding Model.Name}"/>
                             <Setter Property="ContentId" Value="{Binding Model.ContentID}"/>
                             <Setter Property="IsActive" Value="{Binding Model.IsActive}"/>
                         </Style>
-                    </pane:PaneStyleSelector.WeighbridgeCertificateStyle>
+                    </pane:PaneStyleSelector.PdfDocumentStyle>
                     <!--Tickets Style-->
                     <pane:PaneStyleSelector.TicketsStyle>
                         <Style TargetType="dock:LayoutDocumentItem">
@@ -189,7 +190,7 @@
                             <Setter Property="ContentId" Value="{Binding Model.ContentID}"/>
                         </Style>
                     </pane:PaneStyleSelector.ToolOneStyle>
-                    <!--Tool One Style-->
+                    <!--Tool Two Style-->
                     <pane:PaneStyleSelector.ToolTwoStyle>
                         <Style TargetType="{x:Type avalonDock:LayoutItem}">
                             <Setter Property="Title" Value="{Binding Model.Title}"/>

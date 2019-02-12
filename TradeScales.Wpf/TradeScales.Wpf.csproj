@@ -160,7 +160,7 @@
     <Compile Include="ViewModel\EntityViewModels\StatusMessageViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModels\TicketViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModels\UserViewModel.cs" />
-    <Compile Include="ViewModel\WeighbridgeCertificateViewModel.cs" />
+    <Compile Include="ViewModel\PdfDocumentViewModel.cs" />
     <Compile Include="ViewModel\TicketListViewModel.cs" />
     <Compile Include="ViewModel\StartPageViewModel.cs" />
     <Compile Include="ViewModel\Tools\ToolOneViewModel.cs" />
@@ -182,8 +182,11 @@
     <Compile Include="View\NewTicketView.xaml.cs">
       <DependentUpon>NewTicketView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\WeighbridgeCertificateView.xaml.cs">
-      <DependentUpon>WeighbridgeCertificateView.xaml</DependentUpon>
+    <Compile Include="View\Tools\ToolTwoView.xaml.cs">
+      <DependentUpon>ToolTwoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PdfDocumentView.xaml.cs">
+      <DependentUpon>PdfDocumentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TicketListView.xaml.cs">
       <DependentUpon>TicketListView.xaml</DependentUpon>
@@ -230,7 +233,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\WeighbridgeCertificateView.xaml">
+    <Page Include="View\Tools\ToolTwoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\PdfDocumentView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -300,6 +307,9 @@
     <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.Expression.dll" />
     <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
     <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+    <Content Include="Resources\templates\ReportTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\templates\WeighbridgeTicketTemplate.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
