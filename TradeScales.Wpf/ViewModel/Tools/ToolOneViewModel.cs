@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.IO.Ports;
+using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
@@ -22,19 +26,32 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         #region Properties
 
-        private string _PortName;
-        public string PortName
+
+        private IEnumerable<string> _PortNames;
+        public IEnumerable<string> PortNames
         {
-            get { return _PortName; }
+            get
+            {
+                if (_PortNames == null)
+                {
+                    _PortNames = new List<string>(SerialPort.GetPortNames());
+                }
+                return _PortNames;
+            }
             set
             {
-                _PortName = value;
-                OnPropertyChanged("PortName");
+                _PortNames = value;
+            }
+        }
 
-                if (SerialPort != null)
-                {
-                    SerialPort.PortName = _PortName;
-                }
+        private string _SelectedPortName;
+        public string SelectedPortName
+        {
+            get { return _SelectedPortName; }
+            set
+            {
+                _SelectedPortName = value;
+                OnPropertyChanged("SelectedPortName");
             }
         }
 
@@ -46,11 +63,6 @@ namespace TradeScales.Wpf.ViewModel.Tools
             {
                 _BaudRate = value;
                 OnPropertyChanged("BaudRate");
-
-                if (SerialPort != null)
-                {
-                    SerialPort.BaudRate = _BaudRate;
-                }
             }
         }
 
@@ -62,11 +74,6 @@ namespace TradeScales.Wpf.ViewModel.Tools
             {
                 _DataBits = value;
                 OnPropertyChanged("DataBits");
-
-                if (SerialPort != null)
-                {
-                    SerialPort.DataBits = _DataBits;
-                }
             }
         }
 
@@ -78,11 +85,6 @@ namespace TradeScales.Wpf.ViewModel.Tools
             {
                 _Parity = value;
                 OnPropertyChanged("Parity");
-
-                if (SerialPort != null)
-                {
-                    SerialPort.Parity = _Parity;
-                }
             }
         }
 
@@ -131,14 +133,25 @@ namespace TradeScales.Wpf.ViewModel.Tools
         }
 
 
-        private string _Reading;
-        public string Reading
+        private string _WeightResult;
+        public string WeightResult
         {
-            get { return _Reading; }
+            get { return _WeightResult; }
             set
             {
-                _Reading = value;
-                OnPropertyChanged("Reading");
+                _WeightResult = value;
+                OnPropertyChanged("WeightResult");
+            }
+        }
+
+        private string _WeightUnit;
+        public string WeightUnit
+        {
+            get { return _WeightUnit; }
+            set
+            {
+                _WeightUnit = value;
+                OnPropertyChanged("WeightUnit");
             }
         }
 
@@ -152,9 +165,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
         public ToolOneViewModel()
             : base("Weigh Bridge")
         {
-            ContentID = ToolContentID;
-            SetDefaultValues();
-            CreateNewSerialPort();
+            ContentID = ToolContentID;    
         }
 
         #endregion
@@ -173,7 +184,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
                         {
                             try
                             {
-                                Reading = "";
+                                WeightResult = "";
                             }
                             catch (Exception ex)
                             {
@@ -211,24 +222,45 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         #endregion
 
-        #region Private Methods
-
-        private void SetDefaultValues()
+        #region Public Methods
+        public void SetValues()
         {
-            PortName = "COM3";
+            SelectedPortName = PortNames.First();
             BaudRate = 9600;
             DataBits = 8;
             Parity = Parity.None;
             StopBits = StopBits.One;
-            Reading = "1000";
+            WeightResult = "";
             IsReceiving = true;
         }
 
-        private void CreateNewSerialPort()
+        public void CreateNewSerialPort()
         {
-            SerialPort = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits);
+            if (SerialPort != null && SerialPort.IsOpen)
+            {
+                SerialPort.Close();
+            }
+
+            SerialPort = new SerialPort(SelectedPortName, BaudRate, Parity, DataBits, StopBits);
             SerialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
             SerialPort.Open();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void InitialiseWeighBridge()
+        {
+            try
+            {
+                SetValues();
+                CreateNewSerialPort();
+            }
+            catch(Exception exception)
+            {
+                MainViewModel.This.ShowExceptionMessageBox(exception);
+            }
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -236,7 +268,10 @@ namespace TradeScales.Wpf.ViewModel.Tools
             try
             {
                 SerialPort serialPort = (SerialPort)sender;
-                string dataReceived = serialPort.ReadExisting();
+                byte[] bytesReceived = ReadFromSerialPort(serialPort, 13);
+
+                WeightResult = Encoding.ASCII.GetString(GetRange(bytesReceived, 2, 7));
+                WeightUnit = Encoding.ASCII.GetString(GetRange(bytesReceived, 9, 2));
             }
             catch (Exception exception)
             {
@@ -259,6 +294,31 @@ namespace TradeScales.Wpf.ViewModel.Tools
             return MainViewModel.This.ActiveDocument.ContentID.Contains("New") || MainViewModel.This.ActiveDocument.ContentID.Contains("Edit");
         }
 
+        public byte[] ReadFromSerialPort(SerialPort serialPort, int toRead)
+        {
+            byte[] buffer = new byte[toRead];
+            int offset = 0;
+            int read;
+
+            while (toRead > 0 && (read = serialPort.Read(buffer, offset, toRead)) > 0)
+            {
+                offset += read;
+                toRead -= read;
+            }
+            if (toRead > 0)
+            {
+                throw new EndOfStreamException();
+            }
+
+            return buffer;
+        }
+
+        public byte[] GetRange(byte[] array, int startIndex, int length)
+        {
+            byte[] subset = new byte[length];
+            Array.Copy(array, startIndex, subset, 0, length);
+            return subset;
+        }
         #endregion
 
     }

@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
+using System.Timers;
 using System.Windows.Input;
 using TradeScales.Data.Repositories;
 using TradeScales.Entities;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
+using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel
 {
@@ -90,6 +92,31 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        private ICommand _RefreshCommand;
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                if (_RefreshCommand == null)
+                {
+                    _RefreshCommand = new MVVMRelayCommand(
+                        execute =>
+                        {
+                            try
+                            {
+                                ReloadTickets();
+                            }
+                            catch (Exception ex)
+                            {
+                                MainViewModel.This.ShowExceptionMessageBox(ex);
+                            }
+                        });
+                }
+
+                return _RefreshCommand;
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -109,13 +136,15 @@ namespace TradeScales.Wpf.ViewModel
             {
                 var ticket = _ticketsRepository.GetSingle(selectedTicket.ID);
                 string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                var filePath = $"{rootPath}\\{ticket.TicketNumber}.pdf";
+                var filePath = $"{rootPath}\\weighbridgecertificate.pdf";
 
-                if (!File.Exists(filePath))
+                int copyNumber = 0;
+                while (File.Exists(filePath))
                 {
-                    GenerateTicket(filePath, ticket);
+                    filePath = $"{rootPath}\\weighbridgecertificate - ({++copyNumber}).pdf";
                 }
 
+                GenerateTicket(filePath, ticket);
                 MainViewModel.This.OpenPdfDocument(filePath);
             }
             catch (Exception ex)
@@ -176,7 +205,9 @@ namespace TradeScales.Wpf.ViewModel
 
             // Parse the HTML string into a collection of elements...
             XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, sr);
-            document.Close();
+
+            // Dispose resources
+            document.Close();       
         }
         #endregion
 

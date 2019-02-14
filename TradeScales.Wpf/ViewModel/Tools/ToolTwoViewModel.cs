@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
 using TradeScales.Data.Infrastructure;
 using TradeScales.Data.Repositories;
@@ -70,7 +71,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
         }
 
         public IEnumerable<HaulierViewModel> Hauliers { get; set; }
-
+      
         private HaulierViewModel _SelectedHaulier;
         public HaulierViewModel SelectedHaulier
         {
@@ -179,6 +180,32 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
+        private ICommand _RefreshCommand;
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                if (_RefreshCommand == null)
+                {
+                    _RefreshCommand = new MVVMRelayCommand(
+                        execute =>
+                        {
+                            try
+                            {
+                                throw (new Exception("Refresh"));
+                                
+                            }
+                            catch (Exception ex)
+                            {
+                                MainViewModel.This.ShowExceptionMessageBox(ex);
+                            }
+                        });
+                }
+
+                return _RefreshCommand;
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -188,6 +215,9 @@ namespace TradeScales.Wpf.ViewModel.Tools
             var hauliers = new List<HaulierViewModel>();
             hauliers.Add(new HaulierViewModel() { Name = "All", ID = -1 });
             hauliers.AddRange(Mapper.Map<IEnumerable<Haulier>, IEnumerable<HaulierViewModel>>(_hauliersRepository.GetAll()));
+            Hauliers = hauliers;
+
+   
             Hauliers = hauliers;
 
             var customers = new List<CustomerViewModel>();
@@ -228,25 +258,34 @@ namespace TradeScales.Wpf.ViewModel.Tools
             string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var filePath = $"{rootPath}\\Report.pdf";
 
-            if (!File.Exists(filePath))
-            {
-                GenerateReport(filePath);
-            }
-
-            MainViewModel.This.OpenPdfDocument(filePath);
-        }
-
-        private void GenerateReport(string filePath)
-        {
             // Get Report Data
             var tickets = GetReportData();
 
+            if (tickets.Count() == 0)
+            {
+                _MessageBoxService.ShowMessageBox("No tickets were generated in your selected time period.\r\nPlease adjust your 'Date To' or 'Date From' filter.", "Report Generation", MessageBoxButton.OK);
+                return;
+            }
+
+            int copyNumber = 0;
+            while(File.Exists(filePath))
+            {
+                filePath = $"{rootPath}\\Report - ({++copyNumber}).pdf";
+            }
+
+            GenerateReport(filePath, tickets);
+            MainViewModel.This.OpenPdfDocument(filePath);
+        }
+
+        private void GenerateReport(string filePath, IEnumerable<Ticket> tickets)
+        {
+          
             // Get root path
             string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             // Create document
             Document document = new Document(PageSize.A4.Rotate());
-            var output = new FileStream(filePath, FileMode.Create);
+            var output = new FileStream(filePath, FileMode.Create);       
             var writer = PdfWriter.GetInstance(document, output);
             document.Open();
 
@@ -258,14 +297,15 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
             // Replace the placeholders with the user-specified text
             contents = contents.Replace("[IMAGESOURCE]", logoPath);
-
-            // Get html table
+            contents = contents.Replace("[TIMESTAMP]", $"{DateFrom} - {DateTo}");
             contents = contents.Replace("[TICKETS]", GetTicketTable(tickets));
 
             StringReader sr = new StringReader(contents);
 
             // Parse the HTML string into a collection of elements...
             XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, sr);
+
+            // Dispose resources
             document.Close();
         }
 
@@ -313,20 +353,25 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         private string GetTicketTable(IEnumerable<Ticket> tickets)
         {
-            var result = @"<table><tr><th style=""font-weight: bold"">Ticket Number #</th><th style=""font-weight: bold"">Haulier Name</th><th style=""font-weight: bold"">Net Weight</th></tr>";
+            var result = @"<table><tr><th style=""font-weight: bold"">Ticket No</th><th style=""font-weight: bold"">Date Out</th><th style=""font-weight: bold"">Time Out</th><th style=""font-weight: bold"">Driver</th><th style=""font-weight: bold"">Order No</th><th style=""font-weight: bold"">Delivery No</th><th style=""font-weight: bold"">Gross</th><th style=""font-weight: bold"">Tare</th><th style=""font-weight: bold"">Nett</th></tr>";
 
             foreach (var ticket in tickets)
             {
-                result += $"<tr><td>{ticket.TicketNumber}</td><td>{ticket.Haulier.Name}</td><td>{ticket.NettWeight}</td></tr>";
+                result += $"<tr><td>{ticket.TicketNumber}</td><td>{ticket.TimeOut.ToShortDateString()}</td><td>{ticket.TimeOut.ToShortTimeString()}</td><td>{ticket.Driver.FirstName} {ticket.Driver.LastName}</td><td>{ticket.OrderNumber}</td><td>{ticket.DeliveryNumber}</td><td>{ticket.GrossWeight}</td><td>{ticket.TareWeight}</td><td>{ticket.NettWeight}</td></tr>";
             }
 
+            // Calculate Totals
+            var totalGross = tickets.Sum(x => x.GrossWeight);
+            var totalTare = tickets.Sum(x => x.TareWeight);
+            var totalNett = tickets.Sum(x => x.NettWeight);
+
+            result += $"<tr><td>Grand Total:</td><td></td><td></td><td></td><td></td><td></td><td>{totalGross}</td><td>{totalTare}</td><td>{totalNett}</td></tr>";
             result += "</table>";
 
             return result;
         }
 
         #endregion
-
 
     }
 }

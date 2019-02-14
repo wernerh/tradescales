@@ -263,6 +263,10 @@ namespace TradeScales.Wpf.ViewModel
                 }
                 return _ToolTwo;
             }
+            set
+            {
+                _ToolTwo = value;
+            }
         }
 
         #endregion

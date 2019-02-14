@@ -1,7 +1,12 @@
 ﻿<UserControl x:Class="TradeScales.Wpf.View.TicketListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
+    <!--Window Input Bindings-->
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding RefreshCommand}" Gesture="F5"/>
+    </UserControl.InputBindings>
+
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>

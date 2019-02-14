@@ -50,8 +50,8 @@
 
             <!--Reading-->
             <StackPanel Grid.Row="5" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBox Margin="10" Width="200" IsEnabled="False" Text="{Binding Reading}" FontSize="40" FontWeight="Bold"/>
-                <Label Content="kg" VerticalAlignment="Center" FontSize="40"/>
+                <TextBox Margin="10" Width="200" IsEnabled="False" Text="{Binding WeightResult}" FontSize="40" FontWeight="Bold"/>
+                <Label Content="{Binding WeightUnit}" VerticalAlignment="Center" FontSize="40"/>
             </StackPanel>
 
             <!--Actions-->
@@ -78,7 +78,8 @@
 
                     <!--Port Name-->
                     <Label Grid.Row="0"  Content="Port Name:"/>
-                    <TextBox Grid.Row="1"  Margin="5,0"  Text="{Binding PortName}"/>
+                    <!--<TextBox Grid.Row="1"  Margin="5,0"  Text="{Binding PortName}"/>-->
+                    <ComboBox Grid.Row="1"  Margin="5" ItemsSource="{Binding PortNames}" SelectedItem="{Binding SelectedPortName}"/>
 
                     <!--Baud Rate-->
                     <Label Grid.Row="2"  Content="Baud Rate:"/>

@@ -13,9 +13,11 @@
             <!--About Trade Scales-->
             <GroupBox Grid.Row="0" Header="Trade Scales">
                 <StackPanel Margin="10"  Orientation="Vertical">
+                    <!--Trade Scales Logo-->
                     <Image  Source="{Binding ImagePath}" MaxHeight="150" MaxWidth="200" Margin="5" />
+                    <!--Trade Scales (The Company)-->
                     <TextBlock TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Margin="5">
-                        Trade Scales (The Company)
+                        TRADE SCALES
                     </TextBlock>
                     <TextBlock TextWrapping="Wrap" Margin="5">            
                         We have been in business since 2001 and grew from a start-up company to a solid company with solid core of client centric, trained staff that are focused on getting the job done, quickly and efficiently. 
@@ -30,18 +32,49 @@
                         As certified verification officers with an in-house laboratory, we support our customers with verification services. We offer full repair and maintenance services, 24 hours per day, 7 days a week, 365 days per year. 
                         Finally, we offer customised preventative maintenance services on contract which means you have peace of mind that a professional scale technician will always be available to support your business.
                     </TextBlock>
+                    <!--Trade Scales Software-->
                     <TextBlock TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Margin="5">
-                        Trade Scales Weighbridge Software
+                        TRADE SCALES WEIGHBRIDGE SOFTWARE
                     </TextBlock>
                     <TextBlock TextWrapping="Wrap" Margin="5">            
                         Trade Scales Weighbridge Software is particulary suitable for vehicle weighing and weighbridge management, with input/output control of goods. The Trade Scales Weighbridge Software allows to weigh the vehicle by itself
                         or with the trailer, as well as remote management of data and printouts. The Trade Scales Weighbridge software also offers the possibility of managing the main digital load cells available on the market today.
                     </TextBlock>
                     <TextBlock TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Margin="5">
-                        Main Functions
+                        FEATURES
                     </TextBlock>
                     <TextBlock TextWrapping="Wrap" Margin="5">            
-                        Insert app functionality here
+                        &#x26AB; Secure SQL database.
+                        <LineBreak/>
+                        <LineBreak/>                 
+                        &#x26AB; Password protected with multi level security features.
+                        <LineBreak/>
+                        <LineBreak/>
+                        &#x26AB; 5 database fields: Haulier, Customer, Destination, Transporter, Product, and Driver
+                        <LineBreak/>
+                        <LineBreak/>
+                        &#x26AB; Enter fields for Order number, Delivery number, Seal To and Seal From.
+                        <LineBreak/>
+                        <LineBreak/>
+                        &#x26AB; Enter Tare and Gross weight.
+                        <LineBreak/>
+                        <LineBreak/>
+                        &#x26AB; Full reporting exportable via email or as a printed report.
+                        <LineBreak/>
+                        <LineBreak/>                      
+                        &#x26AB; Weighbridge ticket can be customized for each application.
+                        <LineBreak/>
+                        <LineBreak/>
+                        &#x26AB; Print to either, laser printer, dot matrix form printer or thermal slip printer.
+                        <LineBreak/>
+                        <LineBreak/>                       
+                        &#x26AB; Weigh comparison with printed weighbridge ticket from supplier.
+                        <LineBreak/>
+                        <LineBreak/>
+                        &#x26AB; 24 hour telephonic or “Team Viewer” support.
+                        <LineBreak/>
+                        <LineBreak/>
+                        &#x26AB; Client server application – two weighbridges with one common database.
                     </TextBlock>
                 </StackPanel>
             </GroupBox>

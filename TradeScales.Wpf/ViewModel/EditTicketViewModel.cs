@@ -2,7 +2,6 @@
 using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -242,7 +241,7 @@ namespace TradeScales.Wpf.ViewModel
         public EditTicketViewModel(TicketViewModel ticket)
             : base($"Edit Ticket ({ticket.TicketNumber})")
         {
-            EditTicket = ticket;
+            EditTicket = Mapper.Map<Ticket, TicketViewModel>(_ticketsRepository.GetSingle(ticket.ID));
             ContentID = ToolContentID;
             InitialiseEditTicket();
         }
