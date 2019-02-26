@@ -72,6 +72,10 @@ namespace TradeScales.Wpf.ViewModel
             return Name;
         }
 
+        public virtual void UpdateWeight(double weightReading, bool isReceiving)
+        {
+            throw new ArgumentException("Not Implemented");
+        }
         #endregion
     }
 }

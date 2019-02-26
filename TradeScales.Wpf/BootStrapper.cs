@@ -24,15 +24,15 @@ namespace TradeScales.Wpf
             var builder = new ContainerBuilder();
             builder.RegisterType<TradeScalesContext>()
                 .As<DbContext>()
-                .InstancePerDependency();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<DbFactory>()
                 .As<IDbFactory>()
-                .InstancePerDependency();
+                 .InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>()
-                .InstancePerDependency();
+                 .InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(EntityBaseRepository<>))
                 .As(typeof(IEntityBaseRepository<>));

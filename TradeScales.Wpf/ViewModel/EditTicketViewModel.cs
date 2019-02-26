@@ -279,6 +279,22 @@ namespace TradeScales.Wpf.ViewModel
 
         #endregion
 
+        #region Public Methods
+
+        public override void UpdateWeight(double weightReading, bool isReceiving)
+        {
+            if (isReceiving)
+            {
+                TareWeight = weightReading;
+            }
+            else
+            {
+                GrossWeight = weightReading;
+            }
+        }
+
+        #endregion
+
         #region Private Methods
 
         private void InitialiseEditTicket()
@@ -293,7 +309,7 @@ namespace TradeScales.Wpf.ViewModel
             Customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(_customersRepository.GetAll());
             Products = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(_productsRepository.GetAll());
             Destinations = Mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationViewModel>>(_destinationsRepository.GetAll());
-            Drivers = Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll());
+            Drivers = Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll()).OrderBy(d => d.FirstName);
         }
 
         private void SetValues()

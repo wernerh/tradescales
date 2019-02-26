@@ -26,79 +26,6 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         #region Properties
 
-
-        private IEnumerable<string> _PortNames;
-        public IEnumerable<string> PortNames
-        {
-            get
-            {
-                if (_PortNames == null)
-                {
-                    _PortNames = new List<string>(SerialPort.GetPortNames());
-                }
-                return _PortNames;
-            }
-            set
-            {
-                _PortNames = value;
-            }
-        }
-
-        private string _SelectedPortName;
-        public string SelectedPortName
-        {
-            get { return _SelectedPortName; }
-            set
-            {
-                _SelectedPortName = value;
-                OnPropertyChanged("SelectedPortName");
-            }
-        }
-
-        private int _BaudRate;
-        public int BaudRate
-        {
-            get { return _BaudRate; }
-            set
-            {
-                _BaudRate = value;
-                OnPropertyChanged("BaudRate");
-            }
-        }
-
-        private int _DataBits;
-        public int DataBits
-        {
-            get { return _DataBits; }
-            set
-            {
-                _DataBits = value;
-                OnPropertyChanged("DataBits");
-            }
-        }
-
-        private Parity _Parity;
-        public Parity Parity
-        {
-            get { return _Parity; }
-            set
-            {
-                _Parity = value;
-                OnPropertyChanged("Parity");
-            }
-        }
-
-        private StopBits _StopBits;
-        public StopBits StopBits
-        {
-            get { return _StopBits; }
-            set
-            {
-                _StopBits = value;
-                OnPropertyChanged("StopBits");
-            }
-        }
-
         private SerialPort _SerialPort;
         public SerialPort SerialPort
         {
@@ -165,7 +92,8 @@ namespace TradeScales.Wpf.ViewModel.Tools
         public ToolOneViewModel()
             : base("Weigh Bridge")
         {
-            ContentID = ToolContentID;    
+            ContentID = ToolContentID;
+            CreateNewSerialPort();
         }
 
         #endregion
@@ -225,43 +153,41 @@ namespace TradeScales.Wpf.ViewModel.Tools
         #region Public Methods
         public void SetValues()
         {
-            SelectedPortName = PortNames.First();
-            BaudRate = 9600;
-            DataBits = 8;
-            Parity = Parity.None;
-            StopBits = StopBits.One;
             WeightResult = "";
             IsReceiving = true;
         }
 
         public void CreateNewSerialPort()
         {
-            if (SerialPort != null && SerialPort.IsOpen)
+            try
             {
-                SerialPort.Close();
-            }
+                if (SerialPort != null && SerialPort.IsOpen)
+                {
+                    SerialPort.Close();
+                }
 
-            SerialPort = new SerialPort(SelectedPortName, BaudRate, Parity, DataBits, StopBits);
-            SerialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
-            SerialPort.Open();
+                var selectedPortName = Properties.Settings.Default.SelectedPortName;
+                var baudRate = Properties.Settings.Default.BaudRate;
+                var dataBits = Properties.Settings.Default.DataBits;
+                var parity = (Parity)Properties.Settings.Default.Parity;
+                var stopBits = (StopBits)Properties.Settings.Default.StopBits;
+
+                if (!string.IsNullOrEmpty(selectedPortName))
+                {
+                    SerialPort = new SerialPort(selectedPortName, baudRate, parity, dataBits, stopBits);
+                    SerialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+                    SerialPort.Open();
+                }
+            }
+            catch (Exception exception)
+            {
+                MainViewModel.This.ShowExceptionMessageBox(exception);
+            }
         }
 
         #endregion
 
         #region Private Methods
-
-        private void InitialiseWeighBridge()
-        {
-            try
-            {
-                SetValues();
-                CreateNewSerialPort();
-            }
-            catch(Exception exception)
-            {
-                MainViewModel.This.ShowExceptionMessageBox(exception);
-            }
-        }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -286,6 +212,8 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         private void SaveWeight()
         {
+            var weightReading = double.Parse(WeightResult);
+            MainViewModel.This.ActiveDocument.UpdateWeight(weightReading, IsReceiving);
             MainViewModel.This.StatusMessage = $"Weight Saved {DateTime.Now}";
         }
 
@@ -319,6 +247,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
             Array.Copy(array, startIndex, subset, 0, length);
             return subset;
         }
+
         #endregion
 
     }

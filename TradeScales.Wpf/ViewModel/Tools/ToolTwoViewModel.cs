@@ -237,7 +237,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
             var drivers = new List<DriverViewModel>();
             drivers.Add(new DriverViewModel() { FirstName = "All", ID = -1 });
-            drivers.AddRange(Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll()));
+            drivers.AddRange(Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll()).OrderBy(d => d.FirstName));
             Drivers = drivers;
         }
 

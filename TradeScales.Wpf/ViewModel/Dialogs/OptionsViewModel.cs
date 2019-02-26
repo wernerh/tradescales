@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO.Ports;
 using System.Windows.Input;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
@@ -11,33 +13,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
     public class OptionsViewModel : BaseViewModel
     {
 
-        #region Fields
-
-        private string _Theme;
-        private string _ThemeAccent;
-        private string _WorkBenchTheme;
-
-        #endregion
-
         #region Properties
-
-        private ObservableCollection<string> _WorkBenchThemes;
-        /// <summary>
-        /// Different workbench themes
-        /// Options:Dark, Light, Generic, Metro, VS2010 and Aero
-        /// </summary>
-        public ObservableCollection<string> WorkBenchThemes
-        {
-            get { return _WorkBenchThemes; }
-            set
-            {
-                if (_WorkBenchThemes != value)
-                {
-                    _WorkBenchThemes = value;
-                    OnPropertyChanged("WorkBenchThemes");
-                }
-            }
-        }
 
         private ObservableCollection<string> _ThemeOptions;
         /// <summary>
@@ -86,6 +62,16 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                 if (Properties.Settings.Default.Theme != value)
                 {
                     Properties.Settings.Default.Theme = value;
+
+                    if (value == "BaseDark")
+                    {
+                        Properties.Settings.Default.WorkBenchTheme = "Dark";
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.WorkBenchTheme = "Metro";
+                    }
+
                     OnPropertyChanged("Theme");
                 }
             }
@@ -103,22 +89,6 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                 {
                     Properties.Settings.Default.ThemeAccent = value;
                     OnPropertyChanged("ThemeAccent");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Selected workbench theme
-        /// </summary>
-        public string WorkBenchTheme
-        {
-            get { return Properties.Settings.Default.WorkBenchTheme; }
-            set
-            {
-                if (Properties.Settings.Default.WorkBenchTheme != value)
-                {
-                    Properties.Settings.Default.WorkBenchTheme = value;
-                    OnPropertyChanged("WorkBenchTheme");
                 }
             }
         }
@@ -144,6 +114,133 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         /// </summary>
         public bool NotXClosed { get; set; }
 
+        private IEnumerable<string> _PortNames;
+        public IEnumerable<string> PortNames
+        {
+            get
+            {
+                if (_PortNames == null)
+                {
+                    _PortNames = new List<string>(SerialPort.GetPortNames());
+                }
+                return _PortNames;
+            }
+            set
+            {
+                _PortNames = value;
+            }
+        }
+
+        public string SelectedPortName
+        {
+            get { return Properties.Settings.Default.SelectedPortName; }
+            set
+            {
+                Properties.Settings.Default.SelectedPortName = value;
+                OnPropertyChanged("SelectedPortName");
+            }
+        }
+
+        public int BaudRate
+        {
+            get { return Properties.Settings.Default.BaudRate; }
+            set
+            {
+                Properties.Settings.Default.BaudRate = value;
+                OnPropertyChanged("BaudRate");
+            }
+        }
+
+        public int DataBits
+        {
+            get { return Properties.Settings.Default.DataBits; }
+            set
+            {
+                Properties.Settings.Default.DataBits = value;
+                OnPropertyChanged("DataBits");
+            }
+        }
+
+        public Parity Parity
+        {
+            get { return (Parity)Properties.Settings.Default.Parity; }
+            set
+            {
+                Properties.Settings.Default.Parity = (int)value;
+                OnPropertyChanged("Parity");
+            }
+        }
+
+        public StopBits StopBits
+        {
+            get { return (StopBits)Properties.Settings.Default.StopBits; }
+            set
+            {
+                Properties.Settings.Default.StopBits = (int)value;
+                OnPropertyChanged("StopBits");
+            }
+        }
+
+        public string WeighBridgeCertificatesFolder
+        {
+            get { return Properties.Settings.Default.WeighBridgeCertificatesFolder; }
+            set
+            {
+                Properties.Settings.Default.WeighBridgeCertificatesFolder = value;
+                OnPropertyChanged("WeighBridgeCertificatesFolder");
+            }
+        }
+
+        public string WeighBridgeCertificateLogo
+        {
+            get { return Properties.Settings.Default.WeighBridgeCertificateLogo; }
+            set
+            {
+                Properties.Settings.Default.WeighBridgeCertificateLogo = value;
+                OnPropertyChanged("WeighBridgeCertificateLogo");
+            }
+        }
+
+        public string WeighBridgeCertificateTemplate
+        {
+            get { return Properties.Settings.Default.WeighBridgeCertificateTemplate; }
+            set
+            {
+                Properties.Settings.Default.WeighBridgeCertificateTemplate = value;
+                OnPropertyChanged("WeighBridgeCertificateTemplate");
+            }
+        }
+
+        public string ReportsFolder
+        {
+            get { return Properties.Settings.Default.ReportsFolder; }
+            set
+            {
+                Properties.Settings.Default.ReportsFolder = value;
+                OnPropertyChanged("ReportsFolder");
+            }
+        }
+
+        public string ReportLogo
+        {
+            get { return Properties.Settings.Default.ReportLogo; }
+            set
+            {
+                Properties.Settings.Default.ReportLogo = value;
+                OnPropertyChanged("ReportLogo");
+            }
+        }
+
+        public string ReportTemplate
+        {
+            get { return Properties.Settings.Default.ReportTemplate; }
+            set
+            {
+                Properties.Settings.Default.ReportTemplate = value;
+                OnPropertyChanged("ReportTemplate");
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -155,10 +252,6 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             _ThemeOptions = new ObservableCollection<string>() { "BaseDark", "BaseLight" };
             _ThemeAccents = new ObservableCollection<string>() { "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna" };
-            _WorkBenchThemes = new ObservableCollection<string>() { "Dark", "Light", "Generic", "Metro", "VS2010", "Aero" };
-            _Theme = Properties.Settings.Default.Theme;
-            _ThemeAccent = Properties.Settings.Default.ThemeAccent;
-            _WorkBenchTheme = Properties.Settings.Default.WorkBenchTheme;
             NotXClosed = false;
         }
 
@@ -250,9 +343,13 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         private void SetToDefault()
         {
-            Theme = "BaseLight";
-            ThemeAccent = "Blue";
-            WorkBenchTheme = "Metro";      
+            Theme = "BaseDark";
+            ThemeAccent = "Steel";
+            BaudRate = 9600;
+            DataBits = 8;
+            Parity = Parity.None;
+            StopBits = StopBits.One;
+
         }
 
         public void Preview()
@@ -265,16 +362,13 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             NotXClosed = true;
             Properties.Settings.Default.Save();
+            MainViewModel.This.ToolOne.CreateNewSerialPort();
             OnRequestClose();
         }
 
         private void Cancel()
         {
             NotXClosed = true;
-            Theme = _Theme;
-            ThemeAccent = _ThemeAccent;
-            WorkBenchTheme = _WorkBenchTheme;
-            Properties.Settings.Default.Save();
             OnRequestClose();
         }
 

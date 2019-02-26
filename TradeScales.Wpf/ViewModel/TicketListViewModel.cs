@@ -9,6 +9,7 @@ using System.IO;
 using System.Reflection;
 using System.Timers;
 using System.Windows.Input;
+using TradeScales.Data.Infrastructure;
 using TradeScales.Data.Repositories;
 using TradeScales.Entities;
 using TradeScales.Wpf.Model;
@@ -26,8 +27,11 @@ namespace TradeScales.Wpf.ViewModel
         #region Fields
 
         public const string ToolContentID = "TicketList";
+
         private static IMessageBoxService _messageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
-        private static IEntityBaseRepository<Ticket> _ticketsRepository = BootStrapper.Resolve<IEntityBaseRepository<Ticket>>();
+
+        private IEntityBaseRepository<Ticket> _ticketsRepository = BootStrapper.Resolve<IEntityBaseRepository<Ticket>>();
+        private IUnitOfWork _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
 
         #endregion
 
@@ -139,13 +143,18 @@ namespace TradeScales.Wpf.ViewModel
                 var filePath = $"{rootPath}\\weighbridgecertificate.pdf";
 
                 int copyNumber = 0;
+
                 while (File.Exists(filePath))
                 {
                     filePath = $"{rootPath}\\weighbridgecertificate - ({++copyNumber}).pdf";
                 }
 
+                ticket.Status = "Complete";
+                _unitOfWork.Commit();
+           
                 GenerateTicket(filePath, ticket);
                 MainViewModel.This.OpenPdfDocument(filePath);
+                ReloadTickets();
             }
             catch (Exception ex)
             {
