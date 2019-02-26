@@ -435,6 +435,32 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        private ICommand _DatabaseManagementCommand;
+        /// <summary>
+        /// Launch theme options dialog
+        /// </summary>
+        public ICommand DatabaseManagementCommand
+        {
+            get
+            {
+                if (_DatabaseManagementCommand == null)
+                {
+                    _DatabaseManagementCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowDatabaseDialog();                          
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _DatabaseManagementCommand;
+            }
+        }
+        
         private ICommand _ExitCommand;
         /// <summary>
         /// Shut down the application command

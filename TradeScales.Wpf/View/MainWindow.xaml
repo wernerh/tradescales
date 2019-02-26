@@ -55,7 +55,8 @@
                 </MenuItem>
                 <!--Settings-->
                 <MenuItem Header="Settings">
-                    <MenuItem Header="Options" Command="{Binding ThemeOptionsCommand}" InputGestureText="Ctrl+O"/>
+                    <MenuItem Header="Options" Command="{Binding ThemeOptionsCommand}"/>
+                    <MenuItem Header="Database Management" Command="{Binding DatabaseManagementCommand}"/>
                 </MenuItem>
                 <!--Help-->
                 <MenuItem Header="Help">

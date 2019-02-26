@@ -104,6 +104,15 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
+
+        public void ShowDatabaseDialog()
+        {
+            DatabaseViewModel viewmodel = new DatabaseViewModel();
+            DatabaseView view = new DatabaseView(viewmodel);
+            view.ShowDialog();
+        }
+
+
         #endregion
 
     }

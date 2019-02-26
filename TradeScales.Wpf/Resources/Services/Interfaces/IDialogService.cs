@@ -21,6 +21,6 @@ namespace TradeScales.Wpf.Resources.Services.Interfaces
 
         void ShowAboutDialog();
         void ShowOptionsDialog();
-
+        void ShowDatabaseDialog();
     }
 }
