@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.IO.Ports;
 using System.Windows.Input;
+using TradeScales.Wpf.Model;
+using TradeScales.Wpf.Properties;
+using TradeScales.Wpf.Resources.Services.Interfaces;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel.Dialogs
@@ -12,6 +16,11 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
     /// </summary>
     public class OptionsViewModel : BaseViewModel
     {
+        #region fields
+
+        private static IDialogsService _DialogService = ServiceLocator.Instance.GetService<IDialogsService>();
+
+        #endregion
 
         #region Properties
 
@@ -183,7 +192,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public string WeighBridgeCertificatesFolder
         {
-            get { return Properties.Settings.Default.WeighBridgeCertificatesFolder; }
+            get { return GetShortFilePath(Properties.Settings.Default.WeighBridgeCertificatesFolder); }
             set
             {
                 Properties.Settings.Default.WeighBridgeCertificatesFolder = value;
@@ -193,7 +202,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public string WeighBridgeCertificateLogo
         {
-            get { return Properties.Settings.Default.WeighBridgeCertificateLogo; }
+            get { return GetShortFilePath(Properties.Settings.Default.WeighBridgeCertificateLogo); }
             set
             {
                 Properties.Settings.Default.WeighBridgeCertificateLogo = value;
@@ -203,7 +212,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public string WeighBridgeCertificateTemplate
         {
-            get { return Properties.Settings.Default.WeighBridgeCertificateTemplate; }
+            get { return GetShortFilePath(Properties.Settings.Default.WeighBridgeCertificateTemplate); }
             set
             {
                 Properties.Settings.Default.WeighBridgeCertificateTemplate = value;
@@ -213,7 +222,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public string ReportsFolder
         {
-            get { return Properties.Settings.Default.ReportsFolder; }
+            get { return GetShortFilePath(Properties.Settings.Default.ReportsFolder); }
             set
             {
                 Properties.Settings.Default.ReportsFolder = value;
@@ -223,7 +232,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public string ReportLogo
         {
-            get { return Properties.Settings.Default.ReportLogo; }
+            get { return GetShortFilePath(Properties.Settings.Default.ReportLogo); }
             set
             {
                 Properties.Settings.Default.ReportLogo = value;
@@ -233,7 +242,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public string ReportTemplate
         {
-            get { return Properties.Settings.Default.ReportTemplate; }
+            get { return GetShortFilePath(Properties.Settings.Default.ReportTemplate); }
             set
             {
                 Properties.Settings.Default.ReportTemplate = value;
@@ -323,6 +332,21 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             }
         }
 
+        private ICommand _EditCommand;
+        /// <summary>
+        /// </summary>
+        public ICommand EditCommand
+        {
+            get
+            {
+                if (_EditCommand == null)
+                {
+                    _EditCommand = new RelayCommand<string>(EditFilePath);
+                }
+                return _EditCommand;
+            }
+        }
+
         #endregion
 
         #region Events
@@ -370,6 +394,89 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             NotXClosed = true;
             OnRequestClose();
+        }
+
+        private void EditFilePath(string identifier)
+        {
+            var filePath = GetFilePath(identifier);
+            var filter = GetFileFilter(identifier);
+
+            var result = _DialogService.ShowSaveFileDialog(filter, filePath);
+
+            if (result == true)
+            {
+                setFilePath(identifier, _DialogService.SaveFilePath);
+            }
+        }
+
+        private string GetFileFilter(string identifier)
+        {
+            var htmlFilter = "html files (*.html)|*.html|All files (*.*)|*.*";
+            var pngFilter = "png files (*.png)|*.png|All files (*.*)|*.*";
+
+            switch (identifier)
+            {
+                case "WeighBridgeCertificateLogo":
+                    return pngFilter;
+
+                case "WeighBridgeCertificateTemplate":
+                    return htmlFilter;
+
+                case "ReportLogo":
+                    return pngFilter;
+
+                case "ReportTemplate":
+                    return htmlFilter;
+                default:
+                    return null;
+            }
+        }
+
+        private string GetFilePath(string identifier)
+        {
+            switch (identifier)
+            {
+                case "WeighBridgeCertificateLogo":
+                    return Settings.Default.WeighBridgeCertificateLogo;
+
+                case "WeighBridgeCertificateTemplate":
+                    return Settings.Default.WeighBridgeCertificateTemplate;
+
+                case "ReportLogo":
+                    return Settings.Default.ReportLogo;
+
+                case "ReportTemplate":
+                    return Settings.Default.ReportTemplate;
+                default:
+                    return null;
+            }
+        }
+
+        private void setFilePath(string identifier, string filePath)
+        {
+            switch (identifier)
+            {
+                case "WeighBridgeCertificateLogo":
+                    WeighBridgeCertificateLogo = filePath;
+                    break;
+
+                case "WeighBridgeCertificateTemplate":
+                    WeighBridgeCertificateTemplate = filePath;
+                    break;
+
+                case "ReportLogo":
+                    ReportLogo = filePath;
+                    break;
+
+                case "ReportTemplate":
+                    ReportTemplate = filePath;
+                    break;
+            }
+        }
+
+        private string GetShortFilePath(string filePath)
+        {                             
+            return Path.GetPathRoot(filePath) + "..." + filePath.Substring(filePath.LastIndexOf('\\'), filePath.Length - filePath.LastIndexOf('\\'));
         }
 
         #endregion

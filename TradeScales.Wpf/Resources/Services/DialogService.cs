@@ -70,11 +70,18 @@ namespace TradeScales.Wpf.Resources.Services
         public bool? ShowSaveFileDialog(string filter, string filepath)
         {
             string filename = Path.GetFileNameWithoutExtension(filepath);
+            string folderPath = Directory.GetParent(filepath).FullName;
 
             _SaveFileDialog.Filter = filter;
             _SaveFileDialog.FileName = filename;
+            _SaveFileDialog.InitialDirectory = folderPath;
+
+            _SaveFileDialog.RestoreDirectory = true;
+
             bool? result = _SaveFileDialog.ShowDialog();
+
             SaveFilePath = _SaveFileDialog.FileName;
+
             return result;
         }
 

@@ -13,6 +13,7 @@ using TradeScales.Data.Infrastructure;
 using TradeScales.Data.Repositories;
 using TradeScales.Entities;
 using TradeScales.Wpf.Model;
+using TradeScales.Wpf.Properties;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
@@ -255,7 +256,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         private void ViewReport()
         {
-            string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string rootPath = Settings.Default.ReportsFolder;
             var filePath = $"{rootPath}\\Report.pdf";
 
             // Get Report Data
@@ -279,10 +280,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         private void GenerateReport(string filePath, IEnumerable<Ticket> tickets)
         {
-          
-            // Get root path
-            string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
+                      
             // Create document
             Document document = new Document(PageSize.A4.Rotate());
             var output = new FileStream(filePath, FileMode.Create);       
@@ -290,10 +288,13 @@ namespace TradeScales.Wpf.ViewModel.Tools
             document.Open();
 
             // Get logo path
-            var logoPath = $"{rootPath}\\Resources\\images\\tradescales.png";
+            var logoPath = Settings.Default.ReportLogo;
+
+            // Get template path
+            var templatePath = Settings.Default.ReportTemplate;
 
             // Read in the contents of the Receipt.htm file...
-            string contents = File.ReadAllText($"{rootPath}\\Resources\\templates\\ReportTemplate.html");
+            string contents = File.ReadAllText(templatePath);
 
             // Replace the placeholders with the user-specified text
             contents = contents.Replace("[IMAGESOURCE]", logoPath);

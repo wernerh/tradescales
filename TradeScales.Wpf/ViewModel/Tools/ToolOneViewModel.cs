@@ -171,8 +171,9 @@ namespace TradeScales.Wpf.ViewModel.Tools
                 var dataBits = Properties.Settings.Default.DataBits;
                 var parity = (Parity)Properties.Settings.Default.Parity;
                 var stopBits = (StopBits)Properties.Settings.Default.StopBits;
+                var serialports = SerialPort.GetPortNames();
 
-                if (!string.IsNullOrEmpty(selectedPortName))
+                if (!string.IsNullOrEmpty(selectedPortName) && serialports.Contains(selectedPortName))
                 {
                     SerialPort = new SerialPort(selectedPortName, baudRate, parity, dataBits, stopBits);
                     SerialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);

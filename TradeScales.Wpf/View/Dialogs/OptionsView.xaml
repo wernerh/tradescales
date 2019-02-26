@@ -41,10 +41,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
     
-        <!--General-->
-        <GroupBox Grid.Row="0" Header="General">
+        <!--General settings-->
+        <GroupBox Grid.Row="0" Header="General Settings">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -71,8 +72,63 @@
             </Grid>
         </GroupBox>
 
+        <!--Document Settings-->
+        <GroupBox Grid.Row="1" Header="Document Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Weighbridge Certificates-->
+                <Label Grid.Row="0" Grid.Column="0" Margin="5" MinWidth="115" Content="Weighbridge Certificates"/>
+                
+                <!--Weighbridge Certificates Folder-->
+                <Label Grid.Row="1" Grid.Column="0" Margin="5" MinWidth="115" Content="Folder:"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding WeighBridgeCertificatesFolder}"/>
+                
+                <!--Weighbridge Certificate Logo-->
+                <Label  Grid.Row="2" Grid.Column="0" Margin="5" MinWidth="115" Content="Logo:"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding WeighBridgeCertificateLogo}"/>
+                <Button Grid.Row="2" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="WeighBridgeCertificateLogo">Edit</Button>
+
+                <!--Weighbridge Certificate Template-->
+                <Label Grid.Row="3" Grid.Column="0" Margin="5" MinWidth="115" Content="Template:"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding WeighBridgeCertificateTemplate}"/>
+                <Button Grid.Row="3" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="WeighBridgeCertificateTemplate">Edit</Button>
+
+                <!--Reports-->
+                <Label Grid.Row="4" Grid.Column="0" Margin="5" MinWidth="115" Content="Reports"/>
+
+                <!--Reports Folders-->
+                <Label Grid.Row="5" Grid.Column="0" Margin="5" MinWidth="115" Content="Folder:"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding ReportsFolder}"/>
+               
+                <!--Report Logo-->
+                <Label  Grid.Row="6" Grid.Column="0" Margin="5" MinWidth="115" Content="Logo:"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding ReportLogo}"/>
+                <Button Grid.Row="6" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="ReportLogo">Edit</Button>
+
+                <!--Report Template-->
+                <Label Grid.Row="7" Grid.Column="0" Margin="5" MinWidth="115" Content="Template:"/>
+                <TextBox Grid.Row="7" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding ReportTemplate}"/>
+                <Button Grid.Row="7" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="ReportTemplate">Edit</Button>
+            </Grid>
+        </GroupBox>
+
         <!--Serial Port Settings-->
-        <GroupBox Grid.Row="1" Header="Serial Port Settings">
+        <GroupBox Grid.Row="2" Header="Serial Port Settings">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -109,7 +165,7 @@
         </GroupBox>
 
         <!--Default, ok and cancel button-->
-        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" Orientation="Horizontal">
             <Button  MinWidth="50" Margin="3" Content="_Default" Command="{Binding DefaultCommand}"/>
             <Button  MinWidth="50" Margin="3" Content="_Preview" Command="{Binding PreviewCommand}"/>
             <Button  MinWidth="50" Margin="3" Content="_OK" Command="{Binding OkCommand}"/>

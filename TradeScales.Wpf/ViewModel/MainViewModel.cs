@@ -225,7 +225,7 @@ namespace TradeScales.Wpf.ViewModel
             {
                 if (_Tools == null)
                 {
-                     _Tools = new ToolViewModel[] { ToolOne, ToolTwo };
+                    _Tools = new ToolViewModel[] { ToolOne, ToolTwo };
                 }
                 return _Tools;
             }
@@ -279,11 +279,12 @@ namespace TradeScales.Wpf.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
-        {           
+        {
             ChangeAppTheme();
             LoadUserSettings();
             InitializeDocuments();
-            StatusMessage = "Welcome to Trade Scales";       
+            UpdateDocumentFilePaths();
+            StatusMessage = "Welcome to Trade Scales";
         }
 
         #endregion
@@ -637,6 +638,25 @@ namespace TradeScales.Wpf.ViewModel
         private void DocumentChanged()
         {
             ToolOne.ActiveDocument = ActiveDocument.ToString();
+        }
+
+        private void UpdateDocumentFilePaths()
+        {
+            var weighbridgeCertificateFolder = Settings.Default.WeighBridgeCertificatesFolder;
+            var reportsFolder = Settings.Default.ReportsFolder;
+
+            if (string.IsNullOrEmpty(weighbridgeCertificateFolder) && string.IsNullOrEmpty(reportsFolder))
+            {
+                string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+                Settings.Default.WeighBridgeCertificatesFolder = $"{rootPath}\\WeighBridgeCertificates";
+                Settings.Default.WeighBridgeCertificateLogo = $"{rootPath}\\Resources\\images\\tradescales.png";
+                Settings.Default.WeighBridgeCertificateTemplate = $"{rootPath}\\Resources\\templates\\WeighbridgeTicketTemplate.html";
+                Settings.Default.ReportsFolder = $"{rootPath}\\Reports";
+                Settings.Default.ReportLogo = $"{rootPath}\\Resources\\images\\tradescales.png";
+                Settings.Default.ReportTemplate = $"{rootPath}\\Resources\\templates\\ReportTemplate.html";
+                Settings.Default.Save();
+            }
         }
 
         #endregion
