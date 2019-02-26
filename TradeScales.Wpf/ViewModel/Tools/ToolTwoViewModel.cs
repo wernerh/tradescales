@@ -268,7 +268,13 @@ namespace TradeScales.Wpf.ViewModel.Tools
                 return;
             }
 
+            if (!Directory.Exists(rootPath))
+            {
+                Directory.CreateDirectory(rootPath);
+            }
+
             int copyNumber = 0;
+
             while(File.Exists(filePath))
             {
                 filePath = $"{rootPath}\\Report - ({++copyNumber}).pdf";

@@ -145,6 +145,11 @@ namespace TradeScales.Wpf.ViewModel
 
                 int copyNumber = 0;
 
+                if(!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+
                 while (File.Exists(filePath))
                 {
                     filePath = $"{rootPath}\\weighbridgecertificate - ({++copyNumber}).pdf";
