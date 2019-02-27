@@ -25,7 +25,7 @@ namespace TradeScales.Wpf.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Steel")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Dark")]
         public string Theme {
             get {
                 return ((string)(this["Theme"]));
@@ -37,7 +37,7 @@ namespace TradeScales.Wpf.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Steel")]
         public string ThemeAccent {
             get {
                 return ((string)(this["ThemeAccent"]));
@@ -49,7 +49,7 @@ namespace TradeScales.Wpf.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Metro")]
+        [global::System.Configuration.DefaultSettingValueAttribute("BaseDark")]
         public string WorkBenchTheme {
             get {
                 return ((string)(this["WorkBenchTheme"]));
