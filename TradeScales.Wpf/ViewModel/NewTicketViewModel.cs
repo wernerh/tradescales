@@ -314,8 +314,9 @@ namespace TradeScales.Wpf.ViewModel
         private void LoadDefaultValues()
         {
             NewTicket = null;
-
-            var numberOfTickets = _ticketsRepository.GetAll().Count();
+        
+            var lastTicketNumber = _ticketsRepository.GetAll().OrderByDescending(t => t.TicketNumber).FirstOrDefault()?.TicketNumber.Replace("#", "") ?? "000000";
+            var numberOfTickets = int.Parse(lastTicketNumber);
             var newTicketNumber = (++numberOfTickets).ToString("D6");
 
             SelectedHaulier = Hauliers.First();

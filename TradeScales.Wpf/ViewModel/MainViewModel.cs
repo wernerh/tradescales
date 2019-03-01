@@ -644,15 +644,7 @@ namespace TradeScales.Wpf.ViewModel
 
                 case "Metro":
                     AvalonDockTheme = new MetroTheme();
-                    break;
-
-                case "VS2010":
-                    AvalonDockTheme = new VS2010Theme();
-                    break;
-
-                case "Aero":
-                    AvalonDockTheme = new AeroTheme();
-                    break;
+                    break;           
             }
         }
 

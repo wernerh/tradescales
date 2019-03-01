@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="Theme" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Dark</Value>
+      <Value Profile="(Default)">BaseDark</Value>
     </Setting>
     <Setting Name="ThemeAccent" Type="System.String" Scope="User">
       <Value Profile="(Default)">Steel</Value>
     </Setting>
     <Setting Name="WorkBenchTheme" Type="System.String" Scope="User">
-      <Value Profile="(Default)">BaseDark</Value>
+      <Value Profile="(Default)">Dark</Value>
     </Setting>
     <Setting Name="ToolOneIsVisible" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

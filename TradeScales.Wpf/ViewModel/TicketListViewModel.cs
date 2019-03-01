@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Timers;
+using System.Windows;
 using System.Windows.Input;
 using TradeScales.Data.Infrastructure;
 using TradeScales.Data.Repositories;
@@ -67,6 +69,22 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Commands
 
+
+        private ICommand _EditCommand;
+        /// <summary>
+        /// </summary>
+        public ICommand EditCommand
+        {
+            get
+            {
+                if (_EditCommand == null)
+                {
+                    _EditCommand = new RelayCommand<TicketViewModel>(EditTicket);
+                }
+                return _EditCommand;
+            }
+        }
+
         private ICommand _ViewCommand;
         /// <summary>
         /// </summary>
@@ -82,18 +100,19 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _EditCommand;
+
+        private ICommand _DeleteCommand;
         /// <summary>
         /// </summary>
-        public ICommand EditCommand
+        public ICommand DeleteCommand
         {
             get
             {
-                if (_EditCommand == null)
+                if (_DeleteCommand == null)
                 {
-                    _EditCommand = new RelayCommand<TicketViewModel>(EditTicket);
+                    _DeleteCommand = new RelayCommand<TicketViewModel>(DeleteTicket);
                 }
-                return _EditCommand;
+                return _DeleteCommand;
             }
         }
 
@@ -128,12 +147,24 @@ namespace TradeScales.Wpf.ViewModel
 
         public void ReloadTickets()
         {
-            Tickets = new ObservableCollection<TicketViewModel>(Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(_ticketsRepository.GetAll()));
+            Tickets = new ObservableCollection<TicketViewModel>(Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(_ticketsRepository.GetAll().OrderByDescending(t => t.TicketNumber)));
         }
 
         #endregion
 
         #region Private Methods
+
+        private void EditTicket(TicketViewModel ticket)
+        {
+            try
+            {
+                MainViewModel.This.OpenEditTicket(ticket);
+            }
+            catch (Exception ex)
+            {
+                MainViewModel.This.ShowExceptionMessageBox(ex);
+            }
+        }
 
         private void ViewTicket(TicketViewModel selectedTicket)
         {
@@ -145,7 +176,7 @@ namespace TradeScales.Wpf.ViewModel
 
                 int copyNumber = 0;
 
-                if(!Directory.Exists(rootPath))
+                if (!Directory.Exists(rootPath))
                 {
                     Directory.CreateDirectory(rootPath);
                 }
@@ -157,7 +188,7 @@ namespace TradeScales.Wpf.ViewModel
 
                 ticket.Status = "Complete";
                 _unitOfWork.Commit();
-           
+
                 GenerateTicket(filePath, ticket);
                 MainViewModel.This.OpenPdfDocument(filePath);
                 ReloadTickets();
@@ -168,13 +199,29 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private void EditTicket(TicketViewModel ticket)
+        private void DeleteTicket(TicketViewModel ticket)
         {
-            MainViewModel.This.OpenEditTicket(ticket);
+            try
+            {
+                var ticketToDelete = _ticketsRepository.GetSingle(ticket.ID);
+                var result = _messageBoxService.ShowMessageBox($"Are you sure you want to delte ticket {ticketToDelete.TicketNumber} ?", "Delete Ticket", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _ticketsRepository.Delete(ticketToDelete);
+                    _unitOfWork.Commit();
+                    _messageBoxService.ShowMessageBox($"successfully deleted ticket {ticketToDelete.TicketNumber}", "Success", MessageBoxButton.OK);
+                    ReloadTickets();
+                }
+            }
+            catch (Exception ex)
+            {
+                MainViewModel.This.ShowExceptionMessageBox(ex);
+            }
         }
 
         private void GenerateTicket(string filepath, Ticket ticket)
-        {           
+        {
             // Create document
             Document document = new Document(PageSize.A4);
             var output = new FileStream(filepath, FileMode.Create);
@@ -222,7 +269,7 @@ namespace TradeScales.Wpf.ViewModel
             XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, sr);
 
             // Dispose resources
-            document.Close();       
+            document.Close();
         }
         #endregion
 

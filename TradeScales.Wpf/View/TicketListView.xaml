@@ -20,55 +20,7 @@
                 <TextBlock Text="Existing Tickets" FontFamily="Open Sans" FontSize="35px"/>
                 <TextBlock Text="Below you can view, edit or search all your previous tickets."/>
             </StackPanel>
-
-            <!--Search Panel-->
-            <!--<Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            -->
-            <!--Ticket Number-->
-            <!--
-            <Label Grid.Row="0" Grid.Column="0" Content="Ticket Number"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Margin="5,0"/>
-            -->
-            <!--Order Number-->
-            <!--
-            <Label Grid.Row="0" Grid.Column="1" Content="Order Number"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0"/>
-            -->
-            <!--Delivery Number-->
-            <!--
-            <Label Grid.Row="0" Grid.Column="2" Content="Delivery Number"/>
-            <TextBox Grid.Row="1" Grid.Column="2" Margin="5,0"/>
-            -->
-            <!--Last Modified By-->
-            <!--
-            <Label Grid.Row="0" Grid.Column="3" Content="Last Modified By"/>
-            <TextBox Grid.Row="1" Grid.Column="3" Margin="5,0"/>
-            -->
-            <!--Last Modified Date-->
-            <!--
-            <Label Grid.Row="0" Grid.Column="4" Content="Last Modified Date"/>
-            <TextBox Grid.Row="1" Grid.Column="4" Margin="5,0"/>
-            -->
-            <!--Status-->
-            <!--
-            <Label Grid.Row="0" Grid.Column="5" Content="Status"/>
-            <TextBox Grid.Row="1" Grid.Column="5" Margin="5,0"/>
-            <Button Grid.Row="1" Grid.Column="6" Margin="5,0" Content="SEARCH"/>
-        </Grid>-->
-
+            
             <!--Tickets-->
             <DataGrid x:Name="datagrid_Tickets" Grid.Row="2" ItemsSource="{Binding Tickets}" AutoGenerateColumns="False" Margin="5" CanUserAddRows="False">
                 <DataGrid.Columns>
@@ -82,14 +34,18 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="button_Edit" 
+                                    <Button x:Name="button_Edit"
                                     Command="{Binding ElementName=datagrid_Tickets, Path=DataContext.EditCommand}" 
                                     CommandParameter="{Binding ElementName=datagrid_Tickets, Path=SelectedItem}" 
                                     Margin="5">Edit</Button>
-                                    <Button x:Name="button_View" 
+                                    <Button x:Name="button_View"
                                     Command="{Binding ElementName=datagrid_Tickets, Path=DataContext.ViewCommand}" 
                                     CommandParameter="{Binding ElementName=datagrid_Tickets, Path=SelectedItem}" 
                                     Margin="5">View</Button>
+                                    <Button x:Name="button_Delete"
+                                    Command="{Binding ElementName=datagrid_Tickets, Path=DataContext.DeleteCommand}" 
+                                    CommandParameter="{Binding ElementName=datagrid_Tickets, Path=SelectedItem}" 
+                                    Margin="5">Delete</Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

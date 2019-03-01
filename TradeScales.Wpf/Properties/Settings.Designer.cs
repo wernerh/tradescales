@@ -25,7 +25,7 @@ namespace TradeScales.Wpf.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Dark")]
+        [global::System.Configuration.DefaultSettingValueAttribute("BaseDark")]
         public string Theme {
             get {
                 return ((string)(this["Theme"]));
@@ -49,7 +49,7 @@ namespace TradeScales.Wpf.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("BaseDark")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Dark")]
         public string WorkBenchTheme {
             get {
                 return ((string)(this["WorkBenchTheme"]));

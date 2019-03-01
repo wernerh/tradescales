@@ -40,10 +40,10 @@
     <WixVariable Id="WixUIDialogBmp" Value="images\Dialog.bmp" />-->
 
     <!-- Define icons (ID should not be longer than 18 chars and must end with ".exe") -->
-    <!--<Icon Id="Icon.exe" SourceFile="images\app.ico" />-->
+    <Icon Id="Icon.exe" SourceFile="Images\truck.ico" />
 
     <!-- Set properties for add/remove programs -->
-    <!--<Property Id="ARPPRODUCTICON" Value="Icon.exe" />-->
+    <Property Id="ARPPRODUCTICON" Value="Icon.exe" />
     <Property Id="ARPHELPLINK" Value="$(var.InfoURL)" />
     <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
     <!-- Remove repair -->
@@ -95,7 +95,7 @@
           <RegistryValue Root="HKCU" Key="Software/!(loc.ApplicationName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
         </Component>
       </Directory>
-           
+
       <!-- We start building our directory structure here -->
       <!-- "ProgramFilesFolder" is a variable containing the absolute path. -->
       <!-- For a list of folder variables, see: http://msdn.microsoft.com/en-us/library/aa372057%28VS.85%29.aspx -->
@@ -121,11 +121,12 @@
             <Component Id="tradeScales.exe_comp" Guid="*">
               <File Source="$(var.TradeScales.Wpf.TargetPath)" Id="TradeScalesExe" KeyPath="yes" />
             </Component>
-            
+
             <!--Config files-->
-             <Component Id="tradeScales.config_comp" Guid="B83D58AF-1542-4A84-A024-1924DE6EF4F5">
+            <Component Id="tradeScales.config_comp" Guid="B83D58AF-1542-4A84-A024-1924DE6EF4F5">
               <File Source="$(var.TradeScales.Wpf.TargetDir)\TradeScales.Data.dll.config"/>
-             <File Source="$(var.TradeScales.Wpf.TargetDir)\TradeScales.exe.config"/>
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\TradeScales.exe.config"/>
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\LICENSE"/>
             </Component>
 
             <!--Dll's-->
@@ -134,22 +135,27 @@
               <File Source="$(var.TradeScales.Wpf.TargetDir)\AutoMapper.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\EntityFramework.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\EntityFramework.SqlServer.dll"/>
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\EntityFramework.SqlServerCompact.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\FluentValidation.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\itextsharp.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\itextsharp.xmlworker.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\MahApps.Metro.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\MockData.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\System.ComponentModel.Primitives.dll"/>
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\System.Data.SqlServerCe.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\System.ValueTuple.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\System.Windows.Interactivity.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\TradeScales.Data.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\TradeScales.Entities.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\TradeScales.Services.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\Xceed.Wpf.AvalonDock.dll"/>
-              <File Source="$(var.TradeScales.Wpf.TargetDir)\Xceed.Wpf.AvalonDock.Themes.Aero.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\Xceed.Wpf.AvalonDock.Themes.Expression.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\Xceed.Wpf.AvalonDock.Themes.Metro.dll"/>
-              <File Source="$(var.TradeScales.Wpf.TargetDir)\Xceed.Wpf.AvalonDock.Themes.VS2010.dll"/>
+            </Component>
+
+            <!--Sdf file-->
+            <Component Id="tradeScales.sdf_comp" Guid="5D04B263-570C-4D78-9FF9-96D1E87932C6">
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\TradeScales.sdf"/>
             </Component>
 
             <!--Resource Directory-->
@@ -178,9 +184,9 @@
                   <File Source="$(var.TradeScales.Wpf.TargetDir)\Resources\templates\WeighbridgeTicketTemplate.html"/>
                 </Component>
               </Directory>
-            
+
             </Directory>
-          
+
           </Directory>
         </Directory>
       </Directory>
@@ -201,7 +207,7 @@
     <Feature Id="Complete" Title="!(loc.ApplicationName)" Description="!(loc.FeatureCompleteDescription)" Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
 
       <!-- A feature block for the main (GUI) program and all its dependencies -->
-      <Feature Id="MainProgram" Title="!(loc.FeatureMainProgramTitle)" Description="!(loc.FeatureMainProgramDescription)" Level="1">       
+      <Feature Id="MainProgram" Title="!(loc.FeatureMainProgramTitle)" Description="!(loc.FeatureMainProgramDescription)" Level="1">
         <ComponentRef Id="DESKTOPSHORTCUT_comp" />
         <ComponentRef Id="INSTALLDIR_comp" />
         <ComponentRef Id="RESOURCEDIR_comp" />
@@ -210,8 +216,9 @@
         <ComponentRef Id="tradeScales.logo_comp" />
         <ComponentRef Id="tradeScales.templates_comp" />
         <ComponentRef Id="tradeScales.exe_comp" />
-        <ComponentRef Id="tradeScales.config_comp" />      
+        <ComponentRef Id="tradeScales.config_comp" />
         <ComponentRef Id="tradeScales.dlls_comp" />
+        <ComponentRef Id="tradeScales.sdf_comp" />
         <ComponentRef Id="RegValInstallLocation_comp" />
       </Feature>
     </Feature>

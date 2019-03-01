@@ -3,8 +3,8 @@
   <String Id="Language">1033</String>
   <!-- Supported language and codepage codes can be found here: http://www.tramontana.co.hu/wix/lesson2.php#2.4 -->
   <String Id="ApplicationName">TradeScales</String>
-  <String Id="ManufacturerName">CompanyName</String>
-  <String Id="ManufacturerFullName">CompanyName</String>
+  <String Id="ManufacturerName">ThinkIT</String>
+  <String Id="ManufacturerFullName">ThinkIT</String>
   <String Id="ProductDescription">Weighbridge System</String>
   <String Id="Comments">Installs TradeScales</String>
   <String Id="LicenseRtf">Eula.rtf</String>

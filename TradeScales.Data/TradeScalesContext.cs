@@ -10,6 +10,9 @@ namespace TradeScales.Data
     {
         public TradeScalesContext() : base("TradeScales")
         {
+            string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string path = (System.IO.Path.GetDirectoryName(executable));
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
             Database.SetInitializer<TradeScalesContext>(null);
         }
 
