@@ -3,9 +3,9 @@
     public static class HardCodedValues
     {
 
-        public const string ApplicationName = "Trade Scales";
+        public const string ApplicationName = "TradeScales";
         public const string LayoutFileName = "Layout.config";
-        public const string CompanyName = "Werner Hurter";
+        public const string CompanyName = "ThinkIT";
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 using TradeScales.Wpf.Model;
+using TradeScales.Wpf.Properties;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 
 namespace TradeScales.Wpf.ViewModel
@@ -29,11 +30,7 @@ namespace TradeScales.Wpf.ViewModel
 
         public string ImagePath
         {
-            get
-            {
-                string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                return $"{rootPath}\\Resources\\images\\tradescales.png";
-            }
+            get { return Settings.Default.WeighBridgeCertificateLogo; }       
         }
 
         #endregion

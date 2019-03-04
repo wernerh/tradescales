@@ -100,7 +100,8 @@ namespace TradeScales.Wpf.ViewModel
         {
             get
             {
-                string directoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\{HardCodedValues.CompanyName}\\{HardCodedValues.ApplicationName}";
+                string rootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string directoryPath = $"{rootPath}\\{ HardCodedValues.CompanyName}\\{HardCodedValues.ApplicationName}";
 
                 if (Directory.Exists(directoryPath) == false)
                 {
@@ -663,16 +664,17 @@ namespace TradeScales.Wpf.ViewModel
             var weighbridgeCertificateFolder = Settings.Default.WeighBridgeCertificatesFolder;
             var reportsFolder = Settings.Default.ReportsFolder;
 
-            if (string.IsNullOrEmpty(weighbridgeCertificateFolder) && string.IsNullOrEmpty(reportsFolder))
-            {
-                string rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string rootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string directoryPath = $"{rootPath}\\{ HardCodedValues.CompanyName}\\{HardCodedValues.ApplicationName}";
 
-                Settings.Default.WeighBridgeCertificatesFolder = $"{rootPath}\\WeighBridgeCertificates";
-                Settings.Default.WeighBridgeCertificateLogo = $"{rootPath}\\Resources\\images\\tradescales.png";
-                Settings.Default.WeighBridgeCertificateTemplate = $"{rootPath}\\Resources\\templates\\WeighbridgeTicketTemplate.html";
-                Settings.Default.ReportsFolder = $"{rootPath}\\Reports";
-                Settings.Default.ReportLogo = $"{rootPath}\\Resources\\images\\tradescales.png";
-                Settings.Default.ReportTemplate = $"{rootPath}\\Resources\\templates\\ReportTemplate.html";
+            if (string.IsNullOrEmpty(weighbridgeCertificateFolder) && string.IsNullOrEmpty(reportsFolder))
+            {            
+                Settings.Default.WeighBridgeCertificatesFolder = $"{directoryPath}\\WeighBridgeCertificates";
+                Settings.Default.WeighBridgeCertificateLogo = $"{directoryPath}\\images\\tradescales.png";
+                Settings.Default.WeighBridgeCertificateTemplate = $"{directoryPath}\\templates\\WeighbridgeTicketTemplate.html";
+                Settings.Default.ReportsFolder = $"{directoryPath}\\Reports";
+                Settings.Default.ReportLogo = $"{directoryPath}\\images\\tradescales.png";
+                Settings.Default.ReportTemplate = $"{directoryPath}\\templates\\ReportTemplate.html";
                 Settings.Default.Save();
             }
         }
