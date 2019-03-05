@@ -213,6 +213,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         private void SaveWeight()
         {
+            WeightResult = string.Format("{0:0.00}", WeightResult);
             var weightReading = double.Parse(WeightResult);
             MainViewModel.This.ActiveDocument.UpdateWeight(weightReading, IsReceiving);
             MainViewModel.This.StatusMessage = $"Weight Saved {DateTime.Now}";
