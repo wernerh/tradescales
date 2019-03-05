@@ -26,6 +26,9 @@ namespace TradeScales.Data.Migrations
             // Create Drivers
             context.DriverSet.AddOrUpdate(GenerateDrivers());
 
+            // Create Vehicle
+            context.VehicleSet.AddOrUpdate(GenerateVehicles());
+
             // Create Destinations
             context.DestinationSet.AddOrUpdate(GenerateDestinations());
 

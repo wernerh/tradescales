@@ -25,6 +25,7 @@ namespace TradeScales.Data
         public IDbSet<Product> ProductSet { get; set; }
         public IDbSet<Haulier> HaulierSet { get; set; }
         public IDbSet<Driver> DriverSet { get; set; }
+        public IDbSet<Vehicle> VehicleSet { get; set; }
         public IDbSet<Destination> DestinationSet { get; set; }
         public IDbSet<Error> ErrorSet { get; set; }
         public IDbSet<StatusMessage> StatusMessageSet { get; set; }
@@ -46,6 +47,7 @@ namespace TradeScales.Data
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new HaulierConfiguration());
             modelBuilder.Configurations.Add(new DriverConfiguration());
+            modelBuilder.Configurations.Add(new VehicleConfiguration());
             modelBuilder.Configurations.Add(new DestinationConfiguration());
         }
     }
