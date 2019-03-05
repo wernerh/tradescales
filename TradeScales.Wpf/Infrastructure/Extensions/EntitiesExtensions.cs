@@ -57,6 +57,7 @@ namespace TradeScales.Wpf.Infrastructure.Extensions
             ticket.DestinationId = ticketViewModel.DestinationId;
             ticket.ProductId = ticketViewModel.ProductId;
             ticket.DriverId = ticketViewModel.DriverId;
+            ticket.VehicleId = ticketViewModel.VehicleId;
             ticket.OrderNumber = ticketViewModel.OrderNumber;
             ticket.DeliveryNumber = ticketViewModel.DeliveryNumber;
             ticket.SealFrom = ticketViewModel.SealFrom;

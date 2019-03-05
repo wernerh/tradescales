@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using TradeScales.Entities;
 using TradeScales.Wpf.Infrastructure.Validators;
 
 namespace TradeScales.Wpf.ViewModel
@@ -28,6 +29,14 @@ namespace TradeScales.Wpf.ViewModel
         public double GrossWeight { get; set; }
         public double TareWeight { get; set; }
         public double NettWeight { get; set; }
+
+        public virtual Haulier Haulier { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Destination Destination { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Driver Driver { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validator = new TicketViewModelValidator();

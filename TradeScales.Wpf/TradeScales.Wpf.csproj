@@ -144,6 +144,7 @@
     <Compile Include="Infrastructure\Validators\ProductViewModelValidator.cs" />
     <Compile Include="Infrastructure\Validators\TicketViewModelValidator.cs" />
     <Compile Include="Infrastructure\Validators\UserViewModelValidator.cs" />
+    <Compile Include="Infrastructure\Validators\VehicleViewModelValidator.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Model\HardCodedValues.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="ViewModel\EntityViewModels\DriverViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModels\HaulierViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\VehicleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\EditTicketViewModel.cs" />
     <Compile Include="ViewModel\PaneViewModel.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="ViewModel\TicketListViewModel.cs" />
     <Compile Include="ViewModel\StartPageViewModel.cs" />
     <Compile Include="ViewModel\Tools\ToolOneViewModel.cs" />
+    <Compile Include="ViewModel\Tools\ToolThreeViewModel.cs" />
     <Compile Include="ViewModel\Tools\ToolTwoViewModel.cs" />
     <Compile Include="ViewModel\Tools\ToolViewModel.cs" />
     <Compile Include="View\Behavior\AvalonDockLayoutSerializer.cs" />
@@ -212,6 +215,9 @@
     <Compile Include="View\Pane\PaneTemplateSelector.cs" />
     <Compile Include="View\NewTicketView.xaml.cs">
       <DependentUpon>NewTicketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tools\ToolThreeView.xaml.cs">
+      <DependentUpon>ToolThreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Tools\ToolTwoView.xaml.cs">
       <DependentUpon>ToolTwoView.xaml</DependentUpon>
@@ -273,6 +279,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\NewTicketView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Tools\ToolThreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

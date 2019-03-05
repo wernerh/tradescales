@@ -27,6 +27,7 @@
                     <DataGridTextColumn Header = "Ticket Number" Width="*" Binding = "{Binding TicketNumber}" />
                     <DataGridTextColumn Header = "Order Number" Width="*" Binding = "{Binding OrderNumber}" />
                     <DataGridTextColumn Header = "Delivery Number" Width="*" Binding = "{Binding DeliveryNumber}"/>
+                    <DataGridTextColumn Header = "Registration" Width="*" Binding = "{Binding Path=Vehicle.Registration}" />
                     <DataGridTextColumn Header = "Last Modified By" Width="*" Binding = "{Binding LastModifiedBy}"/>
                     <DataGridTextColumn Header = "Last Modified Date" Width="*" Binding = "{Binding LastModified}"/>
                     <DataGridTextColumn Header = "Status" Width="*" Binding = "{Binding Status}"/>

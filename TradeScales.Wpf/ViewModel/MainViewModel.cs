@@ -249,7 +249,7 @@ namespace TradeScales.Wpf.ViewModel
             {
                 if (_Tools == null)
                 {
-                    _Tools = new ToolViewModel[] { ToolOne, ToolTwo };
+                    _Tools = new ToolViewModel[] { ToolOne, ToolTwo, ToolThree };
                 }
                 return _Tools;
             }
@@ -290,6 +290,26 @@ namespace TradeScales.Wpf.ViewModel
             set
             {
                 _ToolTwo = value;
+            }
+        }
+
+        private ToolThreeViewModel _ToolThree;
+        /// <summary>   
+        /// Tool three
+        /// </summary>
+        public ToolThreeViewModel ToolThree
+        {
+            get
+            {
+                if (_ToolThree == null)
+                {
+                    _ToolThree = new ToolThreeViewModel();
+                }
+                return _ToolThree;
+            }
+            set
+            {
+                _ToolThree = value;
             }
         }
 

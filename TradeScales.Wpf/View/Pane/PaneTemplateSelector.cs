@@ -25,6 +25,11 @@ namespace TradeScales.Wpf.View.Pane
         public DataTemplate ToolTwoTemplate { get; set; }
 
         /// <summary>
+        /// Tool three template
+        /// </summary>
+        public DataTemplate ToolThreeTemplate { get; set; }
+
+        /// <summary>
         /// Document template
         /// </summary>
         public DataTemplate DocumentTemplate { get; set; }
@@ -78,6 +83,11 @@ namespace TradeScales.Wpf.View.Pane
             if (item is ToolTwoViewModel)
             {
                 return ToolTwoTemplate;
+            }
+
+            if (item is ToolThreeViewModel)
+            {
+                return ToolThreeTemplate;
             }
 
             if (item is EditTicketViewModel)

@@ -160,6 +160,12 @@ namespace TradeScales.Wpf.ViewModel
                 return;
             }
 
+            if (args.Model.ContentId == ToolThreeViewModel.ToolContentID)
+            {
+                args.Content = MainViewModel.This.ToolThree;
+                return;
+            }
+
             args.Content = ReloadDocument(args.Model.ContentId);
 
             if (args.Content == null)

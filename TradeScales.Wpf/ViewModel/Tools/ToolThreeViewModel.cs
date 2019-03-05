@@ -20,15 +20,13 @@ using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel.Tools
 {
-    /// <summary>
-    /// Tool two viewmodel
-    /// </summary>
-    public class ToolTwoViewModel : ToolViewModel
+   
+    public class ToolThreeViewModel : ToolViewModel
     {
 
         #region Fields
 
-        public const string ToolContentID = "ToolTwo";
+        public const string ToolContentID = "ToolThree";
 
         private static IMessageBoxService _MessageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
 
@@ -45,11 +43,8 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         #region Constructor
 
-        /// <summary>
-        /// Initializes a new instance of the ToolTwoViewModel class
-        /// </summary>
-        public ToolTwoViewModel()
-            : base("Reports")
+        public ToolThreeViewModel()
+            : base("Ticket List Filter")
         {
             ContentID = ToolContentID;
             LoadDropdowns();
@@ -170,21 +165,19 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         #region Commands
 
-        private ICommand _GenerateReportCommand;
-        /// <summary>
-        /// </summary>
-        public ICommand GenerateReportCommand
+        private ICommand _FilterTicketListCommand;    
+        public ICommand FilterTicketListCommand
         {
             get
             {
-                if (_GenerateReportCommand == null)
+                if (_FilterTicketListCommand == null)
                 {
-                    _GenerateReportCommand = new MVVMRelayCommand(
+                    _FilterTicketListCommand = new MVVMRelayCommand(
                         execute =>
                         {
                             try
                             {
-                                ViewReport();
+                                FilterTicketList();
                             }
                             catch (Exception ex)
                             {
@@ -192,33 +185,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
                             }
                         });
                 }
-                return _GenerateReportCommand;
-            }
-        }
-
-        private ICommand _RefreshCommand;
-        public ICommand RefreshCommand
-        {
-            get
-            {
-                if (_RefreshCommand == null)
-                {
-                    _RefreshCommand = new MVVMRelayCommand(
-                        execute =>
-                        {
-                            try
-                            {
-                                throw (new Exception("Refresh"));
-
-                            }
-                            catch (Exception ex)
-                            {
-                                MainViewModel.This.ShowExceptionMessageBox(ex);
-                            }
-                        });
-                }
-
-                return _RefreshCommand;
+                return _FilterTicketListCommand;
             }
         }
 
@@ -273,138 +240,13 @@ namespace TradeScales.Wpf.ViewModel.Tools
             SelectedDestination = Destinations.First();
             SelectedDriver = Drivers.First();
             SelectedVehicle = Vehicles.First();
-        }
+        }  
 
-        private void ViewReport()
+        private void FilterTicketList()
         {
-            string rootPath = Settings.Default.ReportsFolder;
-            var filePath = $"{rootPath}\\Report.pdf";
-
-            // Get Report Data
-            var tickets = GetReportData();
-
-            if (tickets.Count() == 0)
-            {
-                _MessageBoxService.ShowMessageBox("No tickets were generated in your selected time period.\r\nPlease adjust your 'Date To' or 'Date From' filter.", "Report Generation", MessageBoxButton.OK);
-                return;
-            }
-
-            if (!Directory.Exists(rootPath))
-            {
-                Directory.CreateDirectory(rootPath);
-            }
-
-            int copyNumber = 0;
-
-            while (File.Exists(filePath))
-            {
-                filePath = $"{rootPath}\\Report - ({++copyNumber}).pdf";
-            }
-
-            GenerateReport(filePath, tickets);
-            MainViewModel.This.OpenPdfDocument(filePath);
+            MainViewModel.This.TicketList.FilterTickets(DateTo, DateFrom, SelectedHaulier.ID, SelectedCustomer.ID, SelectedDestination.ID, SelectedProduct.ID, SelectedDriver.ID, SelectedVehicle.ID);  
         }
-
-        private void GenerateReport(string filePath, IEnumerable<Ticket> tickets)
-        {
-
-            // Create document
-            Document document = new Document(PageSize.A4.Rotate());
-            var output = new FileStream(filePath, FileMode.Create);
-            var writer = PdfWriter.GetInstance(document, output);
-            document.Open();
-
-            // Get logo path
-            var logoPath = Settings.Default.ReportLogo;
-
-            // Get template path
-            var templatePath = Settings.Default.ReportTemplate;
-
-            // Read in the contents of the Receipt.htm file...
-            string contents = File.ReadAllText(templatePath);
-
-            // Replace the placeholders with the user-specified text
-            contents = contents.Replace("[IMAGESOURCE]", logoPath);
-            contents = contents.Replace("[TIMESTAMP]", $"{DateFrom} - {DateTo}");
-            contents = contents.Replace("[TICKETS]", GetTicketTable(tickets));
-
-            StringReader sr = new StringReader(contents);
-
-            // Parse the HTML string into a collection of elements...
-            XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, sr);
-
-            // Dispose resources
-            document.Close();
-        }
-
-        private IEnumerable<Ticket> GetReportData()
-        {
-            // Get All Tickets
-            var tickets = _ticketsRepository.GetAll();
-
-            //Filter tickets
-            tickets = tickets.ToList().Where(t => DateTime.Parse(t.TimeIn) >= DateFrom).AsQueryable();
-            tickets = tickets.ToList().Where(t => DateTime.Parse(t.TimeOut) <= DateTo).AsQueryable();
-
-            // Haulier
-            if (SelectedHaulier.ID != -1)
-            {
-                tickets = tickets.Where(t => t.HaulierId == SelectedHaulier.ID);
-            }
-
-            // Customer
-            if (SelectedCustomer.ID != -1)
-            {
-                tickets = tickets.Where(t => t.CustomerId == SelectedCustomer.ID);
-            }
-
-            // Destination
-            if (SelectedDestination.ID != -1)
-            {
-                tickets = tickets.Where(t => t.DestinationId == SelectedDestination.ID);
-            }
-
-            // Product
-            if (SelectedProduct.ID != -1)
-            {
-                tickets = tickets.Where(t => t.ProductId == SelectedProduct.ID);
-            }
-
-            // Driver
-            if (SelectedDriver.ID != -1)
-            {
-                tickets = tickets.Where(t => t.DriverId == SelectedDriver.ID);
-            }
-
-            // Vehicle
-            if (SelectedVehicle.ID != -1)
-            {
-                tickets = tickets.Where(t => t.VehicleId == SelectedDriver.ID);
-            }
-
-            return tickets;
-        }
-
-        private string GetTicketTable(IEnumerable<Ticket> tickets)
-        {
-            var result = @"<table><tr><th style=""font-weight: bold"">Ticket No</th><th style=""font-weight: bold"">Date Out</th><th style=""font-weight: bold"">Time Out</th><th style=""font-weight: bold"">Driver</th><th style=""font-weight: bold"">Registration</th><th style=""font-weight: bold"">Order No</th><th style=""font-weight: bold"">Delivery No</th><th style=""font-weight: bold"">Gross</th><th style=""font-weight: bold"">Tare</th><th style=""font-weight: bold"">Nett</th></tr>";
-
-            foreach (var ticket in tickets)
-            {
-                result += $"<tr><td>{ticket.TicketNumber}</td><td>{DateTime.Parse(ticket.TimeOut).ToShortDateString()}</td><td>{DateTime.Parse(ticket.TimeOut).ToShortTimeString()}</td><td>{ticket.Driver.FirstName} {ticket.Driver.LastName}</td><td>{ticket.Vehicle.Registration}</td><td>{ticket.OrderNumber}</td><td>{ticket.DeliveryNumber}</td><td>{ticket.GrossWeight}</td><td>{ticket.TareWeight}</td><td>{ticket.NettWeight}</td></tr>";
-            }
-
-            // Calculate Totals
-            var totalGross = tickets.Sum(x => x.GrossWeight);
-            var totalTare = tickets.Sum(x => x.TareWeight);
-            var totalNett = tickets.Sum(x => x.NettWeight);
-
-            result += $"<tr><td>Grand Total:</td><td></td><td></td><td></td><td></td><td></td><td></td><td>{totalGross}</td><td>{totalTare}</td><td>{totalNett}</td></tr>";
-            result += "</table>";
-
-            return result;
-        }
-
+     
         #endregion
 
     }

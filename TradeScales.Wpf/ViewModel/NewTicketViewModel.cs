@@ -12,6 +12,7 @@ using TradeScales.Entities;
 using TradeScales.Wpf.Infrastructure.Extensions;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
+using TradeScales.Wpf.ViewModel.EntityViewModels;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel
@@ -34,7 +35,22 @@ namespace TradeScales.Wpf.ViewModel
         private IEntityBaseRepository<Product> _productsRepository = BootStrapper.Resolve<IEntityBaseRepository<Product>>();
         private IEntityBaseRepository<Destination> _destinationsRepository = BootStrapper.Resolve<IEntityBaseRepository<Destination>>();
         private IEntityBaseRepository<Driver> _driversRepository = BootStrapper.Resolve<IEntityBaseRepository<Driver>>();
+        private IEntityBaseRepository<Vehicle> _vehiclesRepository = BootStrapper.Resolve<IEntityBaseRepository<Vehicle>>();
         private IUnitOfWork _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the NewTicketViewModel class.
+        /// </summary>
+        public NewTicketViewModel()
+            : base("New Ticket")
+        {
+            ContentID = ToolContentID;
+            InitialiseNewTicket();
+        }
 
         #endregion
 
@@ -160,6 +176,20 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        public IEnumerable<VehicleViewModel> Vehicles { get; set; }
+
+        private VehicleViewModel _SelectedVehicle;
+        public VehicleViewModel SelectedVehicle
+        {
+            get { return _SelectedVehicle; }
+            set
+            {
+                _SelectedVehicle = value;
+                NewTicket.VehicleId = _SelectedVehicle.ID;
+                OnPropertyChanged("SelectedVehicle");
+            }
+        }
+
         public string OrderNumber
         {
             get { return NewTicket.OrderNumber; }
@@ -234,20 +264,6 @@ namespace TradeScales.Wpf.ViewModel
 
         #endregion
 
-        #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the NewTicketViewModel class.
-        /// </summary>
-        public NewTicketViewModel()
-            : base("New Ticket")
-        {
-            ContentID = ToolContentID;
-            InitialiseNewTicket();
-        }
-
-        #endregion
-
         #region Commands
 
         private ICommand _CreateNewTicketCommand;
@@ -304,11 +320,12 @@ namespace TradeScales.Wpf.ViewModel
 
         private void LoadDropdowns()
         {
-            Hauliers = Mapper.Map<IEnumerable<Haulier>, IEnumerable<HaulierViewModel>>(_hauliersRepository.GetAll());
-            Customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(_customersRepository.GetAll());
-            Products = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(_productsRepository.GetAll());
-            Destinations = Mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationViewModel>>(_destinationsRepository.GetAll());
+            Hauliers = Mapper.Map<IEnumerable<Haulier>, IEnumerable<HaulierViewModel>>(_hauliersRepository.GetAll().OrderBy(x => x.Name));
+            Customers = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(_customersRepository.GetAll().OrderBy(x => x.Name));
+            Products = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(_productsRepository.GetAll().OrderBy(x => x.Name));
+            Destinations = Mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationViewModel>>(_destinationsRepository.GetAll().OrderBy(x => x.Name));
             Drivers = Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll()).OrderBy(d => d.FirstName);
+            Vehicles = Mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleViewModel>>(_vehiclesRepository.GetAll()).OrderBy(d => d.Registration);
         }
 
         private void LoadDefaultValues()
@@ -324,6 +341,7 @@ namespace TradeScales.Wpf.ViewModel
             SelectedProduct = Products.First();
             SelectedDestination = Destinations.First();
             SelectedDriver = Drivers.First();
+            SelectedVehicle = Vehicles.First();
 
             TicketNumber = $"#{newTicketNumber}";
             OrderNumber = newTicketNumber;

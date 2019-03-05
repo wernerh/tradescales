@@ -11,6 +11,7 @@ using TradeScales.Entities;
 using TradeScales.Wpf.Infrastructure.Extensions;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
+using TradeScales.Wpf.ViewModel.EntityViewModels;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel
@@ -33,7 +34,23 @@ namespace TradeScales.Wpf.ViewModel
         private IEntityBaseRepository<Product> _productsRepository = BootStrapper.Resolve<IEntityBaseRepository<Product>>();
         private IEntityBaseRepository<Destination> _destinationsRepository = BootStrapper.Resolve<IEntityBaseRepository<Destination>>();
         private IEntityBaseRepository<Driver> _driversRepository = BootStrapper.Resolve<IEntityBaseRepository<Driver>>();
+        private IEntityBaseRepository<Vehicle> _vehiclesRepository = BootStrapper.Resolve<IEntityBaseRepository<Vehicle>>();
         private IUnitOfWork _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the NewTicketViewModel class.
+        /// </summary>
+        public EditTicketViewModel(TicketViewModel ticket)
+            : base($"Edit Ticket ({ticket.TicketNumber})")
+        {
+            EditTicket = Mapper.Map<Ticket, TicketViewModel>(_ticketsRepository.GetSingle(ticket.ID));
+            ContentID = ToolContentID;
+            InitialiseEditTicket();
+        }
 
         #endregion
 
@@ -159,6 +176,20 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        public IEnumerable<VehicleViewModel> Vehicles { get; set; }
+
+        private VehicleViewModel _SelectedVehicle;
+        public VehicleViewModel SelectedVehicle
+        {
+            get { return _SelectedVehicle; }
+            set
+            {
+                _SelectedVehicle = value;
+                EditTicket.VehicleId = _SelectedVehicle.ID;
+                OnPropertyChanged("SelectedVehicle");
+            }
+        }
+
         public string OrderNumber
         {
             get { return EditTicket.OrderNumber; }
@@ -233,21 +264,6 @@ namespace TradeScales.Wpf.ViewModel
 
         #endregion
 
-        #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the NewTicketViewModel class.
-        /// </summary>
-        public EditTicketViewModel(TicketViewModel ticket)
-            : base($"Edit Ticket ({ticket.TicketNumber})")
-        {
-            EditTicket = Mapper.Map<Ticket, TicketViewModel>(_ticketsRepository.GetSingle(ticket.ID));
-            ContentID = ToolContentID;
-            InitialiseEditTicket();
-        }
-
-        #endregion
-
         #region Commands
 
         private ICommand _UpdateTicketCommand;
@@ -310,6 +326,7 @@ namespace TradeScales.Wpf.ViewModel
             Products = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(_productsRepository.GetAll());
             Destinations = Mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationViewModel>>(_destinationsRepository.GetAll());
             Drivers = Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll()).OrderBy(d => d.FirstName);
+            Vehicles = Mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleViewModel>>(_vehiclesRepository.GetAll()).OrderBy(d => d.Registration);
         }
 
         private void SetValues()
@@ -326,6 +343,7 @@ namespace TradeScales.Wpf.ViewModel
             SelectedProduct = Products.FirstOrDefault(x => x.ID == EditTicket.ProductId);
             SelectedDestination = Destinations.FirstOrDefault(x => x.ID == EditTicket.DestinationId);
             SelectedDriver = Drivers.FirstOrDefault(x => x.ID == EditTicket.DriverId);
+            SelectedVehicle = Vehicles.FirstOrDefault(x => x.ID == EditTicket.VehicleId);
         }
 
         private void UpdateNettWeight()

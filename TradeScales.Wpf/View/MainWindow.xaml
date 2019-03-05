@@ -51,8 +51,9 @@
                 </MenuItem>
                 <!--Tools-->
                 <MenuItem Header="Tools">
-                    <MenuItem Header="Weigh Bridge" IsChecked="{Binding ToolOne.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
                     <MenuItem Header="Reports" IsChecked="{Binding ToolTwo.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="Ticket List Filter" IsChecked="{Binding ToolThree.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="Weigh Bridge" IsChecked="{Binding ToolOne.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
                 </MenuItem>
                 <!--Settings-->
                 <MenuItem Header="Settings">
@@ -138,6 +139,12 @@
                             <tools:ToolTwoView/>
                         </DataTemplate>
                     </pane:PaneTemplateSelector.ToolTwoTemplate>
+                    <!--Tool Three Template-->
+                    <pane:PaneTemplateSelector.ToolThreeTemplate>
+                        <DataTemplate>
+                            <tools:ToolThreeView/>
+                        </DataTemplate>
+                    </pane:PaneTemplateSelector.ToolThreeTemplate>
                 </pane:PaneTemplateSelector>
             </dock:DockingManager.LayoutItemTemplateSelector>
 
@@ -200,6 +207,14 @@
                             <Setter Property="ContentId" Value="{Binding Model.ContentID}"/>
                         </Style>
                     </pane:PaneStyleSelector.ToolTwoStyle>
+                    <!--Tool Three Style-->
+                    <pane:PaneStyleSelector.ToolThreeStyle>
+                        <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                            <Setter Property="Title" Value="{Binding Model.Title}"/>
+                            <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>
+                            <Setter Property="ContentId" Value="{Binding Model.ContentID}"/>
+                        </Style>
+                    </pane:PaneStyleSelector.ToolThreeStyle>
                 </pane:PaneStyleSelector>
             </avalonDock:DockingManager.LayoutItemContainerStyleSelector>
 

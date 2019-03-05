@@ -13,13 +13,20 @@ namespace TradeScales.Wpf.View.Pane
 
         #region Properties
 
-        /// Tool two style
+        /// <summary>
+        /// Tool one style
         /// </summary>
         public Style ToolOneStyle { get; set; }
 
-        /// Tool one style
+        /// <summary>
+        /// Tool two style
         /// </summary>
         public Style ToolTwoStyle { get; set; }
+
+        /// <summary>
+        /// Tool three style
+        /// </summary>
+        public Style ToolThreeStyle { get; set; }
 
         /// <summary>
         /// Document style
@@ -71,6 +78,12 @@ namespace TradeScales.Wpf.View.Pane
             if (item is ToolTwoViewModel)
             {
                 return ToolTwoStyle;
+            }
+
+
+            if (item is ToolThreeViewModel)
+            {
+                return ToolThreeStyle;
             }
 
             if (item is EditTicketViewModel)

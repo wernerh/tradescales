@@ -38,20 +38,6 @@ namespace TradeScales.Wpf.ViewModel
 
         #endregion
 
-        #region Properties
-
-        private ObservableCollection<TicketViewModel> _Tickets;
-        public ObservableCollection<TicketViewModel> Tickets
-        {
-            get { return _Tickets; }
-            set
-            {
-                _Tickets = value;
-                OnPropertyChanged("Tickets");
-            }
-        }
-
-        #endregion
 
         #region Constructor
 
@@ -63,6 +49,21 @@ namespace TradeScales.Wpf.ViewModel
         {
             ContentID = ToolContentID;
             ReloadTickets();
+        }
+
+        #endregion
+
+        #region Properties
+
+        private ObservableCollection<TicketViewModel> _Tickets;
+        public ObservableCollection<TicketViewModel> Tickets
+        {
+            get { return _Tickets; }
+            set
+            {
+                _Tickets = value;
+                OnPropertyChanged("Tickets");
+            }
         }
 
         #endregion
@@ -148,6 +149,54 @@ namespace TradeScales.Wpf.ViewModel
         public void ReloadTickets()
         {
             Tickets = new ObservableCollection<TicketViewModel>(Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(_ticketsRepository.GetAll().OrderByDescending(t => t.TicketNumber)));
+        }
+
+        public void FilterTickets(DateTime dateFrom, DateTime dateTo, int haulierId, int customerId, int destinationId, int productId, int driverId, int vehicleId)
+        {
+            // Get All Tickets
+            var tickets = _ticketsRepository.GetAll();
+
+            //Filter tickets
+            tickets = tickets.ToList().Where(t => DateTime.Parse(t.TimeIn) >= dateFrom).AsQueryable();
+            tickets = tickets.ToList().Where(t => DateTime.Parse(t.TimeOut) <= dateTo).AsQueryable();
+
+            // Haulier
+            if (haulierId != -1)
+            {
+                tickets = tickets.Where(t => t.HaulierId == haulierId);
+            }
+
+            // Customer
+            if (customerId != -1)
+            {
+                tickets = tickets.Where(t => t.CustomerId == customerId);
+            }
+
+            // Destination
+            if (destinationId != -1)
+            {
+                tickets = tickets.Where(t => t.DestinationId == destinationId);
+            }
+
+            // Product
+            if (productId != -1)
+            {
+                tickets = tickets.Where(t => t.ProductId == productId);
+            }
+
+            // Driver
+            if (driverId != -1)
+            {
+                tickets = tickets.Where(t => t.DriverId == driverId);
+            }
+
+            // Vehicle
+            if (vehicleId != -1)
+            {
+                tickets = tickets.Where(t => t.VehicleId == vehicleId);
+            }
+
+            Tickets = new ObservableCollection<TicketViewModel>(Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(tickets.OrderByDescending(t => t.TicketNumber)));
         }
 
         #endregion
@@ -252,7 +301,7 @@ namespace TradeScales.Wpf.ViewModel
             contents = contents.Replace("[DRIVERCODE]", ticket.Driver.Code);
             contents = contents.Replace("[DRIVERFIRSTNAME]", ticket.Driver.FirstName);
             contents = contents.Replace("[DRIVERLASTNAME]", ticket.Driver.LastName);
-            contents = contents.Replace("[VEHICLEMAKE]", ticket.Vehicle.Make);
+            contents = contents.Replace("[VEHICLECODE]", ticket.Vehicle.Code);
             contents = contents.Replace("[VEHICLEREGISTRATION]", ticket.Vehicle.Registration);
             contents = contents.Replace("[DESTINATIONCODE]", ticket.Destination.Code);
             contents = contents.Replace("[DESTINATIONNAME]", ticket.Destination.Name);
