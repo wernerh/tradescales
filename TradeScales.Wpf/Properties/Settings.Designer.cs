@@ -251,5 +251,29 @@ namespace TradeScales.Wpf.Properties {
                 this["ProductDemoExpireDate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ToolThreeIsVisible {
+            get {
+                return ((bool)(this["ToolThreeIsVisible"]));
+            }
+            set {
+                this["ToolThreeIsVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("000000")]
+        public string LastTicketNumber {
+            get {
+                return ((string)(this["LastTicketNumber"]));
+            }
+            set {
+                this["LastTicketNumber"] = value;
+            }
+        }
     }
 }

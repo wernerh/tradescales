@@ -59,5 +59,11 @@
     <Setting Name="ProductDemoExpireDate" Type="System.String" Scope="User">
       <Value Profile="(Default)">FBk6NYCjN7yDs1dkOWSEx92a5RWP7PiC8MctgtCvvp1fiy+Khj8SAxImnnEjLL/x42QfL6v29tgcuoxWQN0vFSTayCTl7igBkvpjzShtXDWNQRlfwvsH15maruzB+KVv</Value>
     </Setting>
+    <Setting Name="ToolThreeIsVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LastTicketNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">000000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

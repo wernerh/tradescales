@@ -11,6 +11,7 @@ using TradeScales.Data.Repositories;
 using TradeScales.Entities;
 using TradeScales.Wpf.Infrastructure.Extensions;
 using TradeScales.Wpf.Model;
+using TradeScales.Wpf.Properties;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 using TradeScales.Wpf.ViewModel.EntityViewModels;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
@@ -332,16 +333,19 @@ namespace TradeScales.Wpf.ViewModel
         {
             NewTicket = null;
         
-            var lastTicketNumber = _ticketsRepository.GetAll().OrderByDescending(t => t.TicketNumber).FirstOrDefault()?.TicketNumber.Replace("#", "") ?? "000000";
+            var lastTicketNumber = Settings.Default.LastTicketNumber;
             var numberOfTickets = int.Parse(lastTicketNumber);
             var newTicketNumber = (++numberOfTickets).ToString("D6");
 
-            SelectedHaulier = Hauliers.First();
-            SelectedCustomer = Customers.First();
-            SelectedProduct = Products.First();
-            SelectedDestination = Destinations.First();
-            SelectedDriver = Drivers.First();
-            SelectedVehicle = Vehicles.First();
+            Settings.Default.LastTicketNumber = newTicketNumber;
+            Settings.Default.Save();
+
+            SelectedHaulier = Hauliers.FirstOrDefault();
+            SelectedCustomer = Customers.FirstOrDefault();
+            SelectedProduct = Products.FirstOrDefault();
+            SelectedDestination = Destinations.FirstOrDefault();
+            SelectedDriver = Drivers.FirstOrDefault();
+            SelectedVehicle = Vehicles.FirstOrDefault();
 
             TicketNumber = $"#{newTicketNumber}";
             OrderNumber = newTicketNumber;

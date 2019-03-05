@@ -11,7 +11,7 @@ namespace TradeScales.Wpf.View.Tools
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the ToolOneView class
+        /// Initializes a new instance of the ToolTwoView class
         /// </summary>
         public ToolTwoView()
         {

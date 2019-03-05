@@ -3,9 +3,9 @@
 namespace TradeScales.Wpf.View.Tools
 {
     /// <summary>
-    /// Interaction logic for ToolOneView.xaml
+    /// Interaction logic for ToolThreeView.xaml
     /// </summary>
-    public partial class ToolTwoView : UserControl
+    public partial class ToolThreeView : UserControl
     {
 
         #region Constructor
@@ -13,7 +13,7 @@ namespace TradeScales.Wpf.View.Tools
         /// <summary>
         /// Initializes a new instance of the ToolOneView class
         /// </summary>
-        public ToolTwoView()
+        public ToolThreeView()
         {
             InitializeComponent();
         }

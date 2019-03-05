@@ -673,12 +673,14 @@ namespace TradeScales.Wpf.ViewModel
         {
             ToolOne.IsVisible = Settings.Default.ToolOneIsVisible;
             ToolTwo.IsVisible = Settings.Default.ToolTwoIsVisible;
+            ToolThree.IsVisible = Settings.Default.ToolThreeIsVisible;
         }
 
         private void SaveUserSettings()
         {
             Settings.Default.ToolOneIsVisible = ToolOne.IsVisible;
             Settings.Default.ToolTwoIsVisible = ToolTwo.IsVisible;
+            Settings.Default.ToolThreeIsVisible = ToolThree.IsVisible;
             Settings.Default.Save();
         }
 

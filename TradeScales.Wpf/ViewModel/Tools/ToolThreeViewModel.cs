@@ -244,7 +244,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         private void FilterTicketList()
         {
-            MainViewModel.This.TicketList.FilterTickets(DateTo, DateFrom, SelectedHaulier.ID, SelectedCustomer.ID, SelectedDestination.ID, SelectedProduct.ID, SelectedDriver.ID, SelectedVehicle.ID);  
+            MainViewModel.This.TicketList.FilterTickets(DateFrom, DateTo, SelectedHaulier.ID, SelectedCustomer.ID, SelectedDestination.ID, SelectedProduct.ID, SelectedDriver.ID, SelectedVehicle.ID);  
         }
      
         #endregion

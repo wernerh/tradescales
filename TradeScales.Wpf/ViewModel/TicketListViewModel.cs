@@ -197,7 +197,7 @@ namespace TradeScales.Wpf.ViewModel
 
             if (tickets.Count() == 0)
             {
-                _messageBoxService.ShowMessageBox("No tickets found.\r\nPlease adjust your filters.", "Ticket List Filter", MessageBoxButton.OK);
+                _messageBoxService.ShowMessageBox("No tickets found. Please adjust your filters.", "Ticket List Filter", MessageBoxButton.OK);
                 return;
             }
 
