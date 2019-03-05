@@ -97,6 +97,7 @@
                 <!--Weighbridge Certificates Folder-->
                 <Label Grid.Row="1" Grid.Column="0" Margin="5" MinWidth="115" Content="Folder:"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding WeighBridgeCertificatesFolder}"/>
+                <Button Grid.Row="1" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="WeighBridgeCertificatesFolder">Edit</Button>
                 
                 <!--Weighbridge Certificate Logo-->
                 <Label  Grid.Row="2" Grid.Column="0" Margin="5" MinWidth="115" Content="Logo:"/>
@@ -114,7 +115,8 @@
                 <!--Reports Folders-->
                 <Label Grid.Row="5" Grid.Column="0" Margin="5" MinWidth="115" Content="Folder:"/>
                 <TextBox Grid.Row="5" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding ReportsFolder}"/>
-               
+                <Button Grid.Row="5" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="ReportsFolder">Edit</Button>
+
                 <!--Report Logo-->
                 <Label  Grid.Row="6" Grid.Column="0" Margin="5" MinWidth="115" Content="Logo:"/>
                 <TextBox Grid.Row="6" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding ReportLogo}"/>

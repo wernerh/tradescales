@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Collections.Generic;
 using System.IO;
 using TradeScales.Services.Utilities;
@@ -86,6 +87,22 @@ namespace TradeScales.Wpf.Resources.Services
             return result;
         }
 
+        public bool? ShowFolderDialog(string folderpath)
+        {
+            var dialog = new CommonOpenFileDialog();
+            dialog.DefaultDirectory = folderpath;
+            dialog.IsFolderPicker = true;
+            CommonFileDialogResult result = dialog.ShowDialog();
+
+            if (result == CommonFileDialogResult.Ok)
+            {
+                SaveFilePath = dialog.FileName;
+                return true;
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Show about dialog.
         /// </summary>     
@@ -130,7 +147,6 @@ namespace TradeScales.Wpf.Resources.Services
 
             view.ShowDialog();       
         }
-
 
         #endregion
 

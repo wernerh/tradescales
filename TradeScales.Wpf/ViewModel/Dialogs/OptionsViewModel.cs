@@ -401,7 +401,9 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             var filePath = GetFilePath(identifier);
             var filter = GetFileFilter(identifier);
 
-            var result = _DialogService.ShowSaveFileDialog(filter, filePath);
+            var result = (identifier == "WeighBridgeCertificatesFolder" || identifier == "ReportsFolder") 
+                ? _DialogService.ShowFolderDialog(filePath)  
+                : _DialogService.ShowSaveFileDialog(filter, filePath);
 
             if (result == true)
             {
@@ -436,11 +438,17 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             switch (identifier)
             {
+                case "WeighBridgeCertificatesFolder":
+                    return Settings.Default.WeighBridgeCertificatesFolder;
+
                 case "WeighBridgeCertificateLogo":
                     return Settings.Default.WeighBridgeCertificateLogo;
 
                 case "WeighBridgeCertificateTemplate":
                     return Settings.Default.WeighBridgeCertificateTemplate;
+
+                case "ReportsFolder":
+                    return Settings.Default.ReportsFolder;
 
                 case "ReportLogo":
                     return Settings.Default.ReportLogo;
@@ -456,12 +464,20 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             switch (identifier)
             {
+                case "WeighBridgeCertificatesFolder":
+                    WeighBridgeCertificatesFolder = filePath;
+                    break;
+
                 case "WeighBridgeCertificateLogo":
                     WeighBridgeCertificateLogo = filePath;
                     break;
 
                 case "WeighBridgeCertificateTemplate":
                     WeighBridgeCertificateTemplate = filePath;
+                    break;
+
+                case "ReportsFolder":
+                   ReportsFolder = filePath;
                     break;
 
                 case "ReportLogo":

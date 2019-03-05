@@ -19,6 +19,7 @@ namespace TradeScales.Wpf.Resources.Services.Interfaces
         bool? ShowOpenFileDialog(string filter);
         bool? ShowSaveFileDialog(string filter);
         bool? ShowSaveFileDialog(string filter, string filepath);
+        bool? ShowFolderDialog(string folderpath);
 
         void ShowAboutDialog();
         void ShowOptionsDialog();
@@ -26,6 +27,5 @@ namespace TradeScales.Wpf.Resources.Services.Interfaces
         MembershipContext ShowLogInDialog();
 
         void ShowActivateDialog();
-
     }
 }
