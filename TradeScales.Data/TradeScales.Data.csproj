@@ -99,6 +99,10 @@
     <Compile Include="Infrastructure\IDbFactory.cs" />
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Migrations\201903051450461_initial_migration.cs" />
+    <Compile Include="Migrations\201903051450461_initial_migration.Designer.cs">
+      <DependentUpon>201903051450461_initial_migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
@@ -120,6 +124,11 @@
   <ItemGroup>
     <Content Include="it\MockData.resources.dll" />
     <Content Include="uk\MockData.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903051450461_initial_migration.resx">
+      <DependentUpon>201903051450461_initial_migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
