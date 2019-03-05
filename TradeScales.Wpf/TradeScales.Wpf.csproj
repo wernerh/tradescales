@@ -163,6 +163,8 @@
     <Compile Include="Resources\Services\MessageBoxService.cs" />
     <Compile Include="ViewModel\AvalonDockLayoutViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\ActivateViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\LogInViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\DatabaseViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModels\DestinationViewModel.cs" />
@@ -189,6 +191,12 @@
     <Compile Include="View\Behavior\AvalonDockLayoutSerializer.cs" />
     <Compile Include="View\Dialogs\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\ActivateView.xaml.cs">
+      <DependentUpon>ActivateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\LogInView.xaml.cs">
+      <DependentUpon>LogInView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Dialogs\DatabaseView.xaml.cs">
       <DependentUpon>DatabaseView.xaml</DependentUpon>
@@ -231,6 +239,14 @@
     <Page Include="View\Dialogs\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialogs\ActivateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\LogInView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Dialogs\DatabaseView.xaml">
       <Generator>MSBuild:Compile</Generator>

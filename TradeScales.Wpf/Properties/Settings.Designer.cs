@@ -226,5 +226,30 @@ namespace TradeScales.Wpf.Properties {
                 this["ReportTemplate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ProductExpireDate {
+            get {
+                return ((string)(this["ProductExpireDate"]));
+            }
+            set {
+                this["ProductExpireDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FBk6NYCjN7yDs1dkOWSEx92a5RWP7PiC8MctgtCvvp1fiy+Khj8SAxImnnEjLL/x42QfL6v29tgcuoxWQ" +
+            "N0vFSTayCTl7igBkvpjzShtXDWNQRlfwvsH15maruzB+KVv")]
+        public string ProductDemoExpireDate {
+            get {
+                return ((string)(this["ProductDemoExpireDate"]));
+            }
+            set {
+                this["ProductDemoExpireDate"] = value;
+            }
+        }
     }
 }

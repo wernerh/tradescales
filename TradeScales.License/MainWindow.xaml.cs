@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using TradeScales.Services;
 
 namespace TradeScales.LicenseGenerator
 {
@@ -15,87 +15,91 @@ namespace TradeScales.LicenseGenerator
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        #region Constructor
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
 
-            FirstName = "Werner Hurter";
-            ExpiryDate = DateTime.Now;
+            UniqueIdentiferKey = "072A0744-9F3B-46A5-B79D-B32071185E05";
         }
 
-        private string _FirstName;
-        public string FirstName
-        {
-            get { return _FirstName; }
-            set
-            {
-                if (_FirstName != value)
-                {
-                    _FirstName = value;
-                    OnPropertyChanged("FirstName");
-                }
-            }
-        }
+        #endregion
 
-        private DateTime _ExpiryDate;
-        public DateTime ExpiryDate
+        #region Properties
+
+        private DateTime _ProductExpireDate;
+        public DateTime ProductExpireDate
         {
-            get { return _ExpiryDate; }
+            get { return _ProductExpireDate; }
             set
             {
-                if (_ExpiryDate != value)
+                if (_ProductExpireDate != value)
                 {
-                    _ExpiryDate = value;
-                    OnPropertyChanged("ExpiryDate");
+                    _ProductExpireDate = value;
+                    OnPropertyChanged("ProductExpireDate");
                 }
             }
         }
 
-
-        private List<string> _LicenseTypes;
-        public List<string> LicenseTypes
+        private string _EncryptedUniqueIdentifier;
+        public string EncryptedUniqueIdentifier
         {
-            get
-            {
-                if (_LicenseTypes == null)
-                {
-                    _LicenseTypes = new List<string>();
-                    foreach (var item in Enum.GetNames(typeof(LicenseType)))
-                    {
-                        _LicenseTypes.Add(item.ToString());
-                    }
-
-                }
-                return _LicenseTypes;
-            }
+            get { return _EncryptedUniqueIdentifier; }
             set
             {
-                if (_LicenseTypes != value)
+                if (_EncryptedUniqueIdentifier != value)
                 {
-                    _LicenseTypes = value;
-                    OnPropertyChanged("LicenseTypes");
+                    _EncryptedUniqueIdentifier = value;
+                    OnPropertyChanged("EncryptedUniqueIdentifier");
                 }
             }
         }
 
-        private string _SelectedLicenseType;
-        public string SelectedLicenseType
+        private string _UniqueIdentifierKey;
+        public string UniqueIdentiferKey
         {
-            get { return _SelectedLicenseType; }
+            get { return _UniqueIdentifierKey; }
             set
             {
-                if (_SelectedLicenseType != value)
+                if (_UniqueIdentifierKey != value)
                 {
-                    _SelectedLicenseType = value;
-                    OnPropertyChanged("SelectedLicenseTypes");
+                    _UniqueIdentifierKey = value;
+                    OnPropertyChanged("UniqueIdentiferKey");
                 }
             }
+        }
+
+        private string _EncryptedProductExpiryDate;
+        public string EncryptedProductExpiryDate
+        {
+            get { return _EncryptedProductExpiryDate; }
+            set
+            {
+                if (_EncryptedProductExpiryDate != value)
+                {
+                    _EncryptedProductExpiryDate = value;
+                    OnPropertyChanged("EncryptedProductExpiryDate");
+                }
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+      
+        private void Generate_Click(object sender, RoutedEventArgs e)
+        {
+            var productEncryptionKey = LicenseKeyService.Decrypt(EncryptedUniqueIdentifier, UniqueIdentiferKey);
+            EncryptedProductExpiryDate = LicenseKeyService.Encrypt(ProductExpireDate.ToString(), productEncryptionKey);
         }
 
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
     }
 }

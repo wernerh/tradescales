@@ -53,5 +53,11 @@
     <Setting Name="ReportTemplate" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ProductExpireDate" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ProductDemoExpireDate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FBk6NYCjN7yDs1dkOWSEx92a5RWP7PiC8MctgtCvvp1fiy+Khj8SAxImnnEjLL/x42QfL6v29tgcuoxWQN0vFSTayCTl7igBkvpjzShtXDWNQRlfwvsH15maruzB+KVv</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

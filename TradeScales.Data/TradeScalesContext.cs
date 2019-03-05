@@ -10,9 +10,9 @@ namespace TradeScales.Data
     {
         public TradeScalesContext() : base("TradeScales")
         {
-            string rootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string directoryPath = $"{rootPath}\\ThinkIT\\TradeScales";
-            AppDomain.CurrentDomain.SetData("DataDirectory", directoryPath);
+            //string rootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //string directoryPath = $"{rootPath}\\ThinkIT\\TradeScales";
+            //AppDomain.CurrentDomain.SetData("DataDirectory", directoryPath);
             Database.SetInitializer<TradeScalesContext>(null);
         }
 

@@ -30,7 +30,7 @@
         <!--Basic exception message and image-->
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="50,40">
             <Image Source="{Binding Image}" Height="25" Width="25" Stretch="Fill"/>
-            <TextBlock Text="{Binding BasicInfo}" MaxWidth="400" Margin="5" Padding="10" TextWrapping="Wrap"/>
+            <TextBlock Text="{Binding BasicInfo}" MaxWidth="350" Margin="5" Padding="10" TextWrapping="Wrap"/>
         </StackPanel>
 
         <!--Ok button-->

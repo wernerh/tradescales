@@ -252,8 +252,8 @@ namespace TradeScales.Wpf.ViewModel
             contents = contents.Replace("[DRIVERCODE]", ticket.Driver.Code);
             contents = contents.Replace("[DRIVERFIRSTNAME]", ticket.Driver.FirstName);
             contents = contents.Replace("[DRIVERLASTNAME]", ticket.Driver.LastName);
-            contents = contents.Replace("[DRIVERMOBILE]", ticket.Driver.Mobile);
-            contents = contents.Replace("[VEHICLEREGISTRATION]", ticket.Driver.VehicleRegistration);
+            contents = contents.Replace("[VEHICLEMAKE]", ticket.Vehicle.Make);
+            contents = contents.Replace("[VEHICLEREGISTRATION]", ticket.Vehicle.Registration);
             contents = contents.Replace("[DESTINATIONCODE]", ticket.Destination.Code);
             contents = contents.Replace("[DESTINATIONNAME]", ticket.Destination.Name);
             contents = contents.Replace("[PODUCTCODE]", ticket.Product.Code);

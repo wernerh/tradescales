@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using TradeScales.Services.Utilities;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Properties;
 using TradeScales.Wpf.Resources.Services.Interfaces;
@@ -22,6 +23,28 @@ namespace TradeScales.Wpf.ViewModel
 
         private static IDialogsService _DialogService = ServiceLocator.Instance.GetService<IDialogsService>();
         private static IMessageBoxService _MessageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the MainViewModel class.
+        /// </summary>
+        public MainViewModel()
+        {
+            ChangeAppTheme();
+            LoadUserSettings();
+
+            if (LoggedInUserContext == null)
+            {
+                LoggedInUserContext = _DialogService.ShowLogInDialog();
+            }
+
+            InitializeDocuments();
+            UpdateDocumentFilePaths();
+            StatusMessage = $"Welcome {LoggedInUserContext.User.Username}";
+        }
 
         #endregion
 
@@ -270,23 +293,9 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        #endregion
+        public MembershipContext LoggedInUserContext { get; set; }
 
         #endregion
-
-        #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        public MainViewModel()
-        {
-            ChangeAppTheme();
-            LoadUserSettings();
-            InitializeDocuments();
-            UpdateDocumentFilePaths();
-            StatusMessage = "Welcome to Trade Scales";
-        }
 
         #endregion
 
@@ -450,7 +459,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowDatabaseDialog();                          
+                            _DialogService.ShowDatabaseDialog();
                         }
                         catch (Exception ex)
                         {
@@ -461,7 +470,33 @@ namespace TradeScales.Wpf.ViewModel
                 return _DatabaseManagementCommand;
             }
         }
-        
+
+        private ICommand _LogOutCommand;
+        public ICommand LogOutCommand
+        {
+            get
+            {
+                if (_LogOutCommand == null)
+                {
+                    _LogOutCommand = new MVVMRelayCommand(
+                        execute =>
+                        {
+                            try
+                            {
+                                LoggedInUserContext = null;
+                                LoggedInUserContext = _DialogService.ShowLogInDialog();
+                                StatusMessage = $"Welcome back {LoggedInUserContext.User.Username}";
+                            }
+                            catch (Exception ex)
+                            {
+                                ShowExceptionMessageBox(ex);
+                            }
+                        });
+                }
+                return _LogOutCommand;
+            }
+        }
+
         private ICommand _ExitCommand;
         /// <summary>
         /// Shut down the application command
@@ -645,7 +680,7 @@ namespace TradeScales.Wpf.ViewModel
 
                 case "Metro":
                     AvalonDockTheme = new MetroTheme();
-                    break;           
+                    break;
             }
         }
 
@@ -668,7 +703,7 @@ namespace TradeScales.Wpf.ViewModel
             string directoryPath = $"{rootPath}\\{ HardCodedValues.CompanyName}\\{HardCodedValues.ApplicationName}";
 
             if (string.IsNullOrEmpty(weighbridgeCertificateFolder) && string.IsNullOrEmpty(reportsFolder))
-            {            
+            {
                 Settings.Default.WeighBridgeCertificatesFolder = $"{directoryPath}\\WeighBridgeCertificates";
                 Settings.Default.WeighBridgeCertificateLogo = $"{directoryPath}\\images\\tradescales.png";
                 Settings.Default.WeighBridgeCertificateTemplate = $"{directoryPath}\\templates\\WeighbridgeTicketTemplate.html";

@@ -8,14 +8,15 @@ namespace TradeScales.Entities
         public string LastModifiedBy { get; set; }
         public string Status { get; set; }
         public string TicketNumber { get; set; }       
-        public DateTime TimeIn { get; set; }
-        public DateTime TimeOut { get; set; }
-        public DateTime LastModified { get; set; }        
+        public string TimeIn { get; set; }
+        public string TimeOut { get; set; }
+        public string LastModified { get; set; }        
         public int HaulierId { get; set; }
         public int CustomerId { get; set; }
         public int DestinationId { get; set; }
         public int ProductId { get; set; }
         public int DriverId { get; set; }
+        public int VehicleId { get; set; }
         public string OrderNumber { get; set; }
         public string DeliveryNumber { get; set; }
         public string SealFrom { get; set; }
@@ -29,5 +30,6 @@ namespace TradeScales.Entities
         public virtual Destination Destination { get; set; }
         public virtual Product Product { get; set; }
         public virtual Driver Driver { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

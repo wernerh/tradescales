@@ -16,7 +16,7 @@ namespace TradeScales.Data.Migrations
         {
             // Create Customers
             context.CustomerSet.AddOrUpdate(GenerateCustomers());
-           
+
             // Create Products
             context.ProductSet.AddOrUpdate(GenerateProducts());
 
@@ -34,7 +34,7 @@ namespace TradeScales.Data.Migrations
 
             // Create Roles
             context.RoleSet.AddOrUpdate(r => r.Name, GenerateRoles());
-  
+
             // username: admin, password: admin
             context.UserSet.AddOrUpdate(u => u.Email, new User[]{
                 new User()
@@ -52,7 +52,7 @@ namespace TradeScales.Data.Migrations
             context.UserRoleSet.AddOrUpdate(new UserRole[] {
                 new UserRole() {
                     RoleId = 1, // admin
-                    UserId = 1  // whurter5
+                    UserId = 1  // admin
                 }
             });
         }
@@ -69,7 +69,7 @@ namespace TradeScales.Data.Migrations
             };
             return customers;
         }
-       
+
         private Product[] GenerateProducts()
         {
             Product[] products = new Product[]
@@ -96,30 +96,26 @@ namespace TradeScales.Data.Migrations
 
         private Driver[] GenerateDrivers()
         {
-            List<Driver> drivers = new List<Driver>();
+            Driver[] drivers = new Driver[]
+           {
+                new Driver(){Code = "DRI-001", FirstName = "Hein", LastName = "Hurter"},
+                new Driver(){Code = "DRI-002", FirstName = "Dain", LastName = "Hurter"},
+                new Driver(){Code = "DRI-003", FirstName = "Werner", LastName = "Hurter"}
+           };
 
-            // Create 100 drivers
-            for (int i = 0; i < 100; i++)
+            return drivers;
+        }
+
+        private Vehicle[] GenerateVehicles()
+        {
+            Vehicle[] vehicles = new Vehicle[]
             {
-                Driver customer = new Driver()
-                {                 
-                    Code = string.Format("Dri-{0}", (i + 1).ToString("D4")),
-                    FirstName = MockData.Person.FirstName(),
-                    LastName = MockData.Person.Surname(),
-                    Email = MockData.Internet.Email(),
-                    IdentityCard = Guid.NewGuid().ToString(),
-                    Mobile = MockData.RandomNumber.Next(100000000, 999999999).ToString(),
-                    VehicleRegistration = string.Format("CA-{0}", MockData.RandomNumber.Next(100000, 999999)),
-                    UniqueKey = Guid.NewGuid(),
-                    DateOfBirth = new DateTime(1985, 10, 20).AddMonths(i).AddDays(10),
-                    RegistrationDate = DateTime.Now.AddDays(i)
-                };
+                new Vehicle(){Code = "VEH-001", Make = "Vehicle 1", Registration = "CA 200-618"},
+                new Vehicle(){Code = "VEH-002", Make = "Vehicle 2", Registration = "CB 200-619"},
+                new Vehicle(){Code = "VEH-003", Make = "Vehicle 3", Registration = "CC 200-620"}
+            };
 
-                drivers.Add(customer);
-            }
-
-
-            return drivers.ToArray();
+            return vehicles;
         }
 
         private Destination[] GenerateDestinations()
@@ -137,7 +133,8 @@ namespace TradeScales.Data.Migrations
         private Role[] GenerateRoles()
         {
             Role[] roles = new Role[]{
-                new Role(){Name="Admin"}
+                new Role(){Name="Admin"},
+                new Role(){Name="User"}
             };
 
             return roles;
@@ -148,7 +145,7 @@ namespace TradeScales.Data.Migrations
             StatusMessage[] statusMessages = new StatusMessage[]
            {
                 new StatusMessage(){Type = "SUCCESS", Message = "Welcome to our Early Access Program for TradeScales."},
-                new StatusMessage(){Type = "SUCCESS", Message = "We are glad to have you on board, because your feedback will help us make the production release of TradeScales fully functional with lots of new and useful features."}               
+                new StatusMessage(){Type = "SUCCESS", Message = "We are glad to have you on board, because your feedback will help us make the production release of TradeScales fully functional with lots of new and useful features."}
            };
 
             return statusMessages;

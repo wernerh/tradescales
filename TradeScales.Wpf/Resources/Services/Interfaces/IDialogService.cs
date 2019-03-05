@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TradeScales.Services.Utilities;
 
 namespace TradeScales.Wpf.Resources.Services.Interfaces
 {
@@ -22,5 +23,9 @@ namespace TradeScales.Wpf.Resources.Services.Interfaces
         void ShowAboutDialog();
         void ShowOptionsDialog();
         void ShowDatabaseDialog();
+        MembershipContext ShowLogInDialog();
+
+        void ShowActivateDialog();
+
     }
 }

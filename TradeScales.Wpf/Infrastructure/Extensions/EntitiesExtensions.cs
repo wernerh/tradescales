@@ -25,13 +25,6 @@ namespace TradeScales.Wpf.Infrastructure.Extensions
             driver.Code = driverViewModel.Code;
             driver.FirstName = driverViewModel.FirstName;
             driver.LastName = driverViewModel.LastName;
-            driver.Email = driverViewModel.Email;
-            driver.IdentityCard = driverViewModel.IdentityCard;
-            driver.Mobile = driverViewModel.Mobile;
-            driver.VehicleRegistration = driverViewModel.VehicleRegistration;
-            driver.UniqueKey = (driverViewModel.UniqueKey == null || driverViewModel.UniqueKey == Guid.Empty) ? Guid.NewGuid() : driverViewModel.UniqueKey;
-            driver.DateOfBirth = driverViewModel.DateOfBirth;
-            driver.RegistrationDate = (driver.RegistrationDate == DateTime.MinValue ? DateTime.Now : driverViewModel.RegistrationDate);
         }
 
         public static void UpdateProduct(this Product product, ProductViewModel productViewModel)
@@ -56,9 +49,9 @@ namespace TradeScales.Wpf.Infrastructure.Extensions
             ticket.LastModifiedBy = ticketViewModel.LastModifiedBy;
             ticket.Status = ticketViewModel.Status;
             ticket.TicketNumber = ticketViewModel.TicketNumber;
-            ticket.TimeIn = ticketViewModel.TimeIn;
-            ticket.TimeOut = ticketViewModel.TimeOut;
-            ticket.LastModified = ticketViewModel.LastModified;                    
+            ticket.TimeIn = ticketViewModel.TimeIn.ToString();
+            ticket.TimeOut = ticketViewModel.TimeOut.ToString();
+            ticket.LastModified = ticketViewModel.LastModified.ToString();                    
             ticket.HaulierId = ticketViewModel.HaulierId;
             ticket.CustomerId = ticketViewModel.CustomerId;
             ticket.DestinationId = ticketViewModel.DestinationId;

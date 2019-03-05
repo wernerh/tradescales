@@ -15,6 +15,7 @@ namespace TradeScales.Data.Configuration
             Property(m => m.DestinationId).IsRequired();
             Property(m => m.ProductId).IsRequired();
             Property(m => m.DriverId).IsRequired();
+            Property(m => m.VehicleId).IsRequired();
             Property(m => m.OrderNumber).IsRequired();
             Property(m => m.DeliveryNumber).IsRequired();
             Property(m => m.LastModifiedBy).IsRequired();

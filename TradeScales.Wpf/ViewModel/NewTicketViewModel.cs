@@ -338,7 +338,6 @@ namespace TradeScales.Wpf.ViewModel
             NewTicket.TimeIn = DateTime.Parse(TimeIn);
             NewTicket.TimeOut = DateTime.Now;
             NewTicket.LastModified = DateTime.Now;
-            NewTicket.LastModifiedBy = "Werner";
             NewTicket.Status = "In Progress";
         }
 
@@ -355,6 +354,7 @@ namespace TradeScales.Wpf.ViewModel
             }
             else
             {
+                NewTicket.LastModifiedBy = MainViewModel.This.LoggedInUserContext.User.Username;
 
                 Ticket ticket = new Ticket();
                 ticket.UpdateTicket(NewTicket);

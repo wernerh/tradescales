@@ -317,7 +317,7 @@ namespace TradeScales.Wpf.ViewModel
             TimeIn = EditTicket.TimeIn.ToString();
             TimeOut = DateTime.Now.ToString();
 
-            EditTicket.LastModifiedBy = "Werner";
+            EditTicket.LastModifiedBy = MainViewModel.This.LoggedInUserContext.User.Username;
             EditTicket.LastModified = DateTime.Now;
             EditTicket.Status = "Modified";
 
@@ -342,7 +342,7 @@ namespace TradeScales.Wpf.ViewModel
          
             messageBoxService.ShowMessageBox($"Successfully updated ticket {EditTicket.TicketNumber}", "Success", MessageBoxButton.OK);
 
-            MainViewModel.This.StatusMessage = $"Successfully update ticket {EditTicket.TicketNumber}";
+            MainViewModel.This.StatusMessage = $"Successfully updated ticket {EditTicket.TicketNumber}";
             MainViewModel.This.TicketList.ReloadTickets();
         }
 

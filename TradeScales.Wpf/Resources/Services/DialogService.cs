@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
+using TradeScales.Services.Utilities;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 using TradeScales.Wpf.View.Dialogs;
 using TradeScales.Wpf.ViewModel.Dialogs;
@@ -110,6 +111,24 @@ namespace TradeScales.Wpf.Resources.Services
             DatabaseViewModel viewmodel = new DatabaseViewModel();
             DatabaseView view = new DatabaseView(viewmodel);
             view.ShowDialog();
+        }
+
+        public MembershipContext ShowLogInDialog()
+        {
+            LogInViewModel viewmodel = new LogInViewModel();
+            LogInView view = new LogInView(viewmodel);
+
+            view.ShowDialog();
+
+            return viewmodel.LoggedInUserContext;
+        }
+
+        public void ShowActivateDialog()
+        {
+            ActivateViewModel viewmodel = new ActivateViewModel();
+            ActivateView view = new ActivateView(viewmodel);
+
+            view.ShowDialog();       
         }
 
 

@@ -322,8 +322,8 @@ namespace TradeScales.Wpf.ViewModel.Tools
             var tickets = _ticketsRepository.GetAll();
 
             //Filter tickets
-            tickets = tickets.Where(t => t.TimeIn >= DateFrom);
-            tickets = tickets.Where(t => t.TimeOut <= DateTo);
+            tickets = tickets.Where(t => DateTime.Parse(t.TimeIn) >= DateFrom);
+            tickets = tickets.Where(t => DateTime.Parse(t.TimeOut) <= DateTo);
 
             // Haulier
             if (SelectedHaulier.ID != -1)
@@ -364,7 +364,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
             foreach (var ticket in tickets)
             {
-                result += $"<tr><td>{ticket.TicketNumber}</td><td>{ticket.TimeOut.ToShortDateString()}</td><td>{ticket.TimeOut.ToShortTimeString()}</td><td>{ticket.Driver.FirstName} {ticket.Driver.LastName}</td><td>{ticket.OrderNumber}</td><td>{ticket.DeliveryNumber}</td><td>{ticket.GrossWeight}</td><td>{ticket.TareWeight}</td><td>{ticket.NettWeight}</td></tr>";
+                result += $"<tr><td>{ticket.TicketNumber}</td><td>{DateTime.Parse(ticket.TimeOut).ToShortDateString()}</td><td>{DateTime.Parse(ticket.TimeOut).ToShortTimeString()}</td><td>{ticket.Driver.FirstName} {ticket.Driver.LastName}</td><td>{ticket.OrderNumber}</td><td>{ticket.DeliveryNumber}</td><td>{ticket.GrossWeight}</td><td>{ticket.TareWeight}</td><td>{ticket.NettWeight}</td></tr>";
             }
 
             // Calculate Totals

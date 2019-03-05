@@ -40,6 +40,7 @@
             <Menu>
                 <!--File-->
                 <MenuItem Header="File">
+                    <MenuItem Header="Log Out" Command="{Binding LogOutCommand}" />
                     <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
                 </MenuItem>
                 <!--View-->
