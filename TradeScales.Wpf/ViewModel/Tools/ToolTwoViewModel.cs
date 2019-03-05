@@ -285,7 +285,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
             if (tickets.Count() == 0)
             {
-                _MessageBoxService.ShowMessageBox("No tickets were generated in your selected time period.\r\nPlease adjust your 'Date To' or 'Date From' filter.", "Report Generation", MessageBoxButton.OK);
+                _MessageBoxService.ShowMessageBox("No tickets found.\r\nPlease adjust your filters.", "Report Generation", MessageBoxButton.OK);
                 return;
             }
 

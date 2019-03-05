@@ -38,7 +38,6 @@ namespace TradeScales.Wpf.ViewModel
 
         #endregion
 
-
         #region Constructor
 
         /// <summary>
@@ -194,6 +193,12 @@ namespace TradeScales.Wpf.ViewModel
             if (vehicleId != -1)
             {
                 tickets = tickets.Where(t => t.VehicleId == vehicleId);
+            }
+
+            if (tickets.Count() == 0)
+            {
+                _messageBoxService.ShowMessageBox("No tickets found.\r\nPlease adjust your filters.", "Ticket List Filter", MessageBoxButton.OK);
+                return;
             }
 
             Tickets = new ObservableCollection<TicketViewModel>(Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(tickets.OrderByDescending(t => t.TicketNumber)));
