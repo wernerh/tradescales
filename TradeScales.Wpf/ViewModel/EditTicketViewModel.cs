@@ -11,7 +11,6 @@ using TradeScales.Entities;
 using TradeScales.Wpf.Infrastructure.Extensions;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
-using TradeScales.Wpf.ViewModel.EntityViewModels;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel
@@ -106,7 +105,16 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        public IEnumerable<HaulierViewModel> Hauliers { get; set; }
+        private IEnumerable<HaulierViewModel> _Hauliers;
+        public IEnumerable<HaulierViewModel> Hauliers
+        {
+            get { return _Hauliers; }
+            set
+            {
+                _Hauliers = value;
+                OnPropertyChanged("Hauliers");
+            }
+        }
 
         private HaulierViewModel _SelectedHaulier;
         public HaulierViewModel SelectedHaulier
@@ -114,13 +122,26 @@ namespace TradeScales.Wpf.ViewModel
             get { return _SelectedHaulier; }
             set
             {
-                _SelectedHaulier = value;
-                EditTicket.HaulierId = _SelectedHaulier.ID;
+                _SelectedHaulier = value;              
                 OnPropertyChanged("SelectedHaulier");
+
+                if(_SelectedHaulier != null)
+                {
+                    EditTicket.HaulierId = _SelectedHaulier.ID;
+                }              
             }
         }
 
-        public IEnumerable<CustomerViewModel> Customers { get; set; }
+        private IEnumerable<CustomerViewModel> _Customers;
+        public IEnumerable<CustomerViewModel> Customers
+        {
+            get { return _Customers; }
+            set
+            {
+                _Customers = value;
+                OnPropertyChanged("Customers");
+            }
+        }
 
         private CustomerViewModel _SelectedCustomer;
         public CustomerViewModel SelectedCustomer
@@ -128,13 +149,26 @@ namespace TradeScales.Wpf.ViewModel
             get { return _SelectedCustomer; }
             set
             {
-                _SelectedCustomer = value;
-                EditTicket.CustomerId = _SelectedCustomer.ID;
+                _SelectedCustomer = value;           
                 OnPropertyChanged("SelectedCustomer");
+
+                if (_SelectedCustomer != null)
+                {
+                    EditTicket.CustomerId = _SelectedCustomer.ID;
+                }
             }
         }
 
-        public IEnumerable<DestinationViewModel> Destinations { get; set; }
+        private IEnumerable<DestinationViewModel> _Destinations;
+        public IEnumerable<DestinationViewModel> Destinations
+        {
+            get { return _Destinations; }
+            set
+            {
+                _Destinations = value;
+                OnPropertyChanged("Destinations");
+            }
+        }
 
         private DestinationViewModel _SelectedDestination;
         public DestinationViewModel SelectedDestination
@@ -142,13 +176,26 @@ namespace TradeScales.Wpf.ViewModel
             get { return _SelectedDestination; }
             set
             {
-                _SelectedDestination = value;
-                EditTicket.DestinationId = _SelectedDestination.ID;
+                _SelectedDestination = value;              
                 OnPropertyChanged("SelectedDestination");
+
+                if (_SelectedDestination != null)
+                {
+                    EditTicket.DestinationId = _SelectedDestination.ID;
+                }
             }
         }
-    
-        public IEnumerable<ProductViewModel> Products { get; set; }
+
+        private IEnumerable<ProductViewModel> _Products;
+        public IEnumerable<ProductViewModel> Products
+        {
+            get { return _Products; }
+            set
+            {
+                _Products = value;
+                OnPropertyChanged("Products");
+            }
+        }
 
         private ProductViewModel _SelectedProduct;
         public ProductViewModel SelectedProduct
@@ -156,13 +203,26 @@ namespace TradeScales.Wpf.ViewModel
             get { return _SelectedProduct; }
             set
             {
-                _SelectedProduct = value;
-                EditTicket.ProductId = _SelectedProduct.ID;
+                _SelectedProduct = value;                
                 OnPropertyChanged("SelectedProduct");
+
+                if (_SelectedProduct != null)
+                {
+                    EditTicket.ProductId = _SelectedProduct.ID;
+                }
             }
         }
 
-        public IEnumerable<DriverViewModel> Drivers { get; set; }
+        private IEnumerable<DriverViewModel> _Drivers;
+        public IEnumerable<DriverViewModel> Drivers
+        {
+            get { return _Drivers; }
+            set
+            {
+                _Drivers = value;
+                OnPropertyChanged("Drivers");
+            }
+        }
 
         private DriverViewModel _SelectedDriver;
         public DriverViewModel SelectedDriver
@@ -170,13 +230,26 @@ namespace TradeScales.Wpf.ViewModel
             get { return _SelectedDriver; }
             set
             {
-                _SelectedDriver = value;
-                EditTicket.DriverId = _SelectedDriver.ID;
+                _SelectedDriver = value;              
                 OnPropertyChanged("SelectedDriver");
+
+                if (_SelectedDriver != null)
+                {
+                    EditTicket.DriverId = _SelectedDriver.ID;
+                }
             }
         }
 
-        public IEnumerable<VehicleViewModel> Vehicles { get; set; }
+        private IEnumerable<VehicleViewModel> _Vehicles;
+        public IEnumerable<VehicleViewModel> Vehicles
+        {
+            get { return _Vehicles; }
+            set
+            {
+                _Vehicles = value;
+                OnPropertyChanged("Vehicles");
+            }
+        }
 
         private VehicleViewModel _SelectedVehicle;
         public VehicleViewModel SelectedVehicle
@@ -184,9 +257,13 @@ namespace TradeScales.Wpf.ViewModel
             get { return _SelectedVehicle; }
             set
             {
-                _SelectedVehicle = value;
-                EditTicket.VehicleId = _SelectedVehicle.ID;
+                _SelectedVehicle = value;              
                 OnPropertyChanged("SelectedVehicle");
+
+                if (_SelectedVehicle != null)
+                {
+                    EditTicket.VehicleId = _SelectedVehicle.ID;
+                }
             }
         }
 
@@ -307,6 +384,28 @@ namespace TradeScales.Wpf.ViewModel
             {
                 GrossWeight = weightReading;
             }
+        }
+
+        public override void ReloadEntities()
+        {
+            // Cache selected values
+            var selectedHaulier = SelectedHaulier;
+            var selectedCustomer = SelectedCustomer;
+            var selectedDestination = SelectedDestination;
+            var selectedProduct = SelectedProduct;
+            var selectedDriver = SelectedDriver;
+            var selectedVehicle = SelectedVehicle;
+
+            // Reload dropdowns
+            LoadDropdowns();
+
+            // Set selected values
+            SelectedHaulier = selectedHaulier;
+            SelectedCustomer = selectedCustomer;
+            SelectedDestination = selectedDestination;
+            SelectedProduct = selectedProduct;
+            SelectedDriver = selectedDriver;
+            SelectedVehicle = selectedVehicle;
         }
 
         #endregion

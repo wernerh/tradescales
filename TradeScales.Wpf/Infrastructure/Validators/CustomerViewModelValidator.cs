@@ -7,15 +7,15 @@ namespace TradeScales.Wpf.Infrastructure.Validators
     {
         public CustomerViewModelValidator()
         {
-            //RuleFor(driver => driver.Code)
+            //RuleFor(customer => customer.Code)
             //    .NotEmpty()
-            //    .Length(1, 100)
-            //    .WithMessage("Company code must be between 1 - 100 characters");
+            //    .Length(1, 50)
+            //    .WithMessage("Customer Code must be between 1 - 50 characters");
 
-            //RuleFor(driver => driver.Name)
+            //RuleFor(customer => customer.Name)
             //    .NotEmpty()
-            //    .Length(1, 100)
-            //    .WithMessage("Company Name must be between 1 - 100 characters");
+            //    .Length(1, 50)
+            //    .WithMessage("Customer Name must be between 1 - 50 characters");
         }
     }
 }

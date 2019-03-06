@@ -94,6 +94,7 @@
     <Compile Include="Extensions\ProductExtensions.cs" />
     <Compile Include="Extensions\TicketExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
+    <Compile Include="Extensions\VehicleExtensions.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\IDbFactory.cs" />

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using TradeScales.Wpf.Infrastructure.Validators;
 
-namespace TradeScales.Wpf.ViewModel.EntityViewModels
+namespace TradeScales.Wpf.ViewModel
 {
     public class VehicleViewModel
     {

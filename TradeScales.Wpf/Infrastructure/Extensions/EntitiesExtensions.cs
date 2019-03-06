@@ -43,7 +43,12 @@ namespace TradeScales.Wpf.Infrastructure.Extensions
             haulier.Code = haulierViewModel.Code;
             haulier.Name = haulierViewModel.Name;
         }
-     
+        public static void UpdateVehicle(this Vehicle vehicle, VehicleViewModel vehicleViewModel)
+        {
+            vehicle.Code = vehicleViewModel.Code;
+            vehicle.Make = vehicleViewModel.Make;
+            vehicle.Registration = vehicleViewModel.Registration;
+        }
         public static void UpdateTicket(this Ticket ticket, TicketViewModel ticketViewModel)
         {
             ticket.LastModifiedBy = ticketViewModel.LastModifiedBy;

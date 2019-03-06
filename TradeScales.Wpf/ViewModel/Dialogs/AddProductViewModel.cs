@@ -12,7 +12,6 @@ using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel.Dialogs
 {
-
     public class AddProductViewModel : BaseViewModel
     {
         #region fields
@@ -148,6 +147,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     Code = "";
                     Name = "";
 
+                    _messageBoxService.ShowMessageBox($"Successfully added new product {product.Code}", "Success", MessageBoxButton.OK);
                     MainViewModel.This.StatusMessage = $"Successfully added new product {product.Code}";
                     MainViewModel.This.ReloadEntities();
                 }

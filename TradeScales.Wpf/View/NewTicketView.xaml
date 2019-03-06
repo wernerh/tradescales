@@ -57,23 +57,23 @@
 
                 <!--Haulier-->
                 <Label Grid.Row="4" Grid.Column="0" Content="Haulier"/>
-                <ComboBox Grid.Row="5" Grid.Column="0"  Margin="5,0"  ItemsSource="{Binding Hauliers}" SelectedItem="{Binding SelectedHaulier}" DisplayMemberPath="Name"/>
+                <ComboBox Grid.Row="5" Grid.Column="0"  Margin="5,0"  ItemsSource="{Binding Hauliers}" SelectedItem="{Binding SelectedHaulier}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
 
                 <!--Customer-->
                 <Label Grid.Row="4" Grid.Column="1"  Content="Customer"/>
-                <ComboBox Grid.Row="5" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberPath="Name"/>
+                <ComboBox Grid.Row="5" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
 
                 <!--Destination-->
                 <Label Grid.Row="6" Grid.Column="0" Content="Destination"/>
-                <ComboBox Grid.Row="7" Grid.Column="0"  Margin="5,0" ItemsSource="{Binding Destinations}" SelectedItem="{Binding SelectedDestination}" DisplayMemberPath="Name"/>
+                <ComboBox Grid.Row="7" Grid.Column="0"  Margin="5,0" ItemsSource="{Binding Destinations}" SelectedItem="{Binding SelectedDestination}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
 
                 <!--Product-->
                 <Label Grid.Row="6" Grid.Column="1"  Content="Product"/>
-                <ComboBox Grid.Row="7" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" DisplayMemberPath="Name"/>
+                <ComboBox Grid.Row="7" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
 
                 <!--Driver-->
                 <Label Grid.Row="8" Grid.Column="0"  Content="Driver"/>
-                <ComboBox Grid.Row="9" Grid.Column="0"  Margin="5,0" ItemsSource="{Binding Drivers}" SelectedItem="{Binding SelectedDriver}" >
+                <ComboBox Grid.Row="9" Grid.Column="0"  Margin="5,0" ItemsSource="{Binding Drivers}" SelectedItem="{Binding SelectedDriver}" IsSynchronizedWithCurrentItem="True">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -87,7 +87,7 @@
 
                 <!--Vehicle-->
                 <Label Grid.Row="8" Grid.Column="1"  Content="Vehicle"/>
-                <ComboBox Grid.Row="9" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}"  DisplayMemberPath="Registration"/>
+                <ComboBox Grid.Row="9" Grid.Column="1"  Margin="5,0" ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath="Registration" IsSynchronizedWithCurrentItem="True"/>
 
                 <!--Order Number-->
                 <Label Grid.Row="10" Grid.Column="0" Content="Order Number"/>

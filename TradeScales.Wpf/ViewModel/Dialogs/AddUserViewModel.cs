@@ -10,7 +10,6 @@ using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel.Dialogs
 {
-
     public class AddUserViewModel : BaseViewModel
     {
         #region fields

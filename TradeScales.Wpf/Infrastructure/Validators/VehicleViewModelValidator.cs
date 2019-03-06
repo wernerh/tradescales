@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TradeScales.Wpf.ViewModel.EntityViewModels;
+using TradeScales.Wpf.ViewModel;
 
 namespace TradeScales.Wpf.Infrastructure.Validators
 {

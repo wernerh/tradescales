@@ -1,26 +1,18 @@
 ﻿using AutoMapper;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.tool.xml;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Windows;
 using System.Windows.Input;
 using TradeScales.Data.Infrastructure;
 using TradeScales.Data.Repositories;
 using TradeScales.Entities;
 using TradeScales.Wpf.Model;
-using TradeScales.Wpf.Properties;
 using TradeScales.Wpf.Resources.Services.Interfaces;
-using TradeScales.Wpf.ViewModel.EntityViewModels;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel.Tools
 {
-   
+
     public class ToolThreeViewModel : ToolViewModel
     {
 
@@ -47,7 +39,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
             : base("Ticket List Filter")
         {
             ContentID = ToolContentID;
-            ReloadEntities();
+            ReloadEntities();          
         }
 
         #endregion
@@ -82,7 +74,16 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
-        public IEnumerable<HaulierViewModel> Hauliers { get; set; }
+        private IEnumerable<HaulierViewModel> _Hauliers;
+        public IEnumerable<HaulierViewModel> Hauliers
+        {
+            get { return _Hauliers; }
+            set
+            {
+                _Hauliers = value;
+                OnPropertyChanged("Hauliers");
+            }
+        }
 
         private HaulierViewModel _SelectedHaulier;
         public HaulierViewModel SelectedHaulier
@@ -95,7 +96,16 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
-        public IEnumerable<CustomerViewModel> Customers { get; set; }
+        private IEnumerable<CustomerViewModel> _Customers;
+        public IEnumerable<CustomerViewModel> Customers
+        {
+            get { return _Customers; }
+            set
+            {
+                _Customers = value;
+                OnPropertyChanged("Customers");
+            }
+        }
 
         private CustomerViewModel _SelectedCustomer;
         public CustomerViewModel SelectedCustomer
@@ -108,7 +118,16 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
-        public IEnumerable<DestinationViewModel> Destinations { get; set; }
+        private IEnumerable<DestinationViewModel> _Destinations;
+        public IEnumerable<DestinationViewModel> Destinations
+        {
+            get { return _Destinations; }
+            set
+            {
+                _Destinations = value;
+                OnPropertyChanged("Destinations");
+            }
+        }
 
         private DestinationViewModel _SelectedDestination;
         public DestinationViewModel SelectedDestination
@@ -121,7 +140,16 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
-        public IEnumerable<ProductViewModel> Products { get; set; }
+        private IEnumerable<ProductViewModel> _Products;
+        public IEnumerable<ProductViewModel> Products
+        {
+            get { return _Products; }
+            set
+            {
+                _Products = value;
+                OnPropertyChanged("Products");
+            }
+        }
 
         private ProductViewModel _SelectedProduct;
         public ProductViewModel SelectedProduct
@@ -134,7 +162,16 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
-        public IEnumerable<DriverViewModel> Drivers { get; set; }
+        private IEnumerable<DriverViewModel> _Drivers;
+        public IEnumerable<DriverViewModel> Drivers
+        {
+            get { return _Drivers; }
+            set
+            {
+                _Drivers = value;
+                OnPropertyChanged("Drivers");
+            }
+        }
 
         private DriverViewModel _SelectedDriver;
         public DriverViewModel SelectedDriver
@@ -147,7 +184,16 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
-        public IEnumerable<VehicleViewModel> Vehicles { get; set; }
+        private IEnumerable<VehicleViewModel> _Vehicles;
+        public IEnumerable<VehicleViewModel> Vehicles
+        {
+            get { return _Vehicles; }
+            set
+            {
+                _Vehicles = value;
+                OnPropertyChanged("Vehicles");
+            }
+        }
 
         private VehicleViewModel _SelectedVehicle;
         public VehicleViewModel SelectedVehicle

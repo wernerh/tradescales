@@ -717,6 +717,14 @@ namespace TradeScales.Wpf.ViewModel
         {
             ToolTwo.ReloadEntities();
             ToolThree.ReloadEntities();
+
+            foreach(var document in Documents)
+            {
+                if(document.ContentID.Contains("New") || document.ContentID.Contains("Edit"))
+                {
+                    document.ReloadEntities();
+                }
+            }          
         }
 
         #endregion

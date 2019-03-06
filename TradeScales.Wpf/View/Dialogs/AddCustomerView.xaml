@@ -32,10 +32,10 @@
         </Grid.RowDefinitions>
         <!--Code-->
         <Label Grid.Row="1" Grid.Column="0" Margin="5" Content="Code"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" controls:TextBoxHelper.Watermark="Code" Text="{Binding Code}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" controls:TextBoxHelper.Watermark="Code" Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"/>
         <!--Name-->
         <Label Grid.Row="2" Grid.Column="0" Margin="5" Content="Name"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5"  controls:TextBoxHelper.Watermark="Name"  Text="{Binding Name}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5"  controls:TextBoxHelper.Watermark="Name"  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
         <!--Ok and cancel button-->
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Orientation="Horizontal">
             <Button  MinWidth="50" Margin="3" Content="Add" Command="{Binding OkCommand}"/>

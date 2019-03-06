@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using TradeScales.Data.Extensions;
 using TradeScales.Data.Infrastructure;
 using TradeScales.Data.Repositories;
 using TradeScales.Entities;
+using TradeScales.Wpf.Infrastructure.Extensions;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel.Dialogs
 {
-
     public class AddVehicleViewModel : BaseViewModel
     {
         #region fields
@@ -34,6 +35,39 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         #region Properties
 
         public bool NotXClosed { get; set; }
+
+        private string _Code;
+        public string Code
+        {
+            get { return _Code; }
+            set
+            {
+                _Code = value;
+                OnPropertyChanged("Code");
+            }
+        }
+
+        private string _Make;
+        public string Make
+        {
+            get { return _Make; }
+            set
+            {
+                _Make = value;
+                OnPropertyChanged("Make");
+            }
+        }
+
+        private string _Registration;
+        public string Registration
+        {
+            get { return _Registration; }
+            set
+            {
+                _Registration = value;
+                OnPropertyChanged("Registration");
+            }
+        }
 
         #endregion
 
@@ -105,10 +139,30 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public void Ok()
         {
-            NotXClosed = true;
-            Properties.Settings.Default.Save();
-            MainViewModel.This.ToolOne.CreateNewSerialPort();
-            OnRequestClose();
+            if (_vehiclesRepository.VehicleExists(_Make, _Registration))
+            {
+                throw new ArgumentException("Vehicle already exists");
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Make) && !string.IsNullOrEmpty(_Registration))
+                {
+                    VehicleViewModel newVehicle = new VehicleViewModel() { Code = _Code, Make = _Make, Registration = _Registration };
+                    Vehicle vehicle = new Vehicle();
+                    vehicle.UpdateVehicle(newVehicle);
+
+                    _vehiclesRepository.Add(vehicle);
+                    _unitOfWork.Commit();
+
+                    Code = "";
+                    _Make = "";
+                    _Registration = "";
+
+                    _messageBoxService.ShowMessageBox($"Successfully added new vehicle {newVehicle.Code}", "Success", MessageBoxButton.OK);
+                    MainViewModel.This.StatusMessage = $"Successfully added new vehicle {newVehicle.Code}";
+                    MainViewModel.This.ReloadEntities();
+                }
+            }
         }
 
         private void Cancel()

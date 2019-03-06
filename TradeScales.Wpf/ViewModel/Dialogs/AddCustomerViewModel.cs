@@ -12,7 +12,6 @@ using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
 namespace TradeScales.Wpf.ViewModel.Dialogs
 {
-
     public class AddCustomerViewModel : BaseViewModel
     {
         #region fields
@@ -137,7 +136,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             {
                if(!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Name))
                 {
-                    CustomerViewModel newCustomer = new CustomerViewModel() { Code = _Code, Name = _Name };
+                    CustomerViewModel newCustomer = new CustomerViewModel() { Code = _Code, Name = _Name };                                                       
                     Customer customer = new Customer();
                     customer.UpdateCustomer(newCustomer);
 
@@ -146,7 +145,8 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
                     Code = "";
                     Name = "";
-
+                    
+                    _messageBoxService.ShowMessageBox($"Successfully added new customer {newCustomer.Code}", "Success", MessageBoxButton.OK);
                     MainViewModel.This.StatusMessage = $"Successfully added new customer {newCustomer.Code}";
                     MainViewModel.This.ReloadEntities();
                 }                   
