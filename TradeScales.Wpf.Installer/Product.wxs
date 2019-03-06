@@ -134,7 +134,10 @@
               <File Source="$(var.TradeScales.Wpf.TargetDir)\FluentValidation.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\itextsharp.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\itextsharp.xmlworker.dll"/>
-              <File Source="$(var.TradeScales.Wpf.TargetDir)\MahApps.Metro.dll"/>     
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\MahApps.Metro.dll"/>
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\Microsoft.WindowsAPICodePack.dll"/>
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\Microsoft.WindowsAPICodePack.Shell.dll"/>
+              <File Source="$(var.TradeScales.Wpf.TargetDir)\Microsoft.WindowsAPICodePack.ShellExtensions.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\System.ComponentModel.Primitives.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\System.Data.SqlServerCe.dll"/>
               <File Source="$(var.TradeScales.Wpf.TargetDir)\System.ValueTuple.dll"/>
