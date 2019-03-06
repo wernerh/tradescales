@@ -112,10 +112,24 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();       
         }
 
-        public void ShowAddCustomerDialog()
+        public void ShowViewCustomersDialog()
         {
-            AddCustomerViewModel viewmodel = new AddCustomerViewModel();
+            ViewCustomersViewModel viewmodel = new ViewCustomersViewModel();
+            ViewCustomersView view = new ViewCustomersView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowAddCustomerDialog(bool isEditCustomer, int id = -1, string code = null, string name = null)
+        {
+            AddCustomerViewModel viewmodel = new AddCustomerViewModel(isEditCustomer, id, code, name);
             AddCustomerView view = new AddCustomerView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowViewDestinationsDialog()
+        {
+            ViewDestinationsViewModel viewmodel = new ViewDestinationsViewModel();
+            ViewDestinationsView view = new ViewDestinationsView(viewmodel);
             view.ShowDialog();
         }
 
@@ -126,10 +140,25 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
+
+        public void ShowViewDriversDialog()
+        {
+            ViewDriversViewModel viewmodel = new ViewDriversViewModel();
+            ViewDriversView view = new ViewDriversView(viewmodel);
+            view.ShowDialog();
+        }
+
         public void ShowAddDriverDialog()
         {
             AddDriverViewModel viewmodel = new AddDriverViewModel();
             AddDriverView view = new AddDriverView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowViewHauliersDialog()
+        {
+            ViewHauliersViewModel viewmodel = new ViewHauliersViewModel();
+            ViewHauliersView view = new ViewHauliersView(viewmodel);
             view.ShowDialog();
         }
 
@@ -140,6 +169,13 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
+        public void ShowViewProductsDialog()
+        {
+            ViewProductsViewModel viewmodel = new ViewProductsViewModel();
+            ViewProductsView view = new ViewProductsView(viewmodel);
+            view.ShowDialog();
+        }
+
         public void ShowAddProductDialog()
         {
             AddProductViewModel viewmodel = new AddProductViewModel();
@@ -147,10 +183,24 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
+        public void ShowViewUsersDialog()
+        {
+            ViewUsersViewModel viewmodel = new ViewUsersViewModel();
+            ViewUsersView view = new ViewUsersView(viewmodel);
+            view.ShowDialog();
+        }
+
         public void ShowAddUserDialog()
         {
             AddUserViewModel viewmodel = new AddUserViewModel();
             AddUserView view = new AddUserView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowViewVehiclesDialog()
+        {
+            ViewVehiclesViewModel viewmodel = new ViewVehiclesViewModel();
+            ViewVehiclesView view = new ViewVehiclesView(viewmodel);
             view.ShowDialog();
         }
 

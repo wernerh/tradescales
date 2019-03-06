@@ -60,32 +60,32 @@
                     <MenuItem Header="Options" Command="{Binding ThemeOptionsCommand}"/>
                     <MenuItem Header="Database Management">
                         <MenuItem Header="Customers">
-                            <MenuItem Header="Add" Command="{Binding AddCustomerCommand}"/>
-                            <!--<MenuItem Header="Edit" Command="{Binding EditCustomerCommand}"/>-->
+                            <MenuItem Header="Add Customer" Command="{Binding AddCustomerCommand}"/>
+                            <MenuItem Header="View Customers" Command="{Binding ViewCustomersCommand}"/>
                         </MenuItem>
                         <MenuItem Header="Destinations">
-                            <MenuItem Header="Add" Command="{Binding AddDestinationCommand}"/>
-                            <!--<MenuItem Header="Edit" Command="{Binding EditDestinationCommand}"/>-->
+                            <MenuItem Header="Add Destination" Command="{Binding AddDestinationCommand}"/>
+                            <MenuItem Header="View Destinations" Command="{Binding ViewDestinationsCommand}"/>
                         </MenuItem>
                         <MenuItem Header="Drivers">
-                            <MenuItem Header="Add" Command="{Binding AddDriverCommand}"/>
-                            <!--<MenuItem Header="Edit" Command="{Binding EditDriverCommand}"/>-->
+                            <MenuItem Header="Add Driver" Command="{Binding AddDriverCommand}"/>
+                            <MenuItem Header="View Drivers" Command="{Binding ViewDriversCommand}"/>
                         </MenuItem>
                         <MenuItem Header="Hauliers">
-                            <MenuItem Header="Add" Command="{Binding AddHaulierCommand}"/>
-                            <!--<MenuItem Header="Edit" Command="{Binding EditHaulierCommand}"/>-->
+                            <MenuItem Header="Add Haulier" Command="{Binding AddHaulierCommand}"/>
+                            <MenuItem Header="View Hauliers" Command="{Binding ViewHauliersCommand}"/>
                         </MenuItem>
                         <MenuItem Header="Products">
-                            <MenuItem Header="Add" Command="{Binding AddProductCommand}"/>
-                            <!--<MenuItem Header="Edit" Command="{Binding EditProductCommand}"/>-->
+                            <MenuItem Header="Add Product" Command="{Binding AddProductCommand}"/>
+                            <MenuItem Header="View Products" Command="{Binding ViewProductsCommand}"/>
                         </MenuItem>
                         <MenuItem Header="Users">
-                            <MenuItem Header="Add" Command="{Binding AddUserCommand}"/>
-                            <!--<MenuItem Header="Edit" Command="{Binding EditUserCommand}"/>-->
+                            <MenuItem Header="Add User" Command="{Binding AddUserCommand}"/>
+                            <MenuItem Header="View Users" Command="{Binding ViewUsersCommand}"/>
                         </MenuItem>
                         <MenuItem Header="Vehicles">
-                            <MenuItem Header="Add" Command="{Binding AddVehicleCommand}"/>
-                            <!--<MenuItem Header="Edit" Command="{Binding EditVehicleCommand}"/>-->
+                            <MenuItem Header="Add Vehicle" Command="{Binding AddVehicleCommand}"/>
+                            <MenuItem Header="View Vehicles" Command="{Binding ViewVehiclesCommand}"/>
                         </MenuItem>
                     </MenuItem>
                 </MenuItem>

@@ -454,11 +454,9 @@ namespace TradeScales.Wpf.ViewModel
         {
             Ticket ticket = _ticketsRepository.GetSingle(EditTicket.ID);
             ticket.UpdateTicket(EditTicket);
-
             _unitOfWork.Commit();
          
             messageBoxService.ShowMessageBox($"Successfully updated ticket {EditTicket.TicketNumber}", "Success", MessageBoxButton.OK);
-
             MainViewModel.This.StatusMessage = $"Successfully updated ticket {EditTicket.TicketNumber}";
             MainViewModel.This.TicketList.ReloadTickets();
         }

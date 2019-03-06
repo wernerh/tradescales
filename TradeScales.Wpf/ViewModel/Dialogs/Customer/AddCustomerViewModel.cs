@@ -25,16 +25,63 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         #region Constructor
 
-        public AddCustomerViewModel()
+        public AddCustomerViewModel(bool isEditCustomer, int id = -1, string code = null, string name = null)
         {
             NotXClosed = false;
+            DialogTitle = "Add Customer";
+            ButtonTitle = "Add";
+
+            if (isEditCustomer)
+            {
+                IsEditCustomer = true;
+                DialogTitle = "Edit Customer";
+                ButtonTitle = "Update";
+                Id = id;
+                Code = code;
+                Name = name;
+            }
         }
 
         #endregion
 
         #region Properties
 
+        public bool IsEditCustomer { get; set; }
+
         public bool NotXClosed { get; set; }
+
+        private string _DialogTitle;
+        public string DialogTitle
+        {
+            get { return _DialogTitle; }
+            set
+            {
+                _DialogTitle = value;
+                OnPropertyChanged("DialogTitle");
+            }
+        }
+
+        private string _ButtonTitle;
+        public string ButtonTitle
+        {
+            get { return _ButtonTitle; }
+            set
+            {
+                _ButtonTitle = value;
+                OnPropertyChanged("ButtonTitle");
+            }
+        }
+
+        private int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set
+            {
+                _Id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         private string _Code;
         public string Code
@@ -62,23 +109,31 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         #region Commands
 
-        private ICommand _OkCommand;      
+        private ICommand _OkCommand;
         public ICommand OkCommand
         {
             get
             {
                 if (_OkCommand == null)
                 {
-                    _OkCommand = new MVVMRelayCommand(execute => 
+                    _OkCommand = new MVVMRelayCommand(execute =>
                     {
                         try
                         {
-                            Ok();
+                            if (IsEditCustomer)
+                            {
+                                EditCustomer();
+                            }
+                            else
+                            {
+                                AddCustomer();
+                            }
+
                         }
-                        catch(Exception exception)
+                        catch (Exception exception)
                         {
                             _messageBoxService.ShowExceptionMessageBox(exception, "Error", MessageBoxImage.Error);
-                        }                       
+                        }
                     });
                 }
                 return _OkCommand;
@@ -92,7 +147,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             {
                 if (_CancelCommand == null)
                 {
-                    _CancelCommand = new MVVMRelayCommand(execute => 
+                    _CancelCommand = new MVVMRelayCommand(execute =>
                     {
                         try
                         {
@@ -126,7 +181,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Ok()
+        public void AddCustomer()
         {
             if (_customersRepository.CustomerExists(_Code))
             {
@@ -134,9 +189,9 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             }
             else
             {
-               if(!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Name))
+                if (!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Name))
                 {
-                    CustomerViewModel newCustomer = new CustomerViewModel() { Code = _Code, Name = _Name };                                                       
+                    CustomerViewModel newCustomer = new CustomerViewModel() { Code = _Code, Name = _Name };
                     Customer customer = new Customer();
                     customer.UpdateCustomer(newCustomer);
 
@@ -145,11 +200,29 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
                     Code = "";
                     Name = "";
-                    
+
                     _messageBoxService.ShowMessageBox($"Successfully added new customer {newCustomer.Code}", "Success", MessageBoxButton.OK);
                     MainViewModel.This.StatusMessage = $"Successfully added new customer {newCustomer.Code}";
                     MainViewModel.This.ReloadEntities();
-                }                   
+                }
+            }
+        }
+
+        public void EditCustomer()
+        {
+            if (!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Name))
+            {
+                CustomerViewModel newCustomer = new CustomerViewModel() { Code = _Code, Name = _Name };
+                Customer customer = _customersRepository.GetSingle(_Id);
+                customer.UpdateCustomer(newCustomer);
+
+                _unitOfWork.Commit();
+                _messageBoxService.ShowMessageBox($"Successfully updated customer {newCustomer.Code}", "Success", MessageBoxButton.OK);
+                MainViewModel.This.StatusMessage = $"Successfully updated customer {newCustomer.Code}";
+                MainViewModel.This.ReloadEntities();
+
+                NotXClosed = true;
+                OnRequestClose();
             }
         }
 

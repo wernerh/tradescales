@@ -273,6 +273,7 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Commands
 
+        #region App
         private ICommand _ViewStartPageCommand;      
         public ICommand ViewStartPageCommand
         {
@@ -452,6 +453,31 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        #endregion
+
+        private ICommand _ViewCustomersCommand;
+        public ICommand ViewCustomersCommand
+        {
+            get
+            {
+                if (_ViewCustomersCommand == null)
+                {
+                    _ViewCustomersCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowViewCustomersDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _ViewCustomersCommand;
+            }
+        }
+
         private ICommand _AddCustomerCommand;
         public ICommand AddCustomerCommand
         {
@@ -463,7 +489,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddCustomerDialog();
+                            _DialogService.ShowAddCustomerDialog(false);
                         }
                         catch (Exception ex)
                         {
@@ -475,6 +501,28 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        private ICommand _ViewDestinationsCommand;
+        public ICommand ViewDestinationsCommand
+        {
+            get
+            {
+                if (_ViewDestinationsCommand == null)
+                {
+                    _ViewDestinationsCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowViewDestinationsDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _ViewDestinationsCommand;
+            }
+        }
 
         private ICommand _AddDestinationCommand;
         public ICommand AddDestinationCommand
@@ -499,6 +547,28 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        private ICommand _ViewDriversCommand;
+        public ICommand ViewDriversCommand
+        {
+            get
+            {
+                if (_ViewDriversCommand == null)
+                {
+                    _ViewDriversCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowViewDriversDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _ViewDriversCommand;
+            }
+        }
 
         private ICommand _AddDriverCommand;
         public ICommand AddDriverCommand
@@ -523,6 +593,28 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        private ICommand _ViewHauliersCommand;
+        public ICommand ViewHauliersCommand
+        {
+            get
+            {
+                if (_ViewHauliersCommand == null)
+                {
+                    _ViewHauliersCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowViewHauliersDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _ViewHauliersCommand;
+            }
+        }
 
         private ICommand _AddHaulierCommand;
         public ICommand AddHaulierCommand
@@ -547,6 +639,28 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        private ICommand _ViewProductsCommand;
+        public ICommand ViewProductsCommand
+        {
+            get
+            {
+                if (_ViewProductsCommand == null)
+                {
+                    _ViewProductsCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowViewProductsDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _ViewProductsCommand;
+            }
+        }
 
         private ICommand _AddProductCommand;
         public ICommand AddProductCommand
@@ -571,6 +685,29 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
+        private ICommand _ViewUsersCommand;
+        public ICommand ViewUsersCommand
+        {
+            get
+            {
+                if (_ViewUsersCommand == null)
+                {
+                    _ViewUsersCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowViewUsersDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _ViewUsersCommand;
+            }
+        }
+
         private ICommand _AddUserCommand;
         public ICommand AddUserCommand
         {
@@ -591,6 +728,29 @@ namespace TradeScales.Wpf.ViewModel
                     });
                 }
                 return _AddUserCommand;
+            }
+        }
+
+        private ICommand _ViewVehiclesCommand;
+        public ICommand ViewVehiclesCommand
+        {
+            get
+            {
+                if (_ViewVehiclesCommand == null)
+                {
+                    _ViewVehiclesCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowViewVehiclesDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _ViewVehiclesCommand;
             }
         }
 

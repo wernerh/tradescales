@@ -26,12 +26,19 @@ namespace TradeScales.Wpf.Resources.Services.Interfaces
         MembershipContext ShowLogInDialog();
         void ShowActivateDialog();
 
-        void ShowAddCustomerDialog();
+        void ShowViewCustomersDialog();
+        void ShowAddCustomerDialog(bool isEditCustomer, int id = -1, string code = null, string name = null);
+        void ShowViewDestinationsDialog();
         void ShowAddDestinationDialog();
+        void ShowViewDriversDialog();
         void ShowAddDriverDialog();
+        void ShowViewHauliersDialog();
         void ShowAddHaulierDialog();
+        void ShowViewProductsDialog();
         void ShowAddProductDialog();
+        void ShowViewUsersDialog();
         void ShowAddUserDialog();
+        void ShowViewVehiclesDialog();
         void ShowAddVehicleDialog();
     }
 }
