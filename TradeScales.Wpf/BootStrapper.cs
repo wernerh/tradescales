@@ -28,11 +28,11 @@ namespace TradeScales.Wpf
 
             builder.RegisterType<DbFactory>()
                 .As<IDbFactory>()
-                 .InstancePerLifetimeScope();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>()
-                 .InstancePerLifetimeScope();
+                .InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(EntityBaseRepository<>))
                 .As(typeof(IEntityBaseRepository<>));

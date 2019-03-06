@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using TradeScales.Data.Extensions;
 using TradeScales.Data.Infrastructure;
 using TradeScales.Data.Repositories;
 using TradeScales.Entities;
+using TradeScales.Wpf.Infrastructure.Extensions;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
@@ -34,6 +36,29 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         #region Properties
 
         public bool NotXClosed { get; set; }
+
+
+        private string _Code;
+        public string Code
+        {
+            get { return _Code; }
+            set
+            {
+                _Code = value;
+                OnPropertyChanged("Code");
+            }
+        }
+
+        private string _Name;
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged("Name");
+            }
+        }
 
         #endregion
 
@@ -105,10 +130,28 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public void Ok()
         {
-            NotXClosed = true;
-            Properties.Settings.Default.Save();
-            MainViewModel.This.ToolOne.CreateNewSerialPort();
-            OnRequestClose();
+            if (_productsRepository.ProductExists(_Code, _Name))
+            {
+                throw new ArgumentException("Product already exists");
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Name))
+                {
+                    ProductViewModel newProduct = new ProductViewModel() { Code = _Code, Name = _Name };
+                    Product product = new Product();
+                    product.UpdateProduct(newProduct);
+
+                    _productsRepository.Add(product);
+                    _unitOfWork.Commit();
+
+                    Code = "";
+                    Name = "";
+
+                    MainViewModel.This.StatusMessage = $"Successfully added new product {product.Code}";
+                    MainViewModel.This.ReloadEntities();
+                }
+            }
         }
 
         private void Cancel()

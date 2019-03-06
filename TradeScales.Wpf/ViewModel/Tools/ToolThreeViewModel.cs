@@ -47,8 +47,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
             : base("Ticket List Filter")
         {
             ContentID = ToolContentID;
-            LoadDropdowns();
-            SetDefaultValues();
+            ReloadEntities();
         }
 
         #endregion
@@ -191,18 +190,25 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         #endregion
 
+        #region Public Methods
+
+        public void ReloadEntities()
+        {
+            LoadDropdowns();
+            SetDefaultValues();
+        }
+
+        #endregion
+
         #region Private Methods
 
         private void LoadDropdowns()
         {
             var hauliers = new List<HaulierViewModel>();
             hauliers.Add(new HaulierViewModel() { Name = "All", ID = -1 });
-            hauliers.AddRange(Mapper.Map<IEnumerable<Haulier>, IEnumerable<HaulierViewModel>>(_hauliersRepository.GetAll()));
+            hauliers.AddRange(Mapper.Map<IEnumerable<Haulier>, IEnumerable<HaulierViewModel>>(_hauliersRepository.GetAll().OrderBy(x => x.Name)));
             Hauliers = hauliers;
-
-
-            Hauliers = hauliers;
-
+           
             var customers = new List<CustomerViewModel>();
             customers.Add(new CustomerViewModel() { Name = "All", ID = -1 });
             customers.AddRange(Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(_customersRepository.GetAll().OrderBy(x => x.Name)));
@@ -234,12 +240,12 @@ namespace TradeScales.Wpf.ViewModel.Tools
             DateFrom = DateTime.Now;
             DateTo = DateTime.Now.AddDays(1);
 
-            SelectedHaulier = Hauliers.First();
-            SelectedCustomer = Customers.First();
-            SelectedProduct = Products.First();
-            SelectedDestination = Destinations.First();
-            SelectedDriver = Drivers.First();
-            SelectedVehicle = Vehicles.First();
+            SelectedHaulier = Hauliers.FirstOrDefault();
+            SelectedCustomer = Customers.FirstOrDefault();
+            SelectedProduct = Products.FirstOrDefault();
+            SelectedDestination = Destinations.FirstOrDefault();
+            SelectedDriver = Drivers.FirstOrDefault();
+            SelectedVehicle = Vehicles.FirstOrDefault(); 
         }  
 
         private void FilterTicketList()

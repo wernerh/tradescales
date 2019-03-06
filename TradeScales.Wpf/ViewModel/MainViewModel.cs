@@ -559,7 +559,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddProductDialog();
+                            _DialogService.ShowAddProductDialog();                          
                         }
                         catch (Exception ex)
                         {
@@ -711,6 +711,12 @@ namespace TradeScales.Wpf.ViewModel
         public void ShowExceptionMessageBox(Exception ex)
         {
             _MessageBoxService.ShowExceptionMessageBox(ex, "Error", MessageBoxImage.Error);
+        }
+
+        public void ReloadEntities()
+        {
+            ToolTwo.ReloadEntities();
+            ToolThree.ReloadEntities();
         }
 
         #endregion
