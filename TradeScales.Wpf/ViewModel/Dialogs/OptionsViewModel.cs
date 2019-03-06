@@ -250,6 +250,15 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             }
         }
 
+        public string LogInLogo
+        {
+            get { return GetShortFilePath(Properties.Settings.Default.LogInLogo); }
+            set
+            {
+                Properties.Settings.Default.LogInLogo = value;
+                OnPropertyChanged("LogInLogo");
+            }
+        }
         #endregion
 
         #region Constructor
@@ -401,13 +410,13 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             var filePath = GetFilePath(identifier);
             var filter = GetFileFilter(identifier);
 
-            var result = (identifier == "WeighBridgeCertificatesFolder" || identifier == "ReportsFolder") 
-                ? _DialogService.ShowFolderDialog(filePath)  
-                : _DialogService.ShowSaveFileDialog(filter, filePath);
+            var result = (identifier == "WeighBridgeCertificatesFolder" || identifier == "ReportsFolder")
+                ? _DialogService.ShowFolderDialog(filePath)
+                : _DialogService.ShowOpenFileDialog(filter);
 
             if (result == true)
             {
-                setFilePath(identifier, _DialogService.SaveFilePath);
+                setFilePath(identifier, _DialogService.OpenFilePath);
             }
         }
 
@@ -429,6 +438,9 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
                 case "ReportTemplate":
                     return htmlFilter;
+
+                case "LogInLogo":
+                    return pngFilter;
                 default:
                     return null;
             }
@@ -455,6 +467,9 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
                 case "ReportTemplate":
                     return Settings.Default.ReportTemplate;
+
+                case "LogInLogo":
+                    return Settings.Default.LogInLogo;
                 default:
                     return null;
             }
@@ -477,7 +492,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     break;
 
                 case "ReportsFolder":
-                   ReportsFolder = filePath;
+                    ReportsFolder = filePath;
                     break;
 
                 case "ReportLogo":
@@ -487,11 +502,15 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                 case "ReportTemplate":
                     ReportTemplate = filePath;
                     break;
+
+                case "LogInLogo":
+                    LogInLogo = filePath;
+                    break;
             }
         }
 
         private string GetShortFilePath(string filePath)
-        {                             
+        {
             return Path.GetPathRoot(filePath) + "..." + filePath.Substring(filePath.LastIndexOf('\\'), filePath.Length - filePath.LastIndexOf('\\'));
         }
 

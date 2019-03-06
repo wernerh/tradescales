@@ -28,7 +28,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         public string ImagePath
         {
-            get { return Settings.Default.WeighBridgeCertificateLogo; }
+            get { return Settings.Default.LogInLogo; }
         }
 
         private string _Username;

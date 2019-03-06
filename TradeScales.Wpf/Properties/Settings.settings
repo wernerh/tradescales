@@ -65,5 +65,8 @@
     <Setting Name="LastTicketNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)">000000</Value>
     </Setting>
+    <Setting Name="LogInLogo" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

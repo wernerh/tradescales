@@ -275,5 +275,17 @@ namespace TradeScales.Wpf.Properties {
                 this["LastTicketNumber"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LogInLogo {
+            get {
+                return ((string)(this["LogInLogo"]));
+            }
+            set {
+                this["LogInLogo"] = value;
+            }
+        }
     }
 }

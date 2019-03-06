@@ -979,6 +979,7 @@ namespace TradeScales.Wpf.ViewModel
                 Settings.Default.ReportsFolder = $"{directoryPath}\\Reports";
                 Settings.Default.ReportLogo = $"{directoryPath}\\images\\tradescales.png";
                 Settings.Default.ReportTemplate = $"{directoryPath}\\templates\\ReportTemplate.html";
+                Settings.Default.LogInLogo = $"{directoryPath}\\images\\tradescales.png";
                 Settings.Default.Save();
             }
         }

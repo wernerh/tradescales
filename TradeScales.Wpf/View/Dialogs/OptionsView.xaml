@@ -56,6 +56,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--Theme Option-->
@@ -67,8 +68,13 @@
                 <ComboBox Grid.Row="0" Grid.Column="3"  Margin="5" MinWidth="115" ItemsSource="{Binding ThemeAccents}" SelectedItem="{Binding ThemeAccent}" VerticalAlignment="Center"/>
                 
                 <!--Start Page-->
-                <Label Grid.Row="1" Grid.Column="0" Margin="5" MinWidth="115" Content="Show start page :" ToolTip="Show start page on start up"/>
+                <Label Grid.Row="1" Grid.Column="0" Margin="5" MinWidth="115" Content="Show Start Page :" ToolTip="Show start page on start up"/>
                 <CheckBox Grid.Row="1" Grid.Column="1" Margin="5" MinWidth="115" IsChecked="{Binding ShowStartPage}" VerticalAlignment="Center" ToolTip="Show start page on start up"/>
+
+                <!--Log In Logo-->
+                <Label  Grid.Row="2" Grid.Column="0" Margin="5" MinWidth="115" Content="Log In Logo:"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" IsEnabled="False" Text="{Binding LogInLogo}"/>
+                <Button Grid.Row="2" Grid.Column="3" Margin="5" Command="{Binding EditCommand}" CommandParameter="LogInLogo">Edit</Button>
             </Grid>
         </GroupBox>
 

@@ -26,14 +26,8 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <!--Header & Description-->
-        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="10">
-            <TextBlock Text="Existing Users" FontFamily="Open Sans" FontSize="15px"/>
-            <TextBlock Text="Below you can view, edit or search all your users."/>
-        </StackPanel>
-
         <!--Users-->
-        <DataGrid x:Name="datagrid_Users" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" Margin="10" CanUserAddRows="False" VerticalScrollBarVisibility="Visible">
+        <DataGrid x:Name="datagrid_Users" Grid.Row="0" ItemsSource="{Binding Users}" AutoGenerateColumns="False" Margin="10" CanUserAddRows="False" VerticalScrollBarVisibility="Visible">
             <DataGrid.Columns>
                 <DataGridTextColumn Header = "Username" Width="*" Binding = "{Binding Username}" />
                 <DataGridTextColumn Header = "Email" Width="*" Binding = "{Binding Email}" />
@@ -53,6 +47,6 @@
         </DataGrid>
 
         <!--Close-->
-        <Button Grid.Row="2" Width="50" Margin="10" Content="Close" Command="{Binding CancelCommand}" />
+        <Button Grid.Row="1" Width="50" Margin="10" Content="Close" Command="{Binding CancelCommand}" />
     </Grid>
 </controls:MetroWindow>
