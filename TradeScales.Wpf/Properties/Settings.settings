@@ -57,7 +57,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ProductDemoExpireDate" Type="System.String" Scope="User">
-      <Value Profile="(Default)">FBk6NYCjN7yDs1dkOWSEx92a5RWP7PiC8MctgtCvvp1fiy+Khj8SAxImnnEjLL/x42QfL6v29tgcuoxWQN0vFSTayCTl7igBkvpjzShtXDWNQRlfwvsH15maruzB+KVv</Value>
+      <Value Profile="(Default)">e6E8Z2KFSLZ2AzLbVwUjFoOr80RWLuFZYP/iKI+aqlX/puwMBqN12y2cp+3In+sJ/p3jYdVcsInGN2i8nQJVPfBn6cRL8spwfkYO3ZyCXEsyD9re9B49Kf49ESjF+22X</Value>
     </Setting>
     <Setting Name="ToolThreeIsVisible" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

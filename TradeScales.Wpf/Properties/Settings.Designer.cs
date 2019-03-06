@@ -241,8 +241,8 @@ namespace TradeScales.Wpf.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FBk6NYCjN7yDs1dkOWSEx92a5RWP7PiC8MctgtCvvp1fiy+Khj8SAxImnnEjLL/x42QfL6v29tgcuoxWQ" +
-            "N0vFSTayCTl7igBkvpjzShtXDWNQRlfwvsH15maruzB+KVv")]
+        [global::System.Configuration.DefaultSettingValueAttribute("e6E8Z2KFSLZ2AzLbVwUjFoOr80RWLuFZYP/iKI+aqlX/puwMBqN12y2cp+3In+sJ/p3jYdVcsInGN2i8n" +
+            "QJVPfBn6cRL8spwfkYO3ZyCXEsyD9re9B49Kf49ESjF+22X")]
         public string ProductDemoExpireDate {
             get {
                 return ((string)(this["ProductDemoExpireDate"]));
