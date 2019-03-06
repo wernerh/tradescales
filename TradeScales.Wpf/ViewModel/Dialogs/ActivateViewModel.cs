@@ -124,14 +124,16 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         private string BuildExplainProcessMessage()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine("Insert message explaining license process here");        
+            builder.AppendLine("In order to activate your installation of TradeScales, it is necessary to request a license code from Tradescales (Step 1) " +
+                "and then to input it where instructed (Step 2).");        
             return builder.ToString();
         }
 
         private string BuildStepOneMessage()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine("Insert message explaining step one here");
+            builder.AppendLine("The first step requires you to email the auto-generated unique identifier to Info@tradescales.co.za. " +
+                "The unique identifier is a 256-digit character string necessary for acquiring your license code. It’s located below, highlighted in yellow.");
             return builder.ToString();
 
         }
@@ -139,7 +141,8 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         private string BuildStepTwoMessage()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine("Insert message explaining step two here");
+            builder.AppendLine("License code - this is the 256 character-string contained in the reply email from TradeScales. The expiry date of the license code issued will also be included in this email." +
+                " Please be aware that this license code is connected to the device on which the unique identifier is generated.");
             return builder.ToString();
         }
         #endregion

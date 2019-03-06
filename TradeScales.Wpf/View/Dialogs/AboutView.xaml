@@ -22,7 +22,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="300"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -42,12 +41,9 @@
         <TextBlock Grid.Row="2" TextWrapping="Wrap" Margin="10">
             Developed with visual studio 2017 by <Hyperlink NavigateUri="https://www.linkedin.com/in/whurter/" RequestNavigate="Hyperlink_RequestNavigate" >Werner Hurter.</Hyperlink>
         </TextBlock>
-        
-        <!--Licensce-->
-        <TextBox Grid.Row="3" Margin="10" Text="{Binding License}" Padding="10"/>
-
+             
         <!--OK Button-->
-        <Button Grid.Row="4" Content="OK" Margin="10" MinWidth="50" Command="{Binding CloseCommand}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Row="3" Content="OK" Margin="10" MinWidth="50" Command="{Binding CloseCommand}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
     </controls:MetroWindow>
 

@@ -47,10 +47,10 @@
                         &#x26AB; Secure SQL database.
                         <LineBreak/>
                         <LineBreak/>                 
-                        &#x26AB; Password protected with multi level security features.
+                        &#x26AB; Password protected with multi-level security features.
                         <LineBreak/>
                         <LineBreak/>
-                        &#x26AB; 5 database fields: Haulier, Customer, Destination, Transporter, Product, and Driver
+                        &#x26AB; 6 database fields:  Customer, Destination, Driver, Haulier, Product and Vehicle
                         <LineBreak/>
                         <LineBreak/>
                         &#x26AB; Enter fields for Order number, Delivery number, Seal To and Seal From.
@@ -68,10 +68,7 @@
                         &#x26AB; Print to either, laser printer, dot matrix form printer or thermal slip printer.
                         <LineBreak/>
                         <LineBreak/>                       
-                        &#x26AB; Weigh comparison with printed weighbridge ticket from supplier.
-                        <LineBreak/>
-                        <LineBreak/>
-                        &#x26AB; 24 hour telephonic or “Team Viewer” support.
+                        &#x26AB; Weigh comparison with printed weighbridge ticket from supplier.                      
                         <LineBreak/>
                         <LineBreak/>
                         &#x26AB; Client server application – two weighbridges with one common database.
