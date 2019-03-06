@@ -35,7 +35,7 @@
                 <TextBlock Grid.Row="0" Margin="5" Text="{Binding StepOneMessage}" TextWrapping="Wrap"/>
 
                 <!--Encrypted Unique Identifier-->
-                <TextBlock Grid.Row="1"  Margin="5" Text="{Binding EncryptedUniqueIdentifier}" Foreground="Yellow" FontWeight="Bold" TextWrapping="Wrap"/>
+                <TextBox Grid.Row="1"  Margin="5" Text="{Binding EncryptedUniqueIdentifier, Mode=OneWay}" Foreground="Yellow" FontWeight="Bold" IsReadOnly="True" TextWrapping="Wrap"/>
 
             </Grid>
         </Expander>

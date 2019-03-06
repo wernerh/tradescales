@@ -27,10 +27,7 @@ namespace TradeScales.Wpf.ViewModel
         #endregion
 
         #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+    
         public MainViewModel()
         {
             ChangeAppTheme();
@@ -51,9 +48,6 @@ namespace TradeScales.Wpf.ViewModel
         #region Properties
 
         private string _DialogTitle;
-        /// <summary>
-        /// Application Title
-        /// </summary>
         public string DialogTitle
         {
             get
@@ -67,9 +61,6 @@ namespace TradeScales.Wpf.ViewModel
         }
 
         private string _StatusMessage;
-        /// <summary>
-        /// Application status message 
-        /// </summary>
         public string StatusMessage
         {
             get { return _StatusMessage; }
@@ -83,10 +74,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private static MainViewModel _This;
-        /// <summary>
-        /// Static instance of this main view model class (Singleton pattern)
-        /// </summary>
+        private static MainViewModel _This;      
         public static MainViewModel This
         {
             get { return _This; }
@@ -99,10 +87,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private AvalonDockLayoutViewModel _Layout;
-        /// <summary>
-        /// Used to load or save AvalonDock layout on application startup and shut-down
-        /// </summary>
+        private AvalonDockLayoutViewModel _Layout;  
         public AvalonDockLayoutViewModel Layout
         {
             get
@@ -116,9 +101,6 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        /// <summary>
-        /// Directory where "Layout.config" is saved ("C:\Users\{User}\AppData\Roaming\Werner Hurter\Trade Scales")
-        /// </summary>
         public static string DirAppData
         {
             get
@@ -135,10 +117,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private Theme _AvalonDockTheme;
-        /// <summary>
-        /// Avalon dock theme enumeration
-        /// </summary>
+        private Theme _AvalonDockTheme;     
         public Theme AvalonDockTheme
         {
             get { return _AvalonDockTheme; }
@@ -152,10 +131,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ObservableCollection<DocumentViewModel> _Documents;
-        /// <summary>
-        /// Collection of files open in the application
-        /// </summary>
+        private ObservableCollection<DocumentViewModel> _Documents;     
         public ObservableCollection<DocumentViewModel> Documents
         {
             get { return _Documents; }
@@ -169,10 +145,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private DocumentViewModel _ActiveDocument = null;
-        /// <summary>
-        /// The active document
-        /// </summary>
+        private DocumentViewModel _ActiveDocument = null;     
         public DocumentViewModel ActiveDocument
         {
             get { return _ActiveDocument; }
@@ -189,10 +162,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private StartPageViewModel _StartPage;
-        /// <summary>
-        /// The start page
-        /// </summary>
+        private StartPageViewModel _StartPage;    
         public StartPageViewModel StartPage
         {
             get
@@ -205,10 +175,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private TicketListViewModel _TicketList;
-        /// <summary>
-        /// The list of tickets
-        /// </summary>
+        private TicketListViewModel _TicketList;    
         public TicketListViewModel TicketList
         {
             get
@@ -221,10 +188,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private NewTicketViewModel _NewTicket;
-        /// <summary>
-        /// New ticket
-        /// </summary>
+        private NewTicketViewModel _NewTicket;     
         public NewTicketViewModel NewTicket
         {
             get
@@ -239,10 +203,7 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Tools
 
-        private ToolViewModel[] _Tools;
-        /// <summary>
-        /// Collection of all the available tool windows
-        /// </summary>
+        private ToolViewModel[] _Tools;   
         public IEnumerable<ToolViewModel> Tools
         {
             get
@@ -255,10 +216,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ToolOneViewModel _ToolOne;
-        /// <summary>   
-        /// Tool one 
-        /// </summary>
+        private ToolOneViewModel _ToolOne;    
         public ToolOneViewModel ToolOne
         {
             get
@@ -273,10 +231,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ToolTwoViewModel _ToolTwo;
-        /// <summary>   
-        /// Tool two
-        /// </summary>
+        private ToolTwoViewModel _ToolTwo; 
         public ToolTwoViewModel ToolTwo
         {
             get
@@ -293,10 +248,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ToolThreeViewModel _ToolThree;
-        /// <summary>   
-        /// Tool three
-        /// </summary>
+        private ToolThreeViewModel _ToolThree;  
         public ToolThreeViewModel ToolThree
         {
             get
@@ -321,10 +273,7 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Commands
 
-        private ICommand _ViewStartPageCommand;
-        /// <summary>
-        /// View start page command
-        /// </summary>
+        private ICommand _ViewStartPageCommand;      
         public ICommand ViewStartPageCommand
         {
             get
@@ -357,10 +306,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _TicketListCommand;
-        /// <summary>
-        /// Ticket list command
-        /// </summary>
+        private ICommand _TicketListCommand;   
         public ICommand TicketListCommand
         {
             get
@@ -384,10 +330,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _NewTicketCommand;
-        /// <summary>
-        /// New ticket command
-        /// </summary>
+        private ICommand _NewTicketCommand;   
         public ICommand NewTicketCommand
         {
             get
@@ -411,10 +354,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _AboutCommand;
-        /// <summary>
-        /// Launch about dialog
-        /// </summary>
+        private ICommand _AboutCommand;     
         public ICommand AboutCommand
         {
             get
@@ -438,10 +378,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _ThemeOptionsCommand;
-        /// <summary>
-        /// Launch theme options dialog
-        /// </summary>
+        private ICommand _ThemeOptionsCommand;     
         public ICommand ThemeOptionsCommand
         {
             get
@@ -462,32 +399,6 @@ namespace TradeScales.Wpf.ViewModel
                     });
                 }
                 return _ThemeOptionsCommand;
-            }
-        }
-
-        private ICommand _DatabaseManagementCommand;
-        /// <summary>
-        /// Launch theme options dialog
-        /// </summary>
-        public ICommand DatabaseManagementCommand
-        {
-            get
-            {
-                if (_DatabaseManagementCommand == null)
-                {
-                    _DatabaseManagementCommand = new MVVMRelayCommand(execute =>
-                    {
-                        try
-                        {
-                            _DialogService.ShowDatabaseDialog();
-                        }
-                        catch (Exception ex)
-                        {
-                            ShowExceptionMessageBox(ex);
-                        }
-                    });
-                }
-                return _DatabaseManagementCommand;
             }
         }
 
@@ -517,10 +428,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _ExitCommand;
-        /// <summary>
-        /// Shut down the application command
-        /// </summary>
+        private ICommand _ExitCommand;      
         public ICommand ExitCommand
         {
             get
@@ -541,6 +449,171 @@ namespace TradeScales.Wpf.ViewModel
                         });
                 }
                 return _ExitCommand;
+            }
+        }
+
+        private ICommand _AddCustomerCommand;
+        public ICommand AddCustomerCommand
+        {
+            get
+            {
+                if (_AddCustomerCommand == null)
+                {
+                    _AddCustomerCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowAddCustomerDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _AddCustomerCommand;
+            }
+        }
+
+
+        private ICommand _AddDestinationCommand;
+        public ICommand AddDestinationCommand
+        {
+            get
+            {
+                if (_AddDestinationCommand == null)
+                {
+                    _AddDestinationCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowAddDestinationDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _AddDestinationCommand;
+            }
+        }
+
+
+        private ICommand _AddDriverCommand;
+        public ICommand AddDriverCommand
+        {
+            get
+            {
+                if (_AddDriverCommand == null)
+                {
+                    _AddDriverCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowAddDriverDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _AddDriverCommand;
+            }
+        }
+
+
+        private ICommand _AddHaulierCommand;
+        public ICommand AddHaulierCommand
+        {
+            get
+            {
+                if (_AddHaulierCommand == null)
+                {
+                    _AddHaulierCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowAddHaulierDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _AddHaulierCommand;
+            }
+        }
+
+
+        private ICommand _AddProductCommand;
+        public ICommand AddProductCommand
+        {
+            get
+            {
+                if (_AddProductCommand == null)
+                {
+                    _AddProductCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowAddProductDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _AddProductCommand;
+            }
+        }
+
+        private ICommand _AddUserCommand;
+        public ICommand AddUserCommand
+        {
+            get
+            {
+                if (_AddUserCommand == null)
+                {
+                    _AddUserCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowAddUserDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _AddUserCommand;
+            }
+        }
+
+        private ICommand _AddVehicleCommand;
+        public ICommand AddVehicleCommand
+        {
+            get
+            {
+                if (_AddVehicleCommand == null)
+                {
+                    _AddVehicleCommand = new MVVMRelayCommand(execute =>
+                    {
+                        try
+                        {
+                            _DialogService.ShowAddVehicleDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowExceptionMessageBox(ex);
+                        }
+                    });
+                }
+                return _AddVehicleCommand;
             }
         }
 

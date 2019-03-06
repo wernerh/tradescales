@@ -174,8 +174,14 @@
     <Compile Include="ViewModel\AvalonDockLayoutViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\ActivateViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\AddVehicleViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\AddUserViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\AddProductViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\AddHaulierViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\AddDriverViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\AddDestinationViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\LogInViewModel.cs" />
-    <Compile Include="ViewModel\Dialogs\DatabaseViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\AddCustomerViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModels\DestinationViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\OptionsViewModel.cs" />
@@ -207,11 +213,29 @@
     <Compile Include="View\Dialogs\ActivateView.xaml.cs">
       <DependentUpon>ActivateView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Dialogs\AddVehicleView.xaml.cs">
+      <DependentUpon>AddVehicleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\AddUserView.xaml.cs">
+      <DependentUpon>AddUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\AddProductView.xaml.cs">
+      <DependentUpon>AddProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\AddHaulierView.xaml.cs">
+      <DependentUpon>AddHaulierView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\AddDriverView.xaml.cs">
+      <DependentUpon>AddDriverView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\AddDestinationView.xaml.cs">
+      <DependentUpon>AddDestinationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Dialogs\LogInView.xaml.cs">
       <DependentUpon>LogInView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Dialogs\DatabaseView.xaml.cs">
-      <DependentUpon>DatabaseView.xaml</DependentUpon>
+    <Compile Include="View\Dialogs\AddCustomerView.xaml.cs">
+      <DependentUpon>AddCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Dialogs\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
@@ -259,11 +283,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Dialogs\AddVehicleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\AddUserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\AddProductView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\AddHaulierView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\AddDriverView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\AddDestinationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Dialogs\LogInView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Dialogs\DatabaseView.xaml">
+    <Page Include="View\Dialogs\AddCustomerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

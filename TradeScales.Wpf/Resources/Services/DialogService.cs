@@ -23,25 +23,14 @@ namespace TradeScales.Wpf.Resources.Services
 
         #region Properties
 
-        /// <summary>
-        /// The open file path.
-        /// </summary>
         public string OpenFilePath { get; set; }
-
-        /// <summary>
-        /// The save file path.
-        /// </summary>
+  
         public string SaveFilePath { get; set; }
 
         #endregion
 
         #region Public Methods
 
-        /// <summary>    
-        /// Show open file dialog.      
-        /// </summary>
-        /// <param name="filter">The current file name filter string, which determines the choices that appear in the "Save as file type" or "Files of type" box in the dialog box.</param>
-        /// <returns>A Nullable<T> value of type Boolean that specifies whether the activity was accepted (true) or canceled (false). The return value is the value of the DialogResult property before a window closes</returns>
         public bool? ShowOpenFileDialog(string filter)
         {
             _OpenFileDialog.Filter = filter;
@@ -50,11 +39,6 @@ namespace TradeScales.Wpf.Resources.Services
             return result;
         }
 
-        /// <summary>
-        /// Show save file dialog
-        /// </summary>
-        /// <param name="filter">The current file name filter string, which determines the choices that appear in the "Save as file type" or "Files of type" box in the dialog box</param>
-        /// <returns>A Nullable<T> value of type Boolean that specifies whether the activity was accepted (true) or canceled (false). The return value is the value of the DialogResult property before a window closes</returns>
         public bool? ShowSaveFileDialog(string filter)
         {
             _SaveFileDialog.Filter = filter;
@@ -63,12 +47,6 @@ namespace TradeScales.Wpf.Resources.Services
             return result;
         }
 
-        /// <summary>
-        /// Show save file dialog
-        /// </summary>
-        /// <param name="filter">The current file name filter string, which determines the choices that appear in the "Save as file type" or "Files of type" box in the dialog box</param>
-        /// <param name="filepath">The save file path</param>
-        /// <returns>A Nullable<T> value of type Boolean that specifies whether the activity was accepted (true) or canceled (false). The return value is the value of the DialogResult property before a window closes</returns>
         public bool? ShowSaveFileDialog(string filter, string filepath)
         {
             string filename = Path.GetFileNameWithoutExtension(filepath);
@@ -102,31 +80,17 @@ namespace TradeScales.Wpf.Resources.Services
 
             return null;
         }
-
-        /// <summary>
-        /// Show about dialog.
-        /// </summary>     
+        
         public void ShowAboutDialog()
         {
             AboutView view = new AboutView();
             view.ShowDialog();
         }
-
-        /// <summary>
-        /// Show options dialog.
-        /// </summary>     
+             
         public void ShowOptionsDialog()
         {
             OptionsViewModel viewmodel = new OptionsViewModel();
             OptionsView view = new OptionsView(viewmodel);
-            view.ShowDialog();
-        }
-
-
-        public void ShowDatabaseDialog()
-        {
-            DatabaseViewModel viewmodel = new DatabaseViewModel();
-            DatabaseView view = new DatabaseView(viewmodel);
             view.ShowDialog();
         }
 
@@ -146,6 +110,55 @@ namespace TradeScales.Wpf.Resources.Services
             ActivateView view = new ActivateView(viewmodel);
 
             view.ShowDialog();       
+        }
+
+        public void ShowAddCustomerDialog()
+        {
+            AddCustomerViewModel viewmodel = new AddCustomerViewModel();
+            AddCustomerView view = new AddCustomerView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowAddDestinationDialog()
+        {
+            AddDestinationViewModel viewmodel = new AddDestinationViewModel();
+            AddDestinationView view = new AddDestinationView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowAddDriverDialog()
+        {
+            AddDriverViewModel viewmodel = new AddDriverViewModel();
+            AddDriverView view = new AddDriverView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowAddHaulierDialog()
+        {
+            AddHaulierViewModel viewmodel = new AddHaulierViewModel();
+            AddHaulierView view = new AddHaulierView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowAddProductDialog()
+        {
+            AddProductViewModel viewmodel = new AddProductViewModel();
+            AddProductView view = new AddProductView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowAddUserDialog()
+        {
+            AddUserViewModel viewmodel = new AddUserViewModel();
+            AddUserView view = new AddUserView(viewmodel);
+            view.ShowDialog();
+        }
+
+        public void ShowAddVehicleDialog()
+        {
+            AddVehicleViewModel viewmodel = new AddVehicleViewModel();
+            AddVehicleView view = new AddVehicleView(viewmodel);
+            view.ShowDialog();
         }
 
         #endregion

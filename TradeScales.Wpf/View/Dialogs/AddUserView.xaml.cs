@@ -3,29 +3,23 @@ using System.ComponentModel;
 using TradeScales.Wpf.ViewModel.Dialogs;
 
 namespace TradeScales.Wpf.View.Dialogs
-{
-    /// <summary>
-    /// Interaction logic for DatabaseView.xaml
-    /// </summary>
-    public partial class DatabaseView
+{   
+    public partial class AddUserView
     {
 
         #region Fields
 
-        private DatabaseViewModel _ViewModel;
+        private AddUserViewModel _ViewModel;
 
         #endregion
 
         #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the OptionsView 
-        /// </summary>
-        public DatabaseView(DatabaseViewModel viewModel)
+     
+        public AddUserView(AddUserViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
-            Closing += OptionsView_Closing;
+            Closing += AddUserView_Closing;
             _ViewModel = viewModel;
             _ViewModel.RequestClose += RequestClose;
 
@@ -34,12 +28,7 @@ namespace TradeScales.Wpf.View.Dialogs
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Manually closes a Window.
-        /// </summary>
-        /// <param name="sender">control/object that raised the event</param>
-        /// <param name="e">parameter that contains the event data</param>
+    
         public void RequestClose(object sender, EventArgs e)
         {
             try
@@ -53,7 +42,7 @@ namespace TradeScales.Wpf.View.Dialogs
 
         #region Private Methods
 
-        private void OptionsView_Closing(object sender, CancelEventArgs e)
+        private void AddUserView_Closing(object sender, CancelEventArgs e)
         {
             if (_ViewModel.NotXClosed)
             {

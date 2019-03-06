@@ -23,9 +23,15 @@ namespace TradeScales.Wpf.Resources.Services.Interfaces
 
         void ShowAboutDialog();
         void ShowOptionsDialog();
-        void ShowDatabaseDialog();
         MembershipContext ShowLogInDialog();
-
         void ShowActivateDialog();
+
+        void ShowAddCustomerDialog();
+        void ShowAddDestinationDialog();
+        void ShowAddDriverDialog();
+        void ShowAddHaulierDialog();
+        void ShowAddProductDialog();
+        void ShowAddUserDialog();
+        void ShowAddVehicleDialog();
     }
 }

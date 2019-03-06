@@ -183,34 +183,44 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         }
 
         private void CheckProductExpireDate()
-        {          
-            if (!string.IsNullOrEmpty(Settings.Default.ProductExpireDate))
+        {
+            try
             {
-                var productExpireDate = GetProductDemoExpireDate();
-                if (DateTime.Now < productExpireDate)
+                if (!string.IsNullOrEmpty(Settings.Default.ProductExpireDate))
                 {
-                    // Active license - Show log in / hide activate now
-                    UserCanLogIn = true;
-                    UserCanActivate = false;
-                }
-            }
-            else
-            {
-                var productDemoExpireDate = GetProductDemoExpireDate();
-                if (DateTime.Now > productDemoExpireDate)
-                {
-                    // Demo expired - Hide log in / Show activate
-                    UserCanLogIn = false;
-                    UserCanActivate = true;
-                    Error = "Your version of TradeScales has expired, please activate now";
+                    var productExpireDate = GetProductDemoExpireDate();
+                    if (DateTime.Now < productExpireDate)
+                    {
+                        // Active license - Show log in / hide activate now
+                        UserCanLogIn = true;
+                        UserCanActivate = false;
+                        Error = "";
+                    }
                 }
                 else
                 {
-                    // Demo period - show log in / Show activate now
-                    UserCanLogIn = true;
-                    UserCanActivate = true;
-                    Error = $"You have {(productDemoExpireDate - DateTime.Now).Days} days left to activate TradeScales";
+                    var productDemoExpireDate = GetProductDemoExpireDate();
+                    if (DateTime.Now > productDemoExpireDate)
+                    {
+                        // Demo expired - Hide log in / Show activate
+                        UserCanLogIn = false;
+                        UserCanActivate = true;
+                        Error = "Your version of TradeScales has expired, please activate now";
+                    }
+                    else
+                    {
+                        // Demo period - show log in / Show activate now
+                        UserCanLogIn = true;
+                        UserCanActivate = true;
+                        Error = $"You have {(productDemoExpireDate - DateTime.Now).Days} days left to activate TradeScales";
+                    }
                 }
+            }
+            catch(Exception exception)
+            {
+                UserCanLogIn = false;
+                UserCanActivate = true;
+                Error = "Your version of TradeScales has expired, please activate now";
             }
         }
 
