@@ -18,6 +18,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
     {
         #region fields
 
+        private static IDialogsService _dialogService = ServiceLocator.Instance.GetService<IDialogsService>();
         private static IMessageBoxService _messageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
 
         private IEntityBaseRepository<Destination> _destinationsRepository = BootStrapper.Resolve<IEntityBaseRepository<Destination>>();
@@ -30,7 +31,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         public ViewDestinationsViewModel()
         {
             NotXClosed = false;
-            Destinations = new ObservableCollection<DestinationViewModel>(Mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationViewModel>>(_destinationsRepository.GetAll().OrderBy(x => x.Code)));
+            LoadDestinations();
         }
 
         #endregion
@@ -112,8 +113,8 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             try
             {
-                //MainViewModel.This.OpenEditTicket(ticket);
-                throw new ArgumentException("On the backlog");
+                _dialogService.ShowAddDestinationDialog(true, destination.ID, destination.Code, destination.Name);
+                LoadDestinations();
             }
             catch (Exception ex)
             {
@@ -125,6 +126,11 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             NotXClosed = true;
             OnRequestClose();
+        }
+
+        private void LoadDestinations()
+        {
+            Destinations = new ObservableCollection<DestinationViewModel>(Mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationViewModel>>(_destinationsRepository.GetAll().OrderBy(x => x.Code)));
         }
 
         #endregion

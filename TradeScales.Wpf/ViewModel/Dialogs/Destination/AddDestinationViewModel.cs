@@ -25,17 +25,63 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         #region Constructor
 
-        public AddDestinationViewModel()
+        public AddDestinationViewModel(bool isEditDestination, int id = -1, string code = null, string name = null)
         {
             NotXClosed = false;
+            DialogTitle = "Add Destination";
+            ButtonTitle = "Add";
+
+            if (isEditDestination)
+            {
+                IsEditDestination = true;
+                DialogTitle = "Edit Destination";
+                ButtonTitle = "Update";
+                Id = id;
+                Code = code;
+                Name = name;
+            }
         }
 
         #endregion
 
         #region Properties
 
+        public bool IsEditDestination{ get; set; }
+
         public bool NotXClosed { get; set; }
 
+        private string _DialogTitle;
+        public string DialogTitle
+        {
+            get { return _DialogTitle; }
+            set
+            {
+                _DialogTitle = value;
+                OnPropertyChanged("DialogTitle");
+            }
+        }
+
+        private string _ButtonTitle;
+        public string ButtonTitle
+        {
+            get { return _ButtonTitle; }
+            set
+            {
+                _ButtonTitle = value;
+                OnPropertyChanged("ButtonTitle");
+            }
+        }
+
+        private int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set
+            {
+                _Id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         private string _Code;
         public string Code
@@ -74,7 +120,14 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     {
                         try
                         {
-                            Ok();
+                            if (IsEditDestination)
+                            {
+                                EditDestination();
+                            }
+                            else
+                            {
+                                AddDestination();
+                            }
                         }
                         catch(Exception exception)
                         {
@@ -127,7 +180,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Ok()
+        public void AddDestination()
         {
             if (_destinationsRepository.DestinationExists(_Code, _Name))
             {
@@ -151,6 +204,24 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     MainViewModel.This.StatusMessage = $"Successfully added new destination {newDestination.Code}";
                     MainViewModel.This.ReloadEntities();
                 }
+            }
+        }
+
+        public void EditDestination()
+        {
+            if (!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Name))
+            {
+                DestinationViewModel newDestination = new DestinationViewModel() { Code = _Code, Name = _Name };
+                Destination destination = _destinationsRepository.GetSingle(_Id);
+                destination.UpdateDestination(newDestination);
+
+                _unitOfWork.Commit();
+              
+                MainViewModel.This.StatusMessage = $"Successfully updated destination {newDestination.Code}";
+                MainViewModel.This.ReloadEntities();
+
+                NotXClosed = true;
+                OnRequestClose();
             }
         }
 

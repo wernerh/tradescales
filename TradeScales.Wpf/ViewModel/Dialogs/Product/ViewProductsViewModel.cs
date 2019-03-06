@@ -18,6 +18,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
     {
         #region fields
 
+        private static IDialogsService _dialogService = ServiceLocator.Instance.GetService<IDialogsService>();
         private static IMessageBoxService _messageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
 
         private IEntityBaseRepository<Product> _productsRepository = BootStrapper.Resolve<IEntityBaseRepository<Product>>();
@@ -30,7 +31,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         public ViewProductsViewModel()
         {
             NotXClosed = false;
-            Products = new ObservableCollection<ProductViewModel>(Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(_productsRepository.GetAll().OrderBy(x => x.Code)));
+            LoadProducts();
         }
 
         #endregion
@@ -108,12 +109,12 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
-        private void EditProduct(ProductViewModel customer)
+        private void EditProduct(ProductViewModel product)
         {
             try
             {
-                //MainViewModel.This.OpenEditTicket(ticket);
-                throw new ArgumentException("On the backlog");
+                _dialogService.ShowAddProductDialog(true, product.ID, product.Code, product.Name);
+                LoadProducts();
             }
             catch (Exception ex)
             {
@@ -125,6 +126,11 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             NotXClosed = true;
             OnRequestClose();
+        }
+
+        private void LoadProducts()
+        {
+            Products = new ObservableCollection<ProductViewModel>(Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(_productsRepository.GetAll().OrderBy(x => x.Code)));
         }
 
         #endregion

@@ -535,7 +535,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddDestinationDialog();
+                            _DialogService.ShowAddDestinationDialog(false);
                         }
                         catch (Exception ex)
                         {
@@ -581,7 +581,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddDriverDialog();
+                            _DialogService.ShowAddDriverDialog(false);
                         }
                         catch (Exception ex)
                         {
@@ -627,7 +627,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddHaulierDialog();
+                            _DialogService.ShowAddHaulierDialog(false);
                         }
                         catch (Exception ex)
                         {
@@ -673,7 +673,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddProductDialog();                          
+                            _DialogService.ShowAddProductDialog(false);                          
                         }
                         catch (Exception ex)
                         {
@@ -719,7 +719,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddUserDialog();
+                            _DialogService.ShowAddUserDialog(false);
                         }
                         catch (Exception ex)
                         {
@@ -765,7 +765,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddVehicleDialog();
+                            _DialogService.ShowAddVehicleDialog(false);
                         }
                         catch (Exception ex)
                         {

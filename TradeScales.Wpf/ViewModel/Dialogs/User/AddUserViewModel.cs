@@ -20,21 +20,70 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         private static IMembershipService _membershipService = BootStrapper.Resolve<IMembershipService>();
 
         private IEntityBaseRepository<User> _usersRepository = BootStrapper.Resolve<IEntityBaseRepository<User>>();
+        private IUnitOfWork _unitOfWork = BootStrapper.Resolve<IUnitOfWork>();
 
         #endregion
 
         #region Constructor
 
-        public AddUserViewModel()
+        public AddUserViewModel(bool isEditUser, int id = -1, string username = null, string email = null)
         {
             NotXClosed = false;
+            DialogTitle = "Add User";
+            ButtonTitle = "Add";
+
+            if (isEditUser)
+            {
+                IsEditUser = true;
+                DialogTitle = "Edit User";
+                ButtonTitle = "Update";
+                Id = id;
+                Username = username;
+                Email = email;
+            }
         }
 
         #endregion
 
         #region Properties
 
+        public bool IsEditUser { get; set; }
+
         public bool NotXClosed { get; set; }
+
+
+        private string _DialogTitle;
+        public string DialogTitle
+        {
+            get { return _DialogTitle; }
+            set
+            {
+                _DialogTitle = value;
+                OnPropertyChanged("DialogTitle");
+            }
+        }
+
+        private string _ButtonTitle;
+        public string ButtonTitle
+        {
+            get { return _ButtonTitle; }
+            set
+            {
+                _ButtonTitle = value;
+                OnPropertyChanged("ButtonTitle");
+            }
+        }
+
+        private int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set
+            {
+                _Id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         private string _Username;
         public string Username
@@ -73,23 +122,30 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         #region Commands
 
-        private ICommand _OkCommand;      
+        private ICommand _OkCommand;
         public ICommand OkCommand
         {
             get
             {
                 if (_OkCommand == null)
                 {
-                    _OkCommand = new MVVMRelayCommand(execute => 
+                    _OkCommand = new MVVMRelayCommand(execute =>
                     {
                         try
                         {
-                            Ok();
+                            if (IsEditUser)
+                            {
+                                EditUser();
+                            }
+                            else
+                            {
+                                AddUser();
+                            }
                         }
-                        catch(Exception exception)
+                        catch (Exception exception)
                         {
                             _messageBoxService.ShowExceptionMessageBox(exception, "Error", MessageBoxImage.Error);
-                        }                       
+                        }
                     });
                 }
                 return _OkCommand;
@@ -103,7 +159,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             {
                 if (_CancelCommand == null)
                 {
-                    _CancelCommand = new MVVMRelayCommand(execute => 
+                    _CancelCommand = new MVVMRelayCommand(execute =>
                     {
                         try
                         {
@@ -137,7 +193,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Ok()
+        public void AddUser()
         {
             if (_usersRepository.UserExists(_Email, _Username))
             {
@@ -158,6 +214,24 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     MainViewModel.This.StatusMessage = $"Successfully added new user {newUser.Username}";
                     MainViewModel.This.ReloadEntities();
                 }
+            }
+        }
+
+        private void EditUser()
+        {
+            if (!string.IsNullOrEmpty(_Username) && !string.IsNullOrEmpty(_Email))
+            {
+                User user = _usersRepository.GetSingle(_Id);
+                user.Username = Username;
+                user.Email = Email;
+
+                _unitOfWork.Commit();
+            
+                MainViewModel.This.StatusMessage = $"Successfully updated customer {user.Username}";
+                MainViewModel.This.ReloadEntities();
+
+                NotXClosed = true;
+                OnRequestClose();
             }
         }
 

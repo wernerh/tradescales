@@ -18,6 +18,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
     {
         #region fields
 
+        private static IDialogsService _dialogService = ServiceLocator.Instance.GetService<IDialogsService>();
         private static IMessageBoxService _messageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
 
         private IEntityBaseRepository<Driver> _driversRepository = BootStrapper.Resolve<IEntityBaseRepository<Driver>>();
@@ -30,7 +31,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         public ViewDriversViewModel()
         {
             NotXClosed = false;
-            Drivers = new ObservableCollection<DriverViewModel>(Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll().OrderBy(x => x.Code)));
+            LoadDrivers();
         }
 
         #endregion
@@ -112,8 +113,8 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             try
             {
-                //MainViewModel.This.OpenEditTicket(ticket);
-                throw new ArgumentException("On the backlog");
+                _dialogService.ShowAddDriverDialog(true, driver.ID, driver.Code, driver.FirstName, driver.LastName);
+                LoadDrivers();
             }
             catch (Exception ex)
             {
@@ -125,6 +126,11 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             NotXClosed = true;
             OnRequestClose();
+        }
+
+        private void LoadDrivers()
+        {
+            Drivers = new ObservableCollection<DriverViewModel>(Mapper.Map<IEnumerable<Driver>, IEnumerable<DriverViewModel>>(_driversRepository.GetAll().OrderBy(x => x.Code)));
         }
 
         #endregion

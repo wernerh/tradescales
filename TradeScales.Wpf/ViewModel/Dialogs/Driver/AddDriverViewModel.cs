@@ -25,16 +25,64 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         #region Constructor
 
-        public AddDriverViewModel()
+        public AddDriverViewModel(bool isEditDriver, int id = -1, string code = null, string firstname = null, string lastname = null)
         {
             NotXClosed = false;
+            DialogTitle = "Add Driver";
+            ButtonTitle = "Add";
+
+            if (isEditDriver)
+            {
+                IsEditDriver = true;
+                DialogTitle = "Edit Driver";
+                ButtonTitle = "Update";
+                Id = id;
+                Code = code;
+                FirstName = firstname;
+                LastName = lastname;
+            }
         }
 
         #endregion
 
         #region Properties
 
+        public bool IsEditDriver { get; set; }
+
         public bool NotXClosed { get; set; }
+
+        private string _DialogTitle;
+        public string DialogTitle
+        {
+            get { return _DialogTitle; }
+            set
+            {
+                _DialogTitle = value;
+                OnPropertyChanged("DialogTitle");
+            }
+        }
+
+        private string _ButtonTitle;
+        public string ButtonTitle
+        {
+            get { return _ButtonTitle; }
+            set
+            {
+                _ButtonTitle = value;
+                OnPropertyChanged("ButtonTitle");
+            }
+        }
+
+        private int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set
+            {
+                _Id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         private string _Code;
         public string Code
@@ -84,7 +132,14 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     {
                         try
                         {
-                            Ok();
+                            if (IsEditDriver)
+                            {
+                                EditDriver();
+                            }
+                            else
+                            {
+                                AddDriver();
+                            }
                         }
                         catch(Exception exception)
                         {
@@ -137,7 +192,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Ok()
+        public void AddDriver()
         {
             if (_driversRepository.DriverExists(_FirstName, _LastName))
             {
@@ -162,6 +217,25 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     MainViewModel.This.StatusMessage = $"Successfully added new driver {newDriver.Code}";
                     MainViewModel.This.ReloadEntities();
                 }
+            }
+        }
+
+        public void EditDriver()
+        {
+            if (!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_FirstName) && !string.IsNullOrEmpty(_LastName))
+            {
+                DriverViewModel newDriver = new DriverViewModel() { Code = _Code, FirstName = _FirstName, LastName = _LastName };
+                Driver driver = _driversRepository.GetSingle(_Id);
+                driver.UpdateDriver(newDriver);
+
+                _unitOfWork.Commit();
+             
+
+                MainViewModel.This.StatusMessage = $"Successfully updated driver {newDriver.Code}";
+                MainViewModel.This.ReloadEntities();
+
+                NotXClosed = true;
+                OnRequestClose();
             }
         }
 

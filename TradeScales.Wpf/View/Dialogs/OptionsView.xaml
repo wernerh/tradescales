@@ -4,7 +4,7 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:Ports="clr-namespace:System.IO.Ports;assembly=System"
-        Title="Theme Options"
+        Title="Application Settings"
         Width="600"
         SizeToContent="Height"
         ResizeMode="NoResize"

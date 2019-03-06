@@ -82,6 +82,20 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
+        private string _Error;
+        public string Error
+        {
+            get { return _Error; }
+            set
+            {
+                if (_Error != value)
+                {
+                    _Error = value;
+                    OnPropertyChanged("Error");
+                }
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -178,6 +192,11 @@ namespace TradeScales.Wpf.ViewModel.Tools
                     SerialPort = new SerialPort(selectedPortName, baudRate, parity, dataBits, stopBits);
                     SerialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
                     SerialPort.Open();
+                    Error = "";
+                }
+                else
+                {
+                    Error = "Please Update your Serial Port Settings.";
                 }
             }
             catch (Exception exception)

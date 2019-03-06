@@ -148,7 +148,7 @@ namespace TradeScales.Wpf.ViewModel
             Tickets = new ObservableCollection<TicketViewModel>(Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketViewModel>>(_ticketsRepository.GetAll().OrderByDescending(t => t.TicketNumber)));
         }
 
-        public void FilterTickets(DateTime dateFrom, DateTime dateTo, int haulierId, int customerId, int destinationId, int productId, int driverId, int vehicleId)
+        public void FilterTickets(DateTime dateFrom, DateTime dateTo,string ticketNumber, int haulierId, int customerId, int destinationId, int productId, int driverId, int vehicleId)
         {
             // Get All Tickets
             var tickets = _ticketsRepository.GetAll();
@@ -156,6 +156,12 @@ namespace TradeScales.Wpf.ViewModel
             //Filter tickets
             tickets = tickets.ToList().Where(t => DateTime.Parse(t.TimeIn) >= dateFrom).AsQueryable();
             tickets = tickets.ToList().Where(t => DateTime.Parse(t.TimeOut) <= dateTo).AsQueryable();
+
+            // Ticket Number
+            if (!string.IsNullOrEmpty(ticketNumber))
+            {
+                tickets = tickets.Where(t => t.TicketNumber.Contains(ticketNumber));
+            }
 
             // Haulier
             if (haulierId != -1)

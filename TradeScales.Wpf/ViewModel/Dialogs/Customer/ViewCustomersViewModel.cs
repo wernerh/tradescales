@@ -31,7 +31,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         public ViewCustomersViewModel()
         {
             NotXClosed = false;
-            Customers = new ObservableCollection<CustomerViewModel>(Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(_customersRepository.GetAll().OrderBy(x => x.Code)));
+            LoadCustomers();
         }
 
         #endregion
@@ -114,6 +114,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             try
             {
                 _dialogService.ShowAddCustomerDialog(true, customer.ID, customer.Code, customer.Name);
+                LoadCustomers();
             }
             catch (Exception ex)
             {
@@ -127,6 +128,10 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             OnRequestClose();
         }
 
+        private void LoadCustomers()
+        {
+            Customers = new ObservableCollection<CustomerViewModel>(Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(_customersRepository.GetAll().OrderBy(x => x.Code)));
+        }
         #endregion
 
     }

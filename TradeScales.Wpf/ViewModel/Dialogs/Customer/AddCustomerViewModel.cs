@@ -128,7 +128,6 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                             {
                                 AddCustomer();
                             }
-
                         }
                         catch (Exception exception)
                         {
@@ -217,7 +216,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                 customer.UpdateCustomer(newCustomer);
 
                 _unitOfWork.Commit();
-                _messageBoxService.ShowMessageBox($"Successfully updated customer {newCustomer.Code}", "Success", MessageBoxButton.OK);
+               
                 MainViewModel.This.StatusMessage = $"Successfully updated customer {newCustomer.Code}";
                 MainViewModel.This.ReloadEntities();
 

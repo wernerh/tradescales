@@ -18,6 +18,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
     {
         #region fields
 
+        private static IDialogsService _dialogService = ServiceLocator.Instance.GetService<IDialogsService>();
         private static IMessageBoxService _messageBoxService = ServiceLocator.Instance.GetService<IMessageBoxService>();
 
         private IEntityBaseRepository<Haulier> _hauliersRepository = BootStrapper.Resolve<IEntityBaseRepository<Haulier>>();
@@ -30,7 +31,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         public ViewHauliersViewModel()
         {
             NotXClosed = false;
-            Hauliers = new ObservableCollection<HaulierViewModel>(Mapper.Map<IEnumerable<Haulier>, IEnumerable<HaulierViewModel>>(_hauliersRepository.GetAll().OrderBy(x => x.Code)));
+            LoadHauliers();
         }
 
         #endregion
@@ -112,8 +113,8 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         {
             try
             {
-                //MainViewModel.This.OpenEditTicket(ticket);
-                throw new ArgumentException("On the backlog");
+                _dialogService.ShowAddHaulierDialog(true, haulier.ID, haulier.Code, haulier.Name);
+                LoadHauliers();
             }
             catch (Exception ex)
             {
@@ -127,6 +128,10 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             OnRequestClose();
         }
 
+        private void LoadHauliers()
+        {
+            Hauliers = new ObservableCollection<HaulierViewModel>(Mapper.Map<IEnumerable<Haulier>, IEnumerable<HaulierViewModel>>(_hauliersRepository.GetAll().OrderBy(x => x.Code)));
+        }
         #endregion
 
     }

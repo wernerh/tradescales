@@ -74,6 +74,18 @@ namespace TradeScales.Wpf.ViewModel.Tools
             }
         }
 
+
+        private string _TicketNumber;
+        public string TicketNumber
+        {
+            get { return _TicketNumber; }
+            set
+            {
+                _TicketNumber = value;
+                OnPropertyChanged("TicketNumber");
+            }
+        }
+
         private IEnumerable<HaulierViewModel> _Hauliers;
         public IEnumerable<HaulierViewModel> Hauliers
         {
@@ -296,7 +308,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
 
         private void FilterTicketList()
         {
-            MainViewModel.This.TicketList.FilterTickets(DateFrom, DateTo, SelectedHaulier.ID, SelectedCustomer.ID, SelectedDestination.ID, SelectedProduct.ID, SelectedDriver.ID, SelectedVehicle.ID);  
+            MainViewModel.This.TicketList.FilterTickets(DateFrom, DateTo, TicketNumber, SelectedHaulier.ID, SelectedCustomer.ID, SelectedDestination.ID, SelectedProduct.ID, SelectedDriver.ID, SelectedVehicle.ID);  
         }
      
         #endregion

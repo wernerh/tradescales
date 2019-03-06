@@ -57,7 +57,7 @@
                 </MenuItem>
                 <!--Settings-->
                 <MenuItem Header="Settings">
-                    <MenuItem Header="Options" Command="{Binding ThemeOptionsCommand}"/>
+                    <MenuItem Header="Application Settings" Command="{Binding ThemeOptionsCommand}"/>
                     <MenuItem Header="Database Management">
                         <MenuItem Header="Customers">
                             <MenuItem Header="Add Customer" Command="{Binding AddCustomerCommand}"/>

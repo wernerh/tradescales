@@ -25,17 +25,64 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         #region Constructor
 
-        public AddProductViewModel()
+        public AddProductViewModel(bool isEditProduct, int id = -1, string code = null, string name = null)
         {
             NotXClosed = false;
+            DialogTitle = "Add Product";
+            ButtonTitle = "Add";
+
+            if (isEditProduct)
+            {
+                IsEditProduct = true;
+                DialogTitle = "Edit Product";
+                ButtonTitle = "Update";
+                Id = id;
+                Code = code;
+                Name = name;
+            }
         }
 
         #endregion
 
         #region Properties
 
+        public bool IsEditProduct { get; set; }
+
+
         public bool NotXClosed { get; set; }
 
+        private string _DialogTitle;
+        public string DialogTitle
+        {
+            get { return _DialogTitle; }
+            set
+            {
+                _DialogTitle = value;
+                OnPropertyChanged("DialogTitle");
+            }
+        }
+
+        private string _ButtonTitle;
+        public string ButtonTitle
+        {
+            get { return _ButtonTitle; }
+            set
+            {
+                _ButtonTitle = value;
+                OnPropertyChanged("ButtonTitle");
+            }
+        }
+
+        private int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set
+            {
+                _Id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         private string _Code;
         public string Code
@@ -74,7 +121,14 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     {
                         try
                         {
-                            Ok();
+                            if (IsEditProduct)
+                            {
+                                EditProduct();
+                            }
+                            else
+                            {
+                                AddProduct();
+                            }
                         }
                         catch(Exception exception)
                         {
@@ -127,7 +181,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Ok()
+        public void AddProduct()
         {
             if (_productsRepository.ProductExists(_Code, _Name))
             {
@@ -151,6 +205,24 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     MainViewModel.This.StatusMessage = $"Successfully added new product {product.Code}";
                     MainViewModel.This.ReloadEntities();
                 }
+            }
+        }
+
+        public void EditProduct()
+        {
+            if (!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Name))
+            {
+                ProductViewModel newProduct = new ProductViewModel() { Code = _Code, Name = _Name };
+                Product product = _productsRepository.GetSingle(_Id);
+                product.UpdateProduct(newProduct); ;
+
+                _unitOfWork.Commit();
+               
+                MainViewModel.This.StatusMessage = $"Successfully updated product {newProduct.Code}";
+                MainViewModel.This.ReloadEntities();
+
+                NotXClosed = true;
+                OnRequestClose();
             }
         }
 

@@ -133,9 +133,9 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
-        public void ShowAddDestinationDialog()
+        public void ShowAddDestinationDialog(bool isEditDestination, int id = -1, string code = null, string name = null)
         {
-            AddDestinationViewModel viewmodel = new AddDestinationViewModel();
+            AddDestinationViewModel viewmodel = new AddDestinationViewModel(isEditDestination, id, code, name);
             AddDestinationView view = new AddDestinationView(viewmodel);
             view.ShowDialog();
         }
@@ -148,9 +148,9 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
-        public void ShowAddDriverDialog()
+        public void ShowAddDriverDialog(bool isEditDriver, int id = -1, string code = null, string firstname = null, string lastname = null)
         {
-            AddDriverViewModel viewmodel = new AddDriverViewModel();
+            AddDriverViewModel viewmodel = new AddDriverViewModel(isEditDriver, id, code, firstname, lastname);
             AddDriverView view = new AddDriverView(viewmodel);
             view.ShowDialog();
         }
@@ -162,9 +162,9 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
-        public void ShowAddHaulierDialog()
+        public void ShowAddHaulierDialog(bool isEditHaulier, int id = -1, string code = null, string name = null)
         {
-            AddHaulierViewModel viewmodel = new AddHaulierViewModel();
+            AddHaulierViewModel viewmodel = new AddHaulierViewModel(isEditHaulier, id, code, name);
             AddHaulierView view = new AddHaulierView(viewmodel);
             view.ShowDialog();
         }
@@ -176,9 +176,9 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
-        public void ShowAddProductDialog()
+        public void ShowAddProductDialog(bool isEditProduct, int id = -1, string code = null, string name = null)
         {
-            AddProductViewModel viewmodel = new AddProductViewModel();
+            AddProductViewModel viewmodel = new AddProductViewModel(isEditProduct, id, code, name);
             AddProductView view = new AddProductView(viewmodel);
             view.ShowDialog();
         }
@@ -190,9 +190,9 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
-        public void ShowAddUserDialog()
+        public void ShowAddUserDialog(bool isEditUser, int id = -1, string username = null, string email = null)
         {
-            AddUserViewModel viewmodel = new AddUserViewModel();
+            AddUserViewModel viewmodel = new AddUserViewModel(isEditUser, id, username, email);
             AddUserView view = new AddUserView(viewmodel);
             view.ShowDialog();
         }
@@ -204,9 +204,9 @@ namespace TradeScales.Wpf.Resources.Services
             view.ShowDialog();
         }
 
-        public void ShowAddVehicleDialog()
+        public void ShowAddVehicleDialog(bool isEditVehicle, int id = -1, string code = null, string make = null, string registration = null)
         {
-            AddVehicleViewModel viewmodel = new AddVehicleViewModel();
+            AddVehicleViewModel viewmodel = new AddVehicleViewModel(isEditVehicle, id, code, make, registration);
             AddVehicleView view = new AddVehicleView(viewmodel);
             view.ShowDialog();
         }

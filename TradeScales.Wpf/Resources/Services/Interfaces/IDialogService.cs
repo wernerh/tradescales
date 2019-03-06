@@ -29,16 +29,16 @@ namespace TradeScales.Wpf.Resources.Services.Interfaces
         void ShowViewCustomersDialog();
         void ShowAddCustomerDialog(bool isEditCustomer, int id = -1, string code = null, string name = null);
         void ShowViewDestinationsDialog();
-        void ShowAddDestinationDialog();
+        void ShowAddDestinationDialog(bool isEditDestination, int id = -1, string code = null, string name = null);
         void ShowViewDriversDialog();
-        void ShowAddDriverDialog();
+        void ShowAddDriverDialog(bool isEditDriver, int id = -1, string code = null, string firstname = null, string lastname = null);
         void ShowViewHauliersDialog();
-        void ShowAddHaulierDialog();
+        void ShowAddHaulierDialog(bool isEditHaulier, int id = -1, string code = null, string name = null);
         void ShowViewProductsDialog();
-        void ShowAddProductDialog();
+        void ShowAddProductDialog(bool isEditProduct, int id = -1, string code = null, string name = null);
         void ShowViewUsersDialog();
-        void ShowAddUserDialog();
+        void ShowAddUserDialog(bool isEditUser, int id = -1, string username = null, string email = null);
         void ShowViewVehiclesDialog();
-        void ShowAddVehicleDialog();
+        void ShowAddVehicleDialog(bool isEditVehicle, int id = -1, string code = null, string make = null, string registration = null);
     }
 }

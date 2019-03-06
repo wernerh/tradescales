@@ -17,6 +17,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!--Active Document-->
@@ -37,10 +38,13 @@
             </StackPanel>
 
             <!--Actions-->
-            <StackPanel Grid.Row="6" Margin="20,0,0,0"  VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel Grid.Row="6" Margin="30,0"  VerticalAlignment="Center" Orientation="Horizontal">
                 <Button  MinWidth="100" Margin="3" Content="Save" Command="{Binding SaveCommand}" Background="Green"/>
                 <Button  MinWidth="100" Margin="3" Content="Clear" Command="{Binding ClearCommand}" Background="Red"/>
             </StackPanel>
+
+            <!--Error-->
+            <TextBlock Grid.Row="7"  Margin="10" Foreground="Red" Text="{Binding Error}" HorizontalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" />
         </Grid>
     </ScrollViewer>
 </UserControl>

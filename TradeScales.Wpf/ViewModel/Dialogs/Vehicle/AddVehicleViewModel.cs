@@ -25,16 +25,64 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
 
         #region Constructor
 
-        public AddVehicleViewModel()
+        public AddVehicleViewModel(bool isEditVehicle, int id = -1, string code = null, string make = null, string registration = null)
         {
             NotXClosed = false;
+            DialogTitle = "Add Vehicle";
+            ButtonTitle = "Add";
+
+            if (isEditVehicle)
+            {
+                IsEditVehicle = true;
+                DialogTitle = "Edit Vehicle";
+                ButtonTitle = "Update";
+                Id = id;
+                Code = code;
+                Make = make;
+                Registration = registration;
+            }
         }
 
         #endregion
 
         #region Properties
 
+        public bool IsEditVehicle { get; set; }
+
         public bool NotXClosed { get; set; }
+
+        private string _DialogTitle;
+        public string DialogTitle
+        {
+            get { return _DialogTitle; }
+            set
+            {
+                _DialogTitle = value;
+                OnPropertyChanged("DialogTitle");
+            }
+        }
+
+        private string _ButtonTitle;
+        public string ButtonTitle
+        {
+            get { return _ButtonTitle; }
+            set
+            {
+                _ButtonTitle = value;
+                OnPropertyChanged("ButtonTitle");
+            }
+        }
+
+        private int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set
+            {
+                _Id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         private string _Code;
         public string Code
@@ -84,7 +132,14 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     {
                         try
                         {
-                            Ok();
+                            if (IsEditVehicle)
+                            {
+                                EditVehicle();
+                            }
+                            else
+                            {
+                                AddVehicle();
+                            }
                         }
                         catch(Exception exception)
                         {
@@ -137,7 +192,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Ok()
+        public void AddVehicle()
         {
             if (_vehiclesRepository.VehicleExists(_Make, _Registration))
             {
@@ -162,6 +217,24 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     MainViewModel.This.StatusMessage = $"Successfully added new vehicle {newVehicle.Code}";
                     MainViewModel.This.ReloadEntities();
                 }
+            }
+        }
+
+        public void EditVehicle()
+        {
+            if (!string.IsNullOrEmpty(_Code) && !string.IsNullOrEmpty(_Make) && !string.IsNullOrEmpty(_Registration))
+            {
+                VehicleViewModel newVehicle = new VehicleViewModel() { Code = _Code, Make = _Make, Registration = _Registration };
+                Vehicle vehicle = _vehiclesRepository.GetSingle(_Id);
+                vehicle.UpdateVehicle(newVehicle);
+
+                _unitOfWork.Commit();
+               
+                MainViewModel.This.StatusMessage = $"Successfully updated vehicle {newVehicle.Code}";
+                MainViewModel.This.ReloadEntities();
+
+                NotXClosed = true;
+                OnRequestClose();
             }
         }
 
