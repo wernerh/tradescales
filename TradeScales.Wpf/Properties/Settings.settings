@@ -68,5 +68,8 @@
     <Setting Name="LogInLogo" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="StartChar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">W</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

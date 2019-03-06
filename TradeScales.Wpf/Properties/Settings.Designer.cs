@@ -287,5 +287,17 @@ namespace TradeScales.Wpf.Properties {
                 this["LogInLogo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("W")]
+        public string StartChar {
+            get {
+                return ((string)(this["StartChar"]));
+            }
+            set {
+                this["StartChar"] = value;
+            }
+        }
     }
 }

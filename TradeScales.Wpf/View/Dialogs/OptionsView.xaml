@@ -169,6 +169,10 @@
                 <!--Stop Bits-->
                 <Label Grid.Row="2"  Grid.Column="0" Margin="5" Content="Stop Bits:"/>
                 <ComboBox Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding Source={StaticResource stopBitsEnum}}" SelectedItem="{Binding Path=StopBits}" />
+
+                <!--Start Char-->
+                <Label Grid.Row="2"  Grid.Column="2" Margin="5" Content="Start Char:"/>
+                <TextBox Grid.Row="2"  Grid.Column="3" Margin="5" Text="{Binding StartChar}"/>
             </Grid>
         </GroupBox>
 

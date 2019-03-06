@@ -259,6 +259,16 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                 OnPropertyChanged("LogInLogo");
             }
         }
+
+        public string StartChar
+        {
+            get { return Properties.Settings.Default.StartChar; }
+            set
+            {
+                Properties.Settings.Default.StartChar = value;
+                OnPropertyChanged("StartChar");
+            }
+        }
         #endregion
 
         #region Constructor

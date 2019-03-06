@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using TradeScales.Wpf.Model;
+using TradeScales.Wpf.Properties;
 using TradeScales.Wpf.Resources.Services.Interfaces;
 using MVVMRelayCommand = TradeScales.Wpf.Model.RelayCommand;
 
@@ -177,6 +178,7 @@ namespace TradeScales.Wpf.ViewModel.Tools
             {
                 if (SerialPort != null && SerialPort.IsOpen)
                 {
+                    SerialPort.DataReceived -= SerialPort_DataReceived;
                     SerialPort.Close();
                 }
 
@@ -214,10 +216,23 @@ namespace TradeScales.Wpf.ViewModel.Tools
             try
             {
                 SerialPort serialPort = (SerialPort)sender;
-                byte[] bytesReceived = ReadFromSerialPort(serialPort, 13);
+                if (serialPort.IsOpen)
+                {
+                    byte[] bytesReceived = ReadFromSerialPort(serialPort, 26);
 
-                WeightResult = Encoding.ASCII.GetString(GetRange(bytesReceived, 2, 7));
-                WeightUnit = Encoding.ASCII.GetString(GetRange(bytesReceived, 9, 2));
+                    var startIndex = GetFirstOccurance(bytesReceived, 87);
+                    var reading = GetRange(bytesReceived, startIndex, 13);
+
+                    var indexOfFirstZero = GetFirstOccurance(reading, 48);
+                    var indexOfFirstK = GetFirstOccurance(reading, 107);
+
+                    if (indexOfFirstZero != -1 && indexOfFirstK != -1)
+                    {
+                        var length = indexOfFirstK - indexOfFirstZero;
+                        WeightResult = Encoding.ASCII.GetString(GetRange(reading, indexOfFirstZero, length));
+                        WeightUnit = Encoding.ASCII.GetString(GetRange(reading, indexOfFirstK, 2));
+                    }
+                }
             }
             catch (Exception exception)
             {
@@ -267,6 +282,11 @@ namespace TradeScales.Wpf.ViewModel.Tools
             byte[] subset = new byte[length];
             Array.Copy(array, startIndex, subset, 0, length);
             return subset;
+        }
+
+        public int GetFirstOccurance(byte[] array, byte element)
+        {
+            return Array.IndexOf(array, element);
         }
 
         #endregion
