@@ -182,11 +182,11 @@ namespace TradeScales.Wpf.ViewModel.Tools
                     SerialPort.Close();
                 }
 
-                var selectedPortName = Properties.Settings.Default.SelectedPortName;
-                var baudRate = Properties.Settings.Default.BaudRate;
-                var dataBits = Properties.Settings.Default.DataBits;
-                var parity = (Parity)Properties.Settings.Default.Parity;
-                var stopBits = (StopBits)Properties.Settings.Default.StopBits;
+                var selectedPortName = Settings.Default.SelectedPortName;
+                var baudRate = Settings.Default.BaudRate;
+                var dataBits = Settings.Default.DataBits;
+                var parity = (Parity)Settings.Default.Parity;
+                var stopBits = (StopBits)Settings.Default.StopBits;
                 var serialports = SerialPort.GetPortNames();
 
                 if (!string.IsNullOrEmpty(selectedPortName) && serialports.Contains(selectedPortName))
@@ -223,13 +223,13 @@ namespace TradeScales.Wpf.ViewModel.Tools
                     var startIndex = GetFirstOccurance(bytesReceived, 87);
                     var reading = GetRange(bytesReceived, startIndex, 13);
 
-                    var indexOfFirstZero = GetFirstOccurance(reading, 48);
+                    var indexOfFirstNumber = GetFirstNumberOccurance(reading, 48);
                     var indexOfFirstK = GetFirstOccurance(reading, 107);
 
-                    if (indexOfFirstZero != -1 && indexOfFirstK != -1)
+                    if (indexOfFirstNumber != -1 && indexOfFirstK != -1)
                     {
-                        var length = indexOfFirstK - indexOfFirstZero;
-                        WeightResult = Encoding.ASCII.GetString(GetRange(reading, indexOfFirstZero, length));
+                        var length = indexOfFirstK - indexOfFirstNumber;
+                        WeightResult = Encoding.ASCII.GetString(GetRange(reading, indexOfFirstNumber, length));
                         WeightUnit = Encoding.ASCII.GetString(GetRange(reading, indexOfFirstK, 2));
                     }
                 }
@@ -287,6 +287,19 @@ namespace TradeScales.Wpf.ViewModel.Tools
         public int GetFirstOccurance(byte[] array, byte element)
         {
             return Array.IndexOf(array, element);
+        }
+
+        public int GetFirstNumberOccurance(byte[] array, byte element)
+        {
+            int result = -1;
+
+            while (result == -1)
+            {
+                result = Array.IndexOf(array, element);
+                element++;
+            }
+
+            return result;
         }
 
         #endregion
