@@ -27,6 +27,7 @@ namespace TradeScales.Wpf.View
             MainViewModel.This = new MainViewModel();      
             MainViewModel.This.RequestClose += RequestClose;    
             DataContext = MainViewModel.This;
+            Loaded += MainWindow_Loaded;
         }
 
         #endregion
@@ -75,6 +76,12 @@ namespace TradeScales.Wpf.View
                 return;
             }       
         }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainViewModel.This.IsUserLoggedIn();
+        }
+
 
         #endregion Private Methods
 

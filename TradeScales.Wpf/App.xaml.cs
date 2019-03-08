@@ -1,13 +1,9 @@
 ﻿using Autofac;
 using System.Windows;
 using System.Windows.Threading;
-using TradeScales.Data.Infrastructure;
-using TradeScales.Data.Repositories;
-using TradeScales.Entities;
 using TradeScales.Wpf.Model;
 using TradeScales.Wpf.Resources.Services;
 using TradeScales.Wpf.Resources.Services.Interfaces;
-using TradeScales.Wpf.View;
 using TradeScales.WPF.Mappings;
 
 namespace TradeScales.Wpf

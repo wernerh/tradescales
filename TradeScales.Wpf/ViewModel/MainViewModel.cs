@@ -27,20 +27,13 @@ namespace TradeScales.Wpf.ViewModel
         #endregion
 
         #region Constructor
-    
+
         public MainViewModel()
         {
             ChangeAppTheme();
             LoadUserSettings();
-
-            if (LoggedInUserContext == null)
-            {
-                LoggedInUserContext = _DialogService.ShowLogInDialog();
-            }
-
-            InitializeDocuments();
             UpdateDocumentFilePaths();
-            StatusMessage = $"Welcome {LoggedInUserContext.User.Username}";
+            InitializeDocuments();
         }
 
         #endregion
@@ -74,7 +67,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private static MainViewModel _This;      
+        private static MainViewModel _This;
         public static MainViewModel This
         {
             get { return _This; }
@@ -87,7 +80,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private AvalonDockLayoutViewModel _Layout;  
+        private AvalonDockLayoutViewModel _Layout;
         public AvalonDockLayoutViewModel Layout
         {
             get
@@ -117,7 +110,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private Theme _AvalonDockTheme;     
+        private Theme _AvalonDockTheme;
         public Theme AvalonDockTheme
         {
             get { return _AvalonDockTheme; }
@@ -131,7 +124,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ObservableCollection<DocumentViewModel> _Documents;     
+        private ObservableCollection<DocumentViewModel> _Documents;
         public ObservableCollection<DocumentViewModel> Documents
         {
             get { return _Documents; }
@@ -145,7 +138,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private DocumentViewModel _ActiveDocument = null;     
+        private DocumentViewModel _ActiveDocument = null;
         public DocumentViewModel ActiveDocument
         {
             get { return _ActiveDocument; }
@@ -162,7 +155,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private StartPageViewModel _StartPage;    
+        private StartPageViewModel _StartPage;
         public StartPageViewModel StartPage
         {
             get
@@ -175,7 +168,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private TicketListViewModel _TicketList;    
+        private TicketListViewModel _TicketList;
         public TicketListViewModel TicketList
         {
             get
@@ -188,7 +181,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private NewTicketViewModel _NewTicket;     
+        private NewTicketViewModel _NewTicket;
         public NewTicketViewModel NewTicket
         {
             get
@@ -203,7 +196,7 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Tools
 
-        private ToolViewModel[] _Tools;   
+        private ToolViewModel[] _Tools;
         public IEnumerable<ToolViewModel> Tools
         {
             get
@@ -216,7 +209,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ToolOneViewModel _ToolOne;    
+        private ToolOneViewModel _ToolOne;
         public ToolOneViewModel ToolOne
         {
             get
@@ -231,7 +224,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ToolTwoViewModel _ToolTwo; 
+        private ToolTwoViewModel _ToolTwo;
         public ToolTwoViewModel ToolTwo
         {
             get
@@ -248,7 +241,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ToolThreeViewModel _ToolThree;  
+        private ToolThreeViewModel _ToolThree;
         public ToolThreeViewModel ToolThree
         {
             get
@@ -273,8 +266,8 @@ namespace TradeScales.Wpf.ViewModel
 
         #region Commands
 
-        #region App
-        private ICommand _ViewStartPageCommand;      
+        #region App Commands
+        private ICommand _ViewStartPageCommand;
         public ICommand ViewStartPageCommand
         {
             get
@@ -307,7 +300,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _TicketListCommand;   
+        private ICommand _TicketListCommand;
         public ICommand TicketListCommand
         {
             get
@@ -331,7 +324,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _NewTicketCommand;   
+        private ICommand _NewTicketCommand;
         public ICommand NewTicketCommand
         {
             get
@@ -355,7 +348,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _AboutCommand;     
+        private ICommand _AboutCommand;
         public ICommand AboutCommand
         {
             get
@@ -379,7 +372,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _ThemeOptionsCommand;     
+        private ICommand _ThemeOptionsCommand;
         public ICommand ThemeOptionsCommand
         {
             get
@@ -417,7 +410,15 @@ namespace TradeScales.Wpf.ViewModel
                             {
                                 LoggedInUserContext = null;
                                 LoggedInUserContext = _DialogService.ShowLogInDialog();
-                                StatusMessage = $"Welcome back {LoggedInUserContext.User.Username}";
+
+                                if (LoggedInUserContext != null)
+                                {
+                                    StatusMessage = $"Welcome back {LoggedInUserContext.User.Username}";
+                                }
+                                else
+                                {
+                                    OnRequestClose();
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -429,7 +430,7 @@ namespace TradeScales.Wpf.ViewModel
             }
         }
 
-        private ICommand _ExitCommand;      
+        private ICommand _ExitCommand;
         public ICommand ExitCommand
         {
             get
@@ -673,7 +674,7 @@ namespace TradeScales.Wpf.ViewModel
                     {
                         try
                         {
-                            _DialogService.ShowAddProductDialog(false);                          
+                            _DialogService.ShowAddProductDialog(false);
                         }
                         catch (Exception ex)
                         {
@@ -878,13 +879,30 @@ namespace TradeScales.Wpf.ViewModel
             ToolTwo.ReloadEntities();
             ToolThree.ReloadEntities();
 
-            foreach(var document in Documents)
+            foreach (var document in Documents)
             {
-                if(document.ContentID.Contains("New") || document.ContentID.Contains("Edit"))
+                if (document.ContentID.Contains("New") || document.ContentID.Contains("Edit"))
                 {
                     document.ReloadEntities();
                 }
-            }          
+            }
+        }
+
+        public void IsUserLoggedIn()
+        {
+            try
+            {
+                if (LoggedInUserContext == null)
+                {
+                    LoggedInUserContext = _DialogService.ShowLogInDialog();
+                }
+
+                StatusMessage = $"Welcome {LoggedInUserContext.User.Username}";
+            }
+            catch
+            {
+                OnRequestClose();
+            }
         }
 
         #endregion
