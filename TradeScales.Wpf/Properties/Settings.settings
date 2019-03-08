@@ -71,5 +71,8 @@
     <Setting Name="StartChar" Type="System.String" Scope="User">
       <Value Profile="(Default)">W</Value>
     </Setting>
+    <Setting Name="LastLogInDate" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

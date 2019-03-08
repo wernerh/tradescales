@@ -299,5 +299,17 @@ namespace TradeScales.Wpf.Properties {
                 this["StartChar"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastLogInDate {
+            get {
+                return ((string)(this["LastLogInDate"]));
+            }
+            set {
+                this["LastLogInDate"] = value;
+            }
+        }
     }
 }

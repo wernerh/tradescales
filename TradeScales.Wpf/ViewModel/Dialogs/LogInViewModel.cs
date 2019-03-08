@@ -15,7 +15,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
     /// </summary>
     public class LogInViewModel : BaseViewModel
     {
-        #region fields
+        #region Fields
 
         private static IDialogsService _DialogService = ServiceLocator.Instance.GetService<IDialogsService>();
         private static IMembershipService _membershipService = BootStrapper.Resolve<IMembershipService>();
@@ -108,7 +108,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
         #region Constructor
 
         public LogInViewModel()
-        {
+        { 
             CheckProductExpireDate();
         }
 
@@ -169,6 +169,7 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                 if (_userContext.User != null)
                 {
                     LoggedInUserContext = _userContext;
+                    SetLastLogInDate();
                     OnRequestClose();
                 }
                 else
@@ -199,13 +200,12 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                 }
                 else
                 {
+                    var lastLogInDate = GetLastLogInDate();
                     var productDemoExpireDate = GetProductDemoExpireDate();
-                    if (DateTime.Now > productDemoExpireDate)
+                    if (DateTime.Now < lastLogInDate || DateTime.Now > productDemoExpireDate )
                     {
                         // Demo expired - Hide log in / Show activate
-                        UserCanLogIn = false;
-                        UserCanActivate = true;
-                        Error = "Your version of TradeScales has expired, please activate now";
+                        throw new ArgumentException("Demo has expired");
                     }
                     else
                     {
@@ -216,12 +216,29 @@ namespace TradeScales.Wpf.ViewModel.Dialogs
                     }
                 }
             }
-            catch(Exception exception)
+            catch
             {
                 UserCanLogIn = false;
                 UserCanActivate = true;
                 Error = "Your version of TradeScales has expired, please activate now";
             }
+        }
+
+        private void SetLastLogInDate()
+        {
+            Settings.Default.LastLogInDate = LicenseKeyService.Encrypt(DateTime.Now.ToString(), _uniqueIdentifierKey);
+            Settings.Default.Save();
+        }
+
+        private DateTime GetLastLogInDate()
+        {
+            if (string.IsNullOrEmpty(Settings.Default.LastLogInDate))
+            {
+                return DateTime.Now;
+            }
+
+            string decryptedLastLogInDate = LicenseKeyService.Decrypt(Settings.Default.LastLogInDate, _uniqueIdentifierKey);
+            return DateTime.Parse(decryptedLastLogInDate);
         }
 
         private DateTime GetProductDemoExpireDate()
