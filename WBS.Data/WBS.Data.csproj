@@ -7,8 +7,8 @@
     <ProjectGuid>{3DED8D8E-FBBF-4A08-9C03-ECB2B51131BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TradeScales.Data</RootNamespace>
-    <AssemblyName>TradeScales.Data</AssemblyName>
+    <RootNamespace>WBS.Data</RootNamespace>
+    <AssemblyName>WBS.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -113,7 +113,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WBS.Entities\WBS.Entities.csproj">
       <Project>{289f566c-b659-444b-86c2-7dd919e9be99}</Project>
-      <Name>TradeScales.Entities</Name>
+      <Name>WBS.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

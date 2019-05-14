@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WBS.Wpf", "WBS.Wpf\WBS.Wpf.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WBS.LicenseGenerator", "WBS.License\WBS.LicenseGenerator.csproj", "{FB32B32F-4266-4318-904F-64A378BED783}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WBS.Wpf.Installer", "WBS.Wpf.Installer\WBS.Wpf.Installer.wixproj", "{7593A7EB-B29E-4BD9-85C3-9C62BBF5DF1A}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WBS.Installer", "WBS.Installer\WBS.Installer.wixproj", "{7593A7EB-B29E-4BD9-85C3-9C62BBF5DF1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

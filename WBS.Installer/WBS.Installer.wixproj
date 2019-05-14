@@ -6,9 +6,9 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>7593a7eb-b29e-4bd9-85c3-9c62bbf5df1a</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>WBS.Wpf.Installer</OutputName>
+    <OutputName>WBS.Installer</OutputName>
     <OutputType>Package</OutputType>
-    <Name>WBS.Wpf.Installer</Name>
+    <Name>WBS.Installer</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>

@@ -469,9 +469,13 @@
     <Resource Include="Resources\images\WBS.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="WBS.sdf" />
+    <Resource Include="WBS.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="truck.ico" />
-    <Resource Include="Resources\images\truck.ico" />
+    <Resource Include="Resources\images\truck.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Libraries\MahApps.Metro.dll" />
     <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.dll" />
     <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
