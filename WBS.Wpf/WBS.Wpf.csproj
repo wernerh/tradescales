@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B7768B69-3262-4D53-9847-D0F9D37E4AE5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WBS.Wpf</RootNamespace>
+    <AssemblyName>WBS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>truck.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.0-beta1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.2.0\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.1.3\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Libraries\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Primitives.4.3.0\lib\net45\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>Resources\Libraries\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Expression, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.Expression.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="BootStrapper.cs" />
+    <Compile Include="Converters\ActiveDocumentConverter.cs" />
+    <Compile Include="Converters\BooleanToInvisibilityConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\BoolInverterConverter.cs" />
+    <Compile Include="Extensions\WebBrowserExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\EntitiesExtensions.cs" />
+    <Compile Include="Infrastructure\Validators\AccountViewModelValidators.cs" />
+    <Compile Include="Infrastructure\Validators\CustomerViewModelValidator.cs" />
+    <Compile Include="Infrastructure\Validators\DestinationViewModelValidator.cs" />
+    <Compile Include="Infrastructure\Validators\DriverViewModelValidator.cs" />
+    <Compile Include="Infrastructure\Validators\HaulierViewModelValidator.cs" />
+    <Compile Include="Infrastructure\Validators\ProductViewModelValidator.cs" />
+    <Compile Include="Infrastructure\Validators\TicketViewModelValidator.cs" />
+    <Compile Include="Infrastructure\Validators\UserViewModelValidator.cs" />
+    <Compile Include="Infrastructure\Validators\VehicleViewModelValidator.cs" />
+    <Compile Include="Mappings\AutoMapperConfiguration.cs" />
+    <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
+    <Compile Include="Model\HardCodedValues.cs" />
+    <Compile Include="Model\RelayCommand.cs" />
+    <Compile Include="Model\ServiceLocator.cs" />
+    <Compile Include="Resources\MessageBoxes\CustomExceptionMessageBox\ExceptionMessageBox.xaml.cs">
+      <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MessageBoxes\CustomExceptionMessageBox\TreeViewStringSet.cs" />
+    <Compile Include="Resources\MessageBoxes\CustomMessageBox\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MessageBoxes\CustomMessageBox\MessageBoxViewModel.cs" />
+    <Compile Include="Resources\Services\DialogService.cs" />
+    <Compile Include="Resources\Services\Interfaces\IDialogService.cs" />
+    <Compile Include="Resources\Services\Interfaces\IMessageBoxService.cs" />
+    <Compile Include="Resources\Services\MessageBoxService.cs" />
+    <Compile Include="ViewModel\AvalonDockLayoutViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\ActivateViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Vehicle\ViewVehiclesViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\User\ViewUsersViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Product\ViewProductsViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Haulier\ViewHauliersViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Driver\ViewDriversViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Destination\ViewDestinationsViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Customer\ViewCustomersViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Vehicle\AddVehicleViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\User\AddUserViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Product\AddProductViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Haulier\AddHaulierViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Driver\AddDriverViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Destination\AddDestinationViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\LogInViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Customer\AddCustomerViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\DestinationViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\OptionsViewModel.cs" />
+    <Compile Include="ViewModel\DocumentViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\DriverViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\HaulierViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\VehicleViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\EditTicketViewModel.cs" />
+    <Compile Include="ViewModel\PaneViewModel.cs" />
+    <Compile Include="ViewModel\NewTicketViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\StatusMessageViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\TicketViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModel\PdfDocumentViewModel.cs" />
+    <Compile Include="ViewModel\TicketListViewModel.cs" />
+    <Compile Include="ViewModel\StartPageViewModel.cs" />
+    <Compile Include="ViewModel\Tools\ToolOneViewModel.cs" />
+    <Compile Include="ViewModel\Tools\ToolThreeViewModel.cs" />
+    <Compile Include="ViewModel\Tools\ToolTwoViewModel.cs" />
+    <Compile Include="ViewModel\Tools\ToolViewModel.cs" />
+    <Compile Include="View\Behavior\AvalonDockLayoutSerializer.cs" />
+    <Compile Include="View\Dialogs\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\ActivateView.xaml.cs">
+      <DependentUpon>ActivateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Customer\AddCustomerView.xaml.cs">
+      <DependentUpon>AddCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Vehicle\ViewVehiclesView.xaml.cs">
+      <DependentUpon>ViewVehiclesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\User\ViewUsersView.xaml.cs">
+      <DependentUpon>ViewUsersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Product\ViewProductsView.xaml.cs">
+      <DependentUpon>ViewProductsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Haulier\ViewHauliersView.xaml.cs">
+      <DependentUpon>ViewHauliersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Driver\ViewDriversView.xaml.cs">
+      <DependentUpon>ViewDriversView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Destination\ViewDestinationsView.xaml.cs">
+      <DependentUpon>ViewDestinationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Vehicle\AddVehicleView.xaml.cs">
+      <DependentUpon>AddVehicleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\User\AddUserView.xaml.cs">
+      <DependentUpon>AddUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Product\AddProductView.xaml.cs">
+      <DependentUpon>AddProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Haulier\AddHaulierView.xaml.cs">
+      <DependentUpon>AddHaulierView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Driver\AddDriverView.xaml.cs">
+      <DependentUpon>AddDriverView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Destination\AddDestinationView.xaml.cs">
+      <DependentUpon>AddDestinationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\LogInView.xaml.cs">
+      <DependentUpon>LogInView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Customer\ViewCustomersView.xaml.cs">
+      <DependentUpon>ViewCustomersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditTicketView.xaml.cs">
+      <DependentUpon>EditTicketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pane\LayoutInitializer.cs" />
+    <Compile Include="View\Pane\PaneStyleSelector.cs" />
+    <Compile Include="View\Pane\PaneTemplateSelector.cs" />
+    <Compile Include="View\NewTicketView.xaml.cs">
+      <DependentUpon>NewTicketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tools\ToolThreeView.xaml.cs">
+      <DependentUpon>ToolThreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tools\ToolTwoView.xaml.cs">
+      <DependentUpon>ToolTwoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PdfDocumentView.xaml.cs">
+      <DependentUpon>PdfDocumentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TicketListView.xaml.cs">
+      <DependentUpon>TicketListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StartPageView.xaml.cs">
+      <DependentUpon>StartPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tools\ToolOneView.xaml.cs">
+      <DependentUpon>ToolOneView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Resources\MessageBoxes\CustomExceptionMessageBox\ExceptionMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\MessageBoxes\CustomMessageBox\MessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialogs\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialogs\ActivateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Customer\AddCustomerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Vehicle\ViewVehiclesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\User\ViewUsersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Product\ViewProductsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Haulier\ViewHauliersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Driver\ViewDriversView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Destination\ViewDestinationsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Vehicle\AddVehicleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\User\AddUserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Product\AddProductView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Haulier\AddHaulierView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Driver\AddDriverView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Destination\AddDestinationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\LogInView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Customer\ViewCustomersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\OptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\EditTicketView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\NewTicketView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Tools\ToolThreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Tools\ToolTwoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\PdfDocumentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TicketListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\StartPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tools\ToolOneView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Customer.datasource" />
+    <None Include="Properties\DataSources\Destination.datasource" />
+    <None Include="Properties\DataSources\Driver.datasource" />
+    <None Include="Properties\DataSources\Error.datasource" />
+    <None Include="Properties\DataSources\Haulier.datasource" />
+    <None Include="Properties\DataSources\Product.datasource" />
+    <None Include="Properties\DataSources\Role.datasource" />
+    <None Include="Properties\DataSources\StatusMessage.datasource" />
+    <None Include="Properties\DataSources\Ticket.datasource" />
+    <None Include="Properties\DataSources\WBSEntities.datasource" />
+    <None Include="Properties\DataSources\User.datasource" />
+    <None Include="Properties\DataSources\UserRole.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\WBS.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="WBS.sdf" />
+    <Resource Include="truck.ico" />
+    <Resource Include="Resources\images\truck.ico" />
+    <Content Include="Resources\Libraries\MahApps.Metro.dll" />
+    <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.dll" />
+    <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+    <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.Expression.dll" />
+    <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+    <Content Include="Resources\Libraries\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+    <Content Include="Resources\templates\ReportTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\templates\WeighbridgeTicketTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\ReadMe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WBS.Data\WBS.Data.csproj">
+      <Project>{3ded8d8e-fbbf-4a08-9c03-ecb2b51131bf}</Project>
+      <Name>WBS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WBS.Entities\WBS.Entities.csproj">
+      <Project>{289f566c-b659-444b-86c2-7dd919e9be99}</Project>
+      <Name>WBS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WBS.Services\WBS.Services.csproj">
+      <Project>{627162ec-5759-4995-b2da-08043cc67fb7}</Project>
+      <Name>WBS.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

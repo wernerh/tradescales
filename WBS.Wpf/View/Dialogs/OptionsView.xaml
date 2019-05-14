@@ -1,0 +1,187 @@
+﻿<controls:MetroWindow x:Class="WBS.Wpf.View.Dialogs.OptionsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:Ports="clr-namespace:System.IO.Ports;assembly=System"
+        Title="Application Settings"
+        Width="600"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        ShowIconOnTitleBar="True"
+        SaveWindowPosition="True"
+        WindowTransitionsEnabled="False"
+        NonActiveWindowTitleBrush="LightGray">
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="parityEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Ports:Parity"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="stopBitsEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Ports:StopBits"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+
+    <!--Window Input Bindings-->
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding OkCommand}" Gesture="Enter"/>
+        <KeyBinding Command="{Binding CancelCommand}" Gesture="ESC"/>
+    </Window.InputBindings>
+
+    <!--Theme Options-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+    
+        <!--General settings-->
+        <GroupBox Grid.Row="0" Header="General Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Theme Option-->
+                <Label Grid.Row="0" Grid.Column="0" Margin="5" MinWidth="115" Content="Application Theme :"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Margin="5" MinWidth="115" ItemsSource="{Binding ThemeOptions}" SelectedItem="{Binding Theme}" VerticalAlignment="Center"/>
+
+                <!--Theme Accent-->
+                <Label  Grid.Row="0" Grid.Column="2" Margin="5" MinWidth="115" Content="Application Accent :"/>
+                <ComboBox Grid.Row="0" Grid.Column="3"  Margin="5" MinWidth="115" ItemsSource="{Binding ThemeAccents}" SelectedItem="{Binding ThemeAccent}" VerticalAlignment="Center"/>
+                
+                <!--Start Page-->
+                <Label Grid.Row="1" Grid.Column="0" Margin="5" MinWidth="115" Content="Show Start Page :" ToolTip="Show start page on start up"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" Margin="5" MinWidth="115" IsChecked="{Binding ShowStartPage}" VerticalAlignment="Center" ToolTip="Show start page on start up"/>
+
+                <!--Log In Logo-->
+                <Label  Grid.Row="2" Grid.Column="0" Margin="5" MinWidth="115" Content="Log In Logo:"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" IsEnabled="False" Text="{Binding LogInLogo}"/>
+                <Button Grid.Row="2" Grid.Column="3" Margin="5" Command="{Binding EditCommand}" CommandParameter="LogInLogo">Edit</Button>
+            </Grid>
+        </GroupBox>
+
+        <!--Document Settings-->
+        <GroupBox Grid.Row="1" Header="Document Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Weighbridge Certificates-->
+                <Label Grid.Row="0" Grid.Column="0" Margin="5" MinWidth="115" Content="Weighbridge Certificates"/>
+                
+                <!--Weighbridge Certificates Folder-->
+                <Label Grid.Row="1" Grid.Column="0" Margin="5" MinWidth="115" Content="Folder:"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding WeighBridgeCertificatesFolder}"/>
+                <Button Grid.Row="1" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="WeighBridgeCertificatesFolder">Edit</Button>
+                
+                <!--Weighbridge Certificate Logo-->
+                <Label  Grid.Row="2" Grid.Column="0" Margin="5" MinWidth="115" Content="Logo:"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding WeighBridgeCertificateLogo}"/>
+                <Button Grid.Row="2" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="WeighBridgeCertificateLogo">Edit</Button>
+
+                <!--Weighbridge Certificate Template-->
+                <Label Grid.Row="3" Grid.Column="0" Margin="5" MinWidth="115" Content="Template:"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding WeighBridgeCertificateTemplate}"/>
+                <Button Grid.Row="3" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="WeighBridgeCertificateTemplate">Edit</Button>
+
+                <!--Reports-->
+                <Label Grid.Row="4" Grid.Column="0" Margin="5" MinWidth="115" Content="Reports"/>
+
+                <!--Reports Folders-->
+                <Label Grid.Row="5" Grid.Column="0" Margin="5" MinWidth="115" Content="Folder:"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding ReportsFolder}"/>
+                <Button Grid.Row="5" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="ReportsFolder">Edit</Button>
+
+                <!--Report Logo-->
+                <Label  Grid.Row="6" Grid.Column="0" Margin="5" MinWidth="115" Content="Logo:"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding ReportLogo}"/>
+                <Button Grid.Row="6" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="ReportLogo">Edit</Button>
+
+                <!--Report Template-->
+                <Label Grid.Row="7" Grid.Column="0" Margin="5" MinWidth="115" Content="Template:"/>
+                <TextBox Grid.Row="7" Grid.Column="1" Margin="5" IsEnabled="False" Text="{Binding ReportTemplate}"/>
+                <Button Grid.Row="7" Grid.Column="2" Margin="5" Command="{Binding EditCommand}" CommandParameter="ReportTemplate">Edit</Button>
+            </Grid>
+        </GroupBox>
+
+        <!--Serial Port Settings-->
+        <GroupBox Grid.Row="2" Header="Serial Port Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Port Name-->
+                <Label Grid.Row="0" Grid.Column="0" Margin="5" Content="Port Name:"/>
+                <ComboBox Grid.Row="0"  Grid.Column="1" Margin="5" ItemsSource="{Binding PortNames}" SelectedItem="{Binding SelectedPortName}"/>
+
+                <!--Baud Rate-->
+                <Label Grid.Row="0"  Grid.Column="2" Margin="5" Content="Baud Rate:"/>
+                <TextBox Grid.Row="0"  Grid.Column="3" Margin="5" Text="{Binding BaudRate}"/>
+
+                <!--Data Bits-->
+                <Label Grid.Row="1" Grid.Column="0" Margin="5" Content="Data Bits:"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding DataBits}"/>
+
+                <!--Parity-->
+                <Label Grid.Row="1" Grid.Column="2" Margin="5" Content="Parity:"/>
+                <ComboBox Grid.Row="1" Grid.Column="3" Margin="5" ItemsSource="{Binding Source={StaticResource parityEnum}}" SelectedItem="{Binding Path=Parity}" />
+
+                <!--Stop Bits-->
+                <Label Grid.Row="2"  Grid.Column="0" Margin="5" Content="Stop Bits:"/>
+                <ComboBox Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding Source={StaticResource stopBitsEnum}}" SelectedItem="{Binding Path=StopBits}" />
+
+                <!--Start Char-->
+                <Label Grid.Row="2"  Grid.Column="2" Margin="5" Content="Start Char:"/>
+                <TextBox Grid.Row="2"  Grid.Column="3" Margin="5" Text="{Binding StartChar}"/>
+            </Grid>
+        </GroupBox>
+
+        <!--Default, ok and cancel button-->
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" Orientation="Horizontal">
+            <Button  MinWidth="50" Margin="3" Content="_Default" Command="{Binding DefaultCommand}"/>
+            <Button  MinWidth="50" Margin="3" Content="_Preview" Command="{Binding PreviewCommand}"/>
+            <Button  MinWidth="50" Margin="3" Content="_OK" Command="{Binding OkCommand}"/>
+            <Button  MinWidth="50" Margin="3" Content="_Cancel" Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

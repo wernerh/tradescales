@@ -1,0 +1,63 @@
+﻿<controls:MetroWindow x:Class="WBS.Wpf.View.Dialogs.ActivateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"        
+        Width="600"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Title="Activate Now">
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding OkCommand}" Gesture="Enter"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Explain license process-->
+        <TextBlock Grid.Row="0" Margin="10" Text="{Binding ExplainLicenseProcessMessage}" TextWrapping="Wrap"/>
+        
+        <!--STEP 1: Request license -->
+        <Expander Grid.Row="1" Margin="5" Header="STEP 1: Request license">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Step One Message-->
+                <TextBlock Grid.Row="0" Margin="5" Text="{Binding StepOneMessage}" TextWrapping="Wrap"/>
+
+                <!--Encrypted Unique Identifier-->
+                <TextBox Grid.Row="1"  Margin="5" Text="{Binding EncryptedUniqueIdentifier, Mode=OneWay}" Foreground="Yellow" FontWeight="Bold" IsReadOnly="True" TextWrapping="Wrap"/>
+
+            </Grid>
+        </Expander>
+
+        <!--STEP 2: Update product license-->
+        <Expander Grid.Row="2" Margin="5" Header="STEP 2: Update product license">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Step Two Message-->
+                <TextBlock Grid.Row="0" Margin="5" Text="{Binding StepTwoMessage}" TextWrapping="Wrap"/>
+
+                <!--EncryptedProductExpireDater-->
+                <TextBox Grid.Row="1" Margin="5" controls:TextBoxHelper.Watermark="License Code" Text="{Binding EncryptedProductExpireDate}" />
+
+            </Grid>
+        </Expander>
+
+        <!--Close window-->
+        <Button Grid.Row="3" Margin="5" Width="115" Command="{Binding OkCommand}">OK</Button>
+    </Grid>
+</controls:MetroWindow>
